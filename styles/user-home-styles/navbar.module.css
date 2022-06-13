@@ -1,0 +1,103 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    height: inherit;
+    width: 100%;
+}
+
+.brandLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.brandLogoText {
+    color: var(--primary-blue);
+    font-size: 30px;
+    line-height: 30.18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+    cursor: pointer;
+}
+
+.navbarNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+.navbarMenu {
+    background: transparent !important;
+    border: none;
+    width: 100%;
+}
+
+.menuLinks {
+    font-size: 16px;
+    color: var(--light-text);
+}
+
+.logoutBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
+    color: #fff !important;
+    gap: 10px;
+    border: none;
+    border-radius: 15px;
+}
+
+.logoutBtn:hover {
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    border: none;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logoutBtn:before {
+    display: inline-block;
+    content: '';
+    width: 1px;
+    height: inherit;
+    background: rgba(145, 162, 184, 0.5);
+    position: absolute;
+    left: -40px;
+}
+
+
+
+.menuLinks:hover,
+.menuLinks.focus {
+    color: var(--primary-blue) !important;
+    font-weight: normal;
+}
+
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-active,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected,
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected {
+    /* color: red !important; */
+}
+
+.menuLinks .ant-menu-item-selected {
+    /* color: red !important; */
+}
+
+@media only screen and (max-width: 950px) {
+    .navbarNav {
+        display: none;
+    }
+}

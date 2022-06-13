@@ -1,0 +1,33 @@
+.ring{
+   position: fixed;
+   height: 200px;
+   width:200px;
+   border-radius: 100%;
+   border-top: 5px solid #24E9A3;
+   box-shadow: 0 5px 2px #e6e6e6;
+   animation: ring 2s linear infinite;
+}
+@keyframes ring{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.ring:before{
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    height: inherit;
+    width: inherit;
+    border-radius: 100%;
+    border-bottom: 5px solid #1BCACD;
+}
+.logoWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

@@ -1,0 +1,152 @@
+.shadouts {
+    display: block;
+    font-size: 35px;
+    line-height: 51px;
+}
+
+/* .greetings {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+} */
+
+.instruction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--light-text);
+    margin-top: 20px;
+}
+
+.card {
+    border-width: 2px !important;
+    border-style: solid;
+    border-radius: 50px;
+}
+
+.card:hover .cardIcon {
+    animation: shake 0.2s infinite;
+    border-width: 2px;
+}
+
+.flexCardContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardIcon {
+    font-size: 80px !important;
+}
+
+.cardText {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    margin: 30px 0;
+    text-align: center;
+    color: var(--primary-blue);
+}
+
+.cardBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 37px;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    background: transparent;
+}
+
+.cardBtn:hover {
+    background: inherit;
+    color: inherit;
+    border-color: inherit;
+}
+
+
+/* DANGERS */
+.cardColorDanger {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 0.01%, rgba(233, 36, 36, 0.3) 100%);
+    box-shadow: 0px 10px 50px 10px rgba(233, 36, 36, 0.1);
+    border-color: rgb(233, 36, 36, 0.4) !important;
+}
+
+.iconColorDanger {
+    color: #E92424;
+}
+
+.btnColorDanger,
+.btnColorDanger:hover {
+    color: rgba(233, 36, 36, 0.7);
+    border: 2px solid rgba(233, 36, 36, 0.4);
+    box-shadow: 0px 5px 10px rgba(233, 36, 36, 0.3);
+}
+
+/* SUCCESS */
+.cardColorSuccess {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 0.01%, rgba(0, 200, 81, 0.3) 100%);
+    border-color: rgba(0, 200, 81, 0.4) !important;
+    box-shadow: 0px 10px 50px 10px rgba(0, 200, 81, 0.1);
+}
+
+.iconColorSuccess {
+    color: rgba(0, 200, 81, 1);
+}
+
+.btnColorSuccess,
+.btnColorSuccess:hover {
+    background: rgba(0, 200, 81, 0.1);
+    border: 2px solid rgba(0, 200, 81, 0.4);
+    box-shadow: 0px 5px 10px rgba(0, 200, 81, 0.3);
+    color: rgba(0, 200, 81, 0.7);
+}
+
+/* WARNING */
+.cardColorWarning {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 0.01%, rgba(255, 136, 0, 0.3) 100%);
+    border: 2px solid rgba(255, 136, 0, 0.4) !important;
+    box-shadow: 0px 10px 50px 10px rgba(255, 136, 0, 0.1);
+}
+
+.iconColorWarning {
+    color: rgba(255, 136, 0, 1);
+}
+
+.btnColorWarning,
+.btnColorWarning:hover {
+    background: rgba(255, 136, 0, 0.1);
+    border: 2px solid rgba(255, 136, 0, 0.4);
+    box-shadow: 0px 5px 10px rgba(255, 136, 0, 0.3);
+    color: rgba(255, 136, 0, 0.7);
+}
+
+
+@keyframes shake {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(5px, 5px) rotate(5deg);
+    }
+
+    50% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    75% {
+        transform: translate(-5px, 5px) rotate(-5deg);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+}

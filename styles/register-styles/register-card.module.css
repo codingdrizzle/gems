@@ -1,0 +1,110 @@
+.card{
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+.cardHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerText {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#text {
+    font-size: 15px;
+}
+
+.inputArea {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 0px 60px 60px 0px;
+    padding: 10px 0;
+    width: 90%;
+    margin: 20px auto 0 auto;
+}
+
+.formIcon {
+    font-size: 20px;
+    margin: 0 8px 0 10px;
+    color: #ccc;
+}
+.telephoneSuffix{
+    display: inline-block;
+    color: #ccc;
+    border-right: 1px solid #ccc;
+    padding-right: 5px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.eyeIcon {
+    font-size: 15px;
+    margin-right: 8px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.divider {
+    margin: 5px 0;
+    border-width: 1px;
+}
+
+.registerBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    width: 61px;
+    height: 61px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    left: 86%;
+    right: 12.83%;
+    top: 37%;
+    bottom: 30%;
+    box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.2);
+}
+
+.registerBtn:hover {
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.2);
+    margin-left: 10px !important;
+}
+
+.registerBtnIcon {
+    font-size: 30px;
+    color: white;
+    font-weight: bolder;
+}
+
+.otherLinks {
+    width: 90%;
+    margin: 0 auto 10px auto;
+}
+
+.login {
+    display: block;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: var(--light-text);
+    margin-top: 10px;
+}
+
+.backHome{
+    display: block;
+    width: 90%;
+    margin: auto;
+    font-size: 15px;
+    line-height: 18px;
+    color: var(--light-text);
+}
+
+@media only screen and (max-width : 550px){
+    .card{
+        height: inherit;
+    }
+}

@@ -1,0 +1,12 @@
+:root {
+    --light-text: #91A2B8;
+    --primary-green: #24E9A3;
+    --primary-blue: #00115B;
+    --gradient-color1: #24E9A3;
+    --gradient-color2: #1BCACD;
+    --gradient-color3: #adbcff;
+    --danger: #E92424;
+    --success: #00C851;
+    --warning: #FF8800;
+    --divider: #F0F0F0;
+}

@@ -1,0 +1,55 @@
+.btnContainerNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: inherit;
+    gap: 10px;
+}
+
+.btnNav {
+    width: 200px;
+    height: 40px;
+    background-color: red;
+}
+
+/* .primary_color {
+    color: var(--primary-green);
+} */
+
+.flagNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoNav {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.logoTextNav {
+    font-size: 100px;
+}
+
+
+
+
+
+@media only screen and (max-width: 991px) {
+    .flagNav {
+        display: none !important;
+    }
+
+    .logoNav {
+        display: block !important;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+
+    .btnContainerNav {
+        display: none;
+    }
+}

@@ -1,0 +1,16 @@
+.header{
+    background: #fff !important;
+    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.05) !important;
+    height: 110px;   
+    position: sticky;
+    top: 0;
+}
+
+.header + .stickyNav{
+    /* margin-top: 60px; */
+}
+
+.content{
+    padding: 50px 50px 50px 50px;
+
+}
