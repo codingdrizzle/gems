@@ -11,7 +11,6 @@ import Card from './card'
 const { Text } = Typography
 
 const Content = () => {
-
     return (
         <>
             {/* Landing Heading */}

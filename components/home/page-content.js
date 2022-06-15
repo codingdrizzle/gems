@@ -53,7 +53,7 @@ const PageContent = () => {
                             <LoginBtn btnProps={styles.btn} btnColor={colors.loginBtn} />
                         </a>
                     </Link>
-                    <Link href={'/signup'}>
+                    <Link href={'/register'}>
                         <a>
                             <SignUpBtn btnProps={styles.btn} btnColor={colors.signUpBtn} />
                         </a>

@@ -32,7 +32,7 @@
     box-shadow: 0px 10px 50px rgba(36, 233, 163, 0.3);
 }
 
-.loginBtn:hover {
+.loginBtn:hover, .loginBtn:active {
     background: transparent;
     border-width: 3px;
     border-style: solid;

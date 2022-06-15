@@ -24,7 +24,7 @@ const Navbar = () => {
                         <LoginBtn btnColor={colors.loginBtnNav} className={styles.btnNav} />
                     </a>
                 </Link>
-                <Link href={'/signup'}>
+                <Link href={'/register'}>
                     <a>
                         <SignUpBtn btnColor={colors.signUpBtnNav} className={styles.btnNav} />
                     </a>
