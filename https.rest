@@ -1,0 +1,21 @@
+GET http://localhost:3000/api/user
+
+###
+
+POST  http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+    "firstname" : "Hello",
+    "lastname" : "World",
+    "email" : "codingfrancis100@gmail.com",
+    "password" : "!@Password123345",
+    "username" : "hello-world",
+    "contact" : 189329,
+    "complaints" : [1,5,7]
+}
+
+###
+
+
+DELETE http://localhost:3000/api/user/62af1ca7ce05a5fc7620cc7f
