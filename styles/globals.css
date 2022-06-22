@@ -18,3 +18,7 @@ a{
  a:hover, a:visited, a:link, a:active{
    color: inherit;
  }
+
+ .ant-modal-body {
+   padding: 0 !important;
+ }
