@@ -9,6 +9,10 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         required: true
@@ -19,4 +23,6 @@ const adminSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.models.Admin || mongoose.model('Admin', adminSchema);
+const Agent = mongoose.models.Agents || mongoose.model('Agents', adminSchema);
+
+export default Agent
