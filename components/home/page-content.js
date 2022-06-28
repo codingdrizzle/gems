@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import router from 'next/router'
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Typography } from 'antd'
 import { Morning, Afternoon, Evening } from '../../commons/suns'
@@ -48,12 +49,12 @@ const PageContent = () => {
             {/* Login and Signup Section */}
             <Row className={styles.motherGap}>
                 <Col xs={24} className={styles.btnContainer}>
-                    <Link href={'/login'}>
+                    <Link onClick={() => router.push('/login')} href={'/login'}>
                         <a>
                             <LoginBtn btnProps={styles.btn} btnColor={colors.loginBtn} />
                         </a>
                     </Link>
-                    <Link href={'/register'}>
+                    <Link onClick={() => router.push('/register')} href={'/register'}>
                         <a>
                             <SignUpBtn btnProps={styles.btn} btnColor={colors.signUpBtn} />
                         </a>

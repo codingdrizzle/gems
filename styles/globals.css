@@ -22,3 +22,18 @@ a{
  .ant-modal-body {
    padding: 0 !important;
  }
+
+
+ .ant-upload.ant-upload-select{
+  display: block !important;
+ }
+
+ .ant-select-selector{
+   border-radius: 12px !important;
+   color: rgba(0,0,0,0.5);
+ }
+
+ .ant-select-selector:focus,  .ant-select-selector:active,  .ant-select-selector:hover{
+   border-color: #d9d9d9 !important;
+   outline: 0px solid transparent !important;
+ }

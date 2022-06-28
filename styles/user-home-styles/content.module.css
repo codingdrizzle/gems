@@ -133,12 +133,16 @@
     margin: auto;
     border-radius: 20px !important;
     padding: 0 !important;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .formCard {
     border: none;
     margin: 0 !important;
     margin: 30px 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .formHeader {
@@ -149,7 +153,7 @@
 }
 
 .formLabel {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.7);
@@ -157,36 +161,106 @@
 
 .selectOption {
     width: 100%;
-    border-radius: 15px;
+    border-radius: 15px !important;
 }
 
-.selectOption:focus {
+.selectOption:focus,
+.selectOption:active,
+.selectOption:hover {
     outline: hidden !important;
-    border: 3px solid red !important;
 }
 
 .formInput {
-    /* padding: 10px; */
+    padding: 10px;
     font-size: 18px;
     line-height: 22px;
     border-radius: 12px;
     width: 100%;
+    border: 1px solid rgba(145, 162, 184, 0.7) !important;
+    color: rgba(0, 0, 0, 0.5)
 }
+
+.formInput:focus,
+.formInput:hover,
+.formInput:active {
+    outline-style: none !important;
+    outline-width: 0;
+    outline-color: transparent;
+    border: 1px solid rgba(145, 162, 184, 0.7) !important;
+}
+
+
 
 .attachBtn {
     background: #FFFFFF;
     border: 1px solid rgba(145, 162, 184, 0.7);
     box-shadow: inset 0px 4px 30px rgba(0, 0, 0, 0.1);
-    /* border-radius: 10px; */
+    border-radius: 10px;
     height: 44px;
-    width: inherit;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attachBtn:hover,
+.attachBtn:active,
+.attachBtn:focus {
+    outline: none;
+    border: 1px solid rgba(145, 162, 184, 0.7) !important;
+    color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .attachBtnText {
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
-    color: rgba(0, 0, 0, 0.7);
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.checkbox {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.checkText {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    /* color: rgba(145, 162, 184, 0.6); */
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.desc {
+    display: block;
+    margin-top: 5px;
+    height: 44px;
+    background: #FFFFFF;
+    border: 1px solid rgba(145, 162, 184, 0.6);
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.submitBtn {
+    width: 200px;
+    height: 44px;
+    background: linear-gradient(90deg, rgba(36, 233, 163, 0.7) 0%, rgba(27, 202, 205, 0.7) 100%);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 27px;
+    color: #00115B;
+    transition: all 1s ease-in-out !important;
+}
+
+.submitBtn:hover, .submitBtn:active, .submitBtn:focus {
+    background: linear-gradient(90deg, rgba(36, 233, 163, 0.5) 0%, rgba(27, 202, 205, 0.5) 100%);
+    border: 2px solid transparent;
+    color: #00115B;
+    outline: none;
 }
 
 @keyframes shake {
@@ -208,5 +282,16 @@
 
     100% {
         transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .vanish {
+        display: none;
+    }
+
+    .formInput {
+        font-size: 15px;
+        line-height: 18px;
     }
 }
