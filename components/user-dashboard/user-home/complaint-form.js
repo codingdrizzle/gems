@@ -18,11 +18,22 @@ const ModalForm = ({ visible, onClose }) => {
     // Refs
     const categoryRef = useRef(null)
     const descriptionRef = useRef(null)
-    // console.log(descriptionRef.current)
+    const locDescriptionRef =  useRef(null)
+    console.log(locDescriptionRef.current)
+
     useEffect(() => {
 
     }, [])
 
+    const handleFormSubmit = () => {
+        alert('form was successfully submited')
+        // console.log(FormCategory)
+        // console.log(FormDescription)
+        // console.log(FormAttachFile)
+        // console.log(FormCheckLocation)
+        // console.log(FormDescribeLocation)
+        // console.log(FormSwearCheck)
+    }
     const props = {
         name: 'file',
         action: '',
@@ -34,7 +45,7 @@ const ModalForm = ({ visible, onClose }) => {
                 console.log(info.file, info.fileList);
             }
             if (info.fileList.length){
-                
+
             }
             if(info.file){
                 dispatcher(formAttach(info.file))
@@ -99,7 +110,6 @@ const ModalForm = ({ visible, onClose }) => {
                                     placeholder={'Describe your complaint in this section.'}
                                     className={styles.formInput} 
                                     value={FormDescription} 
-                                    
                                     ref={descriptionRef}
                                     onChange={() => dispatcher(formDescription(descriptionRef.current.resizableTextArea.textArea.value))}
                                     />
@@ -110,7 +120,6 @@ const ModalForm = ({ visible, onClose }) => {
                                 <Upload {...props}
                                     capture={'environment'}
                                     accept={'.mp4,.mkv,.png,.jpeg,.jpg,.gif'}
-                                // fileList={Upload}
                                 >
                                     <Button className={styles.attachBtn}>
                                         <Text className={styles.attachBtnText}> Attach a file. <span className={styles.vanish}>[ Image | Video ]</span></Text>
@@ -128,6 +137,7 @@ const ModalForm = ({ visible, onClose }) => {
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
                                 <Checkbox checked={FormCheckLocation}
+                                    onChange={() => { dispatcher(locationCheck())}}
                                     className={styles.checkbox} />
                                 <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
                             </Col>
@@ -137,6 +147,8 @@ const ModalForm = ({ visible, onClose }) => {
                                     placeholder={'Address | Street names | Landmarks ... etc'}
                                     className={styles.desc}
                                     value={FormDescribeLocation}
+                                    ref={locDescriptionRef}
+                                    onChange={() => dispatcher(locationDescription(locDescriptionRef.current.input.value))}
                                 />
                             </Col>
                         </Row>
@@ -149,21 +161,25 @@ const ModalForm = ({ visible, onClose }) => {
                         </Row>
                         <Row style={{ marginTop: 10 }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
-                                <Checkbox checked={''}
-                                    className={styles.checkbox} />
+                                <Checkbox checked={FormSwearCheck}
+                                    className={styles.checkbox} 
+                                    onChange={() => { dispatcher(swearCheck())}}
+                                    />
                                 <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
                             </Col>
                             <Col span={24}>
                                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
                                     <Checkbox checked={FormSwearCheck}
-                                        className={styles.checkbox} />
+                                        className={styles.checkbox} 
+                                        onChange={() => { dispatcher(swearCheck())}}
+                                        />
                                     <Text className={styles.checkText}>I agree to face the penalty or pay a fine if this complaint is fake.</Text>
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 40, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Button className={styles.submitBtn}>Submit</Button>
+                                <Button className={styles.submitBtn} onClick={handleFormSubmit}>Submit</Button>
                             </Col>
                         </Row>
 

@@ -129,7 +129,7 @@
 }
 
 .modal {
-    width: 50% !important;
+    width: 80% !important;
     margin: 30px auto;
     border-radius: 20px !important;
     padding: 0 !important;
@@ -189,8 +189,6 @@
     border: 1px solid rgba(145, 162, 184, 0.7) !important;
 }
 
-
-
 .attachBtn {
     background: #FFFFFF;
     border: 1px solid rgba(145, 162, 184, 0.7);
@@ -221,14 +219,12 @@
 .checkbox {
     margin: 0 !important;
     padding: 0 !important;
-    border-color: red !important;
 }
 
 .checkText {
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    /* color: rgba(145, 162, 184, 0.6); */
     color: rgba(0, 0, 0, 0.4);
 }
 
@@ -243,9 +239,11 @@
     line-height: 22px;
     color: rgba(0, 0, 0, 0.5);
 }
-.desc:hover{
+
+.desc:hover {
     border: 1px solid rgba(145, 162, 184, 0.6);
 }
+
 .submitBtn {
     width: 200px;
     height: 44px;
@@ -259,7 +257,9 @@
     transition: all 1s ease-in-out !important;
 }
 
-.submitBtn:hover, .submitBtn:active, .submitBtn:focus {
+.submitBtn:hover,
+.submitBtn:active,
+.submitBtn:focus {
     background: linear-gradient(90deg, rgba(36, 233, 163, 0.5) 0%, rgba(27, 202, 205, 0.5) 100%);
     border: 2px solid transparent;
     color: #00115B;
@@ -285,6 +285,18 @@
 
     100% {
         transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .modal {
+        width: 80% !important;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .modal {
+        width: 90% !important;
     }
 }
 
