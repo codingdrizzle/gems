@@ -129,8 +129,8 @@
 }
 
 .modal {
-    width: 80% !important;
-    margin: auto;
+    width: 50% !important;
+    margin: 30px auto;
     border-radius: 20px !important;
     padding: 0 !important;
     color: rgba(0, 0, 0, 0.7);
@@ -221,6 +221,7 @@
 .checkbox {
     margin: 0 !important;
     padding: 0 !important;
+    border-color: red !important;
 }
 
 .checkText {
@@ -242,7 +243,9 @@
     line-height: 22px;
     color: rgba(0, 0, 0, 0.5);
 }
-
+.desc:hover{
+    border: 1px solid rgba(145, 162, 184, 0.6);
+}
 .submitBtn {
     width: 200px;
     height: 44px;

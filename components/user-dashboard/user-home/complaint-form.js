@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { GrFormClose } from 'react-icons/gr'
 import { IoIosAttach } from 'react-icons/io'
 import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Upload, Divider, Checkbox } from 'antd'
-
+import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-home-styles/content.module.css'
 
 const { Text } = Typography
@@ -10,23 +11,17 @@ const { Option } = Select
 const { TextArea } = Input
 
 const ModalForm = ({ visible, onClose }) => {
-    const [optionValue, setOptionValue] = useState('')
-    const [textArea, setTextArea] = useState('')
-    const [locationCheck, setLocationCheck] = useState(false)
-    const [descLocation, setDescLocation] = useState(false)
-    const [swear, setSwear] = useState(false)
-    console.log(locationCheck)
+    const states = useSelector(state => state)
+    const { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck } = states
+    const dispatcher = useDispatch()
 
+    // Refs
+    const categoryRef = useRef(null)
+    const descriptionRef = useRef(null)
+    // console.log(descriptionRef.current)
     useEffect(() => {
-        setLocationCheck(false)
-        setSwear(false)
-    }, [])
 
-    const handleChange = (value) => {
-        setOptionValue(value)
-        console.log(value)
-    }
-    // console.log(optionValue)
+    }, [])
 
     const props = {
         name: 'file',
@@ -37,6 +32,12 @@ const ModalForm = ({ visible, onClose }) => {
         onChange(info) {
             if (info.file.status !== 'uploading') {
                 console.log(info.file, info.fileList);
+            }
+            if (info.fileList.length){
+                
+            }
+            if(info.file){
+                dispatcher(formAttach(info.file))
             }
 
             if (info.file.status === 'done') {
@@ -59,7 +60,7 @@ const ModalForm = ({ visible, onClose }) => {
     return (
         <Modal
             closable={true}
-            // centered={true}
+            centered={true}
             visible={visible}
             onCancel={onClose}
             okButtonProps={null}
@@ -77,11 +78,13 @@ const ModalForm = ({ visible, onClose }) => {
                             <Col span={24}><Text className={styles.formLabel}>Select category</Text></Col>
                             <Col span={24}>
                                 <Select
+                                    fieldNames={{ label: 'Select', value: 'value' }}
                                     placeholder={'Select'}
                                     size={'large'}
-                                    value={optionValue}
+                                    value={FormCategory}
                                     className={styles.selectOption}
-                                    onChange={handleChange}
+                                    ref={categoryRef}
+                                    onChange={() => dispatcher(formCategory(categoryRef.current.value))}
                                 >
                                     <Option value="Ghana Police Service">Ghana Police Service</Option>
                                     <Option value="Ghana Fire Service">Ghana Fire Service</Option>
@@ -92,22 +95,25 @@ const ModalForm = ({ visible, onClose }) => {
                         <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
                             <Col span={24}><Text className={styles.formLabel}>What happened?</Text></Col>
                             <Col span={24}>
-                                <TextArea placeholder={'Describe your complaint in this section.'}
-                                    className={styles.formInput} value={textArea} onChange={(e) => {
-                                        setTextArea(e.value)
-                                        console.log(e.value)
-                                    }} />
+                                <TextArea 
+                                    placeholder={'Describe your complaint in this section.'}
+                                    className={styles.formInput} 
+                                    value={FormDescription} 
+                                    
+                                    ref={descriptionRef}
+                                    onChange={() => dispatcher(formDescription(descriptionRef.current.resizableTextArea.textArea.value))}
+                                    />
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24}>
-                                <Upload {...props} 
-                                capture={'environment'} 
-                                accept={'.mp4,.mkv,.png,.jpeg,.jpg,.gif'}
-                                fileList={Upload}
+                                <Upload {...props}
+                                    capture={'environment'}
+                                    accept={'.mp4,.mkv,.png,.jpeg,.jpg,.gif'}
+                                // fileList={Upload}
                                 >
                                     <Button className={styles.attachBtn}>
-                                        <Text className={styles.attachBtnText}> Attach a file. <span className={styles.vanish}>[ Image | Video | Audio ]</span></Text>
+                                        <Text className={styles.attachBtnText}> Attach a file. <span className={styles.vanish}>[ Image | Video ]</span></Text>
 
                                         <span style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                                             <Divider
@@ -120,20 +126,17 @@ const ModalForm = ({ visible, onClose }) => {
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
-                            <Col span={24}>
-                                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 23 }}>
-                                    <Checkbox checked={locationCheck}
-                                        onChange={() => { setLocationCheck(!locationCheck) }}
-                                        className={styles.checkbox} />
-                                    <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
-                                </div>
+                            <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
+                                <Checkbox checked={FormCheckLocation}
+                                    className={styles.checkbox} />
+                                <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
                             </Col>
                             <Col span={24}>
                                 <Text className={styles.formLabel}>Or, describe location yourself</Text>
                                 <Input
                                     placeholder={'Address | Street names | Landmarks ... etc'}
                                     className={styles.desc}
-                                    value={descLocation}
+                                    value={FormDescribeLocation}
                                 />
                             </Col>
                         </Row>
@@ -145,18 +148,14 @@ const ModalForm = ({ visible, onClose }) => {
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 10 }} gutter={[0, 17]}>
-                            <Col span={24}>
-                                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 23 }}>
-                                    <Checkbox checked={swear}
-                                        onChange={() => { setSwear(!swear) }}
-                                        className={styles.checkbox} />
-                                    <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
-                                </div>
+                            <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
+                                <Checkbox checked={''}
+                                    className={styles.checkbox} />
+                                <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
                             </Col>
                             <Col span={24}>
-                                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 23 }}>
-                                    <Checkbox checked={swear}
-                                        onChange={() => { setSwear(!swear) }}
+                                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
+                                    <Checkbox checked={FormSwearCheck}
                                         className={styles.checkbox} />
                                     <Text className={styles.checkText}>I agree to face the penalty or pay a fine if this complaint is fake.</Text>
                                 </div>
