@@ -5,6 +5,7 @@ import { IoIosAttach } from 'react-icons/io'
 import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Upload, Divider, Checkbox } from 'antd'
 import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-home-styles/content.module.css'
+const NewsAPI = require('newsapi');
 
 const { Text } = Typography
 const { Option } = Select
@@ -22,9 +23,7 @@ const ModalForm = ({ visible, onClose }) => {
     console.log(locDescriptionRef.current)
 
     useEffect(() => {
-
     }, [])
-
     const handleFormSubmit = () => {
         alert('form was successfully submited')
         // console.log(FormCategory)

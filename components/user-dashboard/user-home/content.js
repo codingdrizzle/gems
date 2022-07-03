@@ -37,7 +37,7 @@ const Content = () => {
                     </Link>
                 </Col>
                 <Col xs={24} sm={20} md={10} lg={7}>
-                    <Card Icon={<BsLink />} onClick={() => setVisible(true)} innerText={'Useful Links'} btnText={'click'} cardColor={styles.cardColorWarning} iconColor={styles.iconColorWarning} btnColor={styles.btnColorWarning} />
+                    <Card Icon={<BsLink />} onClick={() => setVisible(true)} innerText={'Useful Info'} btnText={'click'} cardColor={styles.cardColorWarning} iconColor={styles.iconColorWarning} btnColor={styles.btnColorWarning} />
                 </Col>
 
                 <Puller onClose={() => { setVisible(false) }} visible={visible} />

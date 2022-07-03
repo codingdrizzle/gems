@@ -12,7 +12,7 @@ const { Text } = Typography
 const Navbar = () => {
     const [key, setKey] = useState('home')
 
-    function getItem(label, key){
+    function getItem(label, key) {
         return {
             label,
             key
@@ -20,39 +20,42 @@ const Navbar = () => {
     }
     const items = [
         getItem('Home', 'home'),
-        getItem('News', 'news'),
         getItem('Notifications', 'notifications'),
         getItem('Tips', 'tips'),
         getItem('Settings', 'settings'),
+        getItem(<Button className={styles.mobileLogout}>
+            <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
+            <FaSignOutAlt size={20} />
+        </Button>, 'logout')
     ]
 
     const navigate = async (e) => {
-        const paths = ['/user/', '/user/news', '/user/notifications', 'user/tips', 'user/settings']
+        const paths = ['/user/', '/user/notifications', 'user/tips', 'user/settings']
         console.log(e.key)
         for (let i = 0; i < items.length; i++) {
             if (items[i].key === e.key)
                 router.push(paths[i])
-                setKey(e.key)
-            }
+            setKey(e.key)
+        }
     }
 
-    useEffect(() => {setKey('home')}, [setKey])
+    useEffect(() => { setKey('home') }, [setKey])
 
     return (
         <nav className={styles.navbar}>
             <div className={styles.brandLogo}>
                 <Link href={'/user/'}>
-                    <a style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10}}>
-                        <Logo value={60}/>
+                    <a style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+                        <Logo value={60} />
                         <Text className={styles.brandLogoText}>GEMS</Text>
                     </a>
                 </Link>
 
             </div>
             <div className={styles.navbarNav}>
-                <Menu items={items} mode={'horizontal'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate}/>
+                <Menu items={items} mode={'horizontal'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
                 <Button className={styles.logoutBtn}>
-                    <Text style={{ color: '#fff', fontWeight: 500}}>Logout</Text>
+                    <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
                     <FaSignOutAlt size={20} />
                 </Button>
             </div>

@@ -43,10 +43,11 @@
     color: var(--light-text);
 }
 
-.logoutBtn {
+
+.logoutBtn, .mobileLogout {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    align-items: center !important;
     background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
     width: 150px;
     height: 40px;
@@ -57,13 +58,13 @@
     border-radius: 15px;
 }
 
-.logoutBtn:hover {
+.logoutBtn:hover, .mobileLogout:hover {
     background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
     border: none;
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
 }
 
-.logoutBtn:before {
+.logoutBtn:before, .mobileLogout::before {
     display: inline-block;
     content: '';
     width: 1px;
@@ -74,6 +75,10 @@
 }
 
 
+.mobileLogout{
+    display: none;
+}
+
 
 .menuLinks:hover,
 .menuLinks.focus {
@@ -81,23 +86,11 @@
     font-weight: normal;
 }
 
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item:hover,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu:hover,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-active,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-open,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-open,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected,
-.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected {
-    /* color: red !important; */
-}
-
-.menuLinks .ant-menu-item-selected {
-    /* color: red !important; */
-}
-
 @media only screen and (max-width: 950px) {
-    .navbarNav {
+    .logoutBtn {
         display: none;
+    }
+    .mobileLogout{
+        display: block;
     }
 }
