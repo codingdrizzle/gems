@@ -94,7 +94,7 @@ const ModalForm = ({ visible, onClose }) => {
                                     value={FormCategory}
                                     className={styles.selectOption}
                                     ref={categoryRef}
-                                    onChange={() => dispatcher(formCategory(categoryRef.current.value))}
+                                    // onChange={() => dispatcher(formCategory(categoryRef.current.value))}
                                 >
                                     <Option value="Ghana Police Service">Ghana Police Service</Option>
                                     <Option value="Ghana Fire Service">Ghana Fire Service</Option>
