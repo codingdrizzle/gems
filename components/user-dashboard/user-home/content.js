@@ -6,7 +6,7 @@ import { BsCloudCheck, BsLink } from 'react-icons/bs'
 import Greetings from './greetings-header'
 import Puller from './drawer'
 import ModalForm from './complaint-form'
-import styles from '../../../styles/user-home-styles/content.module.css'
+import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
 
 import Card from './card'
 

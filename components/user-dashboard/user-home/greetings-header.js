@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import { Col, Typography } from 'antd'
 import { Times } from '../../../helpers/times'
-import styles from '../../../styles/user-home-styles/content.module.css'
+import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
 
 
 const { Text } = Typography

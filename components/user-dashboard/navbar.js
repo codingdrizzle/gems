@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Menu, Button, Typography } from 'antd'
 import { FaSignOutAlt } from 'react-icons/fa'
 import Logo from '../../commons/logo'
-import styles from '../../styles/user-home-styles/navbar.module.css'
+import styles from '../../styles/user-styles/user-home-styles/navbar.module.css'
 
 const { Item } = Menu
 const { Text } = Typography

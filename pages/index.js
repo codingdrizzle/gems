@@ -18,7 +18,7 @@ export default function HomePage() {
       <Head>
         <title title='Ghana Emergency Services'>GEMS</title>
         <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       {loading ? <Preloader /> :
         <Row>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Row, Col, Typography, Button, Card as CardiB } from 'antd'
-import styles from '../../../styles/user-home-styles/content.module.css'
+import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
 const { Text } = Typography
 
 const Card = ({ innerText, btnText, Icon, cardColor, iconColor, btnColor, onClick }) => {

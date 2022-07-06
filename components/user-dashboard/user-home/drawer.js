@@ -1,6 +1,6 @@
 import React from 'react'
 import { Drawer as Puller, Typography, Row, Col, Divider } from 'antd'
-import styles from '../../../styles/user-home-styles/drawer.module.css'
+import styles from '../../../styles/user-styles/user-home-styles/drawer.module.css'
 import { GrFormClose } from 'react-icons/gr'
 import { BsCheckAll, BsDash } from 'react-icons/bs'
 import { Contact, Policy } from '../../../helpers/info-details'
@@ -39,7 +39,7 @@ const Drawer = ({ onClose, visible }) => {
                                         <Text className={styles.text}>{item.text2}</Text>
                                     </div>
                                 </Col>
-                                <Divider style={{ margin: '15px 0' }} />
+                                <Divider key={index} style={{ margin: '15px 0' }} />
                             </>)
                     })
                 }
@@ -57,7 +57,7 @@ const Drawer = ({ onClose, visible }) => {
                                         {item.text}
                                     </Text>
                                 </Col>
-                                <Divider style={{ margin: '8px 0', borderColor: 'rgba(233, 36, 36, 0.4)' }} />
+                                <Divider key={index} style={{ margin: '8px 0', borderColor: 'rgba(233, 36, 36, 0.4)' }} />
                             </>
                         )
                     })

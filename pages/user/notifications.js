@@ -1,8 +1,9 @@
 import React from 'react'
+import Notifications from '../../components/user-dashboard/user-notifications'
 
 const NotificationsPage = () => {
   return (
-    <div>Notifications Page</div>
+    <Notifications/>
   )
 }
 
