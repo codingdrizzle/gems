@@ -12,7 +12,10 @@
   background-color: white !important;
 }
 
-
+.footer {
+  height: auto;
+  background: rgba(145, 162, 184, 0.1);
+}
 @media only screen and (max-width: 700px) {
   .header {
     justify-content: center;

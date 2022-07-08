@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=PT+Sans&family=Ubuntu&display=swap');* {
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=PT+Sans&family=Ubuntu&display=swap');
+
+* {
   box-sizing: border-box;
 }
 
@@ -10,30 +12,43 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a{
+a {
   color: inherit;
   text-decoration: none;
 }
 
- a:hover, a:visited, a:link, a:active{
-   color: inherit;
- }
+a:hover,
+a:visited,
+a:link,
+a:active {
+  color: inherit;
+}
 
- .ant-modal-body {
-   padding: 0 !important;
- }
+.ant-modal-body {
+  padding: 0 !important;
+}
 
 
- .ant-upload.ant-upload-select{
+.ant-upload.ant-upload-select {
   display: block !important;
- }
+}
 
- .ant-select-selector{
-   border-radius: 12px !important;
-   color: rgba(0,0,0,0.5);
- }
+.ant-select-selector {
+  border-radius: 12px !important;
+  color: rgba(0, 0, 0, 0.5);
+}
 
- .ant-select-selector:focus,  .ant-select-selector:active,  .ant-select-selector:hover{
-   border-color: #d9d9d9 !important;
-   outline: 0px solid transparent !important;
- }
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-selector:hover {
+  border-color: #d9d9d9 !important;
+  outline: 0px solid transparent !important;
+}
+
+.ant-list-items {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  gap: 15px !important;
+}

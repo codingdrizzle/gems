@@ -1,0 +1,77 @@
+.footerInner {
+    width: 100% !important;
+    height: inherit !important;
+}
+
+.footerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.footerBrandText {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #91A2B8;
+}
+
+.footerCaption {
+    font-weight: 600 !important;
+    font-size: 30px !important;
+    line-height: 36px !important;
+    color: rgba(0, 17, 91, 0.8) !important;
+    margin: 0;
+    padding: 0;
+}
+
+.listItem {
+    padding: 0 !important;
+    border: none !important;
+    cursor: pointer;
+}
+
+.listItemText {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #91A2B8;
+}
+
+.footerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.subscribeInput {
+    background: rgba(145, 162, 184, 0.05);
+    border: 1px solid rgba(145, 162, 184, 0.5);
+    border-radius: 8px;
+    font-weight: 400;
+    color: #91A2B8;
+}
+
+.subscribeInput:hover,
+.subscribeInput:focus,
+.subscribeInput:active {
+    border-color: rgba(0, 17, 91, 0.4) !important;
+}
+
+.footerFormSubmit {
+    background: rgba(145, 162, 184, 0.5);
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+    border: none;
+}
+
+.footerFormSubmit:hover{
+    background: rgba(145, 162, 184, 0.7);
+    color: #FFFFFF;
+}
