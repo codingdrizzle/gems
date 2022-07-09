@@ -14,7 +14,7 @@ const Navbar = () => {
                     <Flag />
                 </div>
                 <div className={styles.logoNav} >
-                    <Logo value={100} />
+                    <Logo value={50} />
                     {/* <h1 className={styles.logoTextNav}>GEMS</h1> */}
                 </div>
             </div>

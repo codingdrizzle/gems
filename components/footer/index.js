@@ -59,6 +59,9 @@ const PageFooter = ({company}) => {
                     <Button className={styles.footerFormSubmit}>Submit</Button>
                 </div>
             </Col>
+            <Col span={24} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: 10}}>
+                <Text style={{color: '#999', fontSize: 15}}>&copy; Copyright GEMS 2022 | All Rights Reserved.</Text>
+            </Col>
         </Row>
     )
 }

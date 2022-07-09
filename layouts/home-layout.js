@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
             <Header className={styles.header}>
                 <Navbar />
             </Header>
-            <Content>{children}</Content>
+            <Content className={styles.content}>{children}</Content>
             <Footer className={styles.footer}>
                 <PageFooter company={{title: '',list: list}}/>
             </Footer>

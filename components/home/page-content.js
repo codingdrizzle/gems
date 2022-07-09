@@ -26,7 +26,7 @@ const PageContent = () => {
     return (
         <>
             {/* Header Section */}
-            <Row className={styles.motherGap}>
+            <Row style={{marginTop: 20}}>
                 <Col xs={24} lg={12}>
                     <Row>
                         <Col xs={24}>
@@ -49,13 +49,13 @@ const PageContent = () => {
             {/* Login and Signup Section */}
             <Row className={styles.motherGap}>
                 <Col xs={24} className={styles.btnContainer}>
-                    <Link onClick={() => router.push('/login')} href={'/login'}>
-                        <a>
+                    <Link href={'/login/'}>
+                        <a onClick={() => router.push('/login/')}>
                             <LoginBtn btnProps={styles.btn} btnColor={colors.loginBtn} />
                         </a>
                     </Link>
-                    <Link onClick={() => router.push('/register')} href={'/register'}>
-                        <a>
+                    <Link href={'/register/'}>
+                        <a onClick={() => router.push('/register/')}>
                             <SignUpBtn btnProps={styles.btn} btnColor={colors.signUpBtn} />
                         </a>
                     </Link>

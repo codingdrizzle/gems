@@ -3,6 +3,8 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { Menu, Button, Typography } from 'antd'
 import { FaSignOutAlt } from 'react-icons/fa'
+import { BiMenu } from 'react-icons/bi'
+import { GrFormClose } from 'react-icons/gr'
 import Logo from '../../commons/logo'
 import styles from '../../styles/user-styles/user-home-styles/navbar.module.css'
 
@@ -11,6 +13,7 @@ const { Text } = Typography
 
 const Navbar = () => {
     const [key, setKey] = useState('home')
+    const [menuToggle, setMenuToggle] = useState(false)
 
     function getItem(label, key) {
         return {
@@ -23,10 +26,6 @@ const Navbar = () => {
         getItem('Notifications', 'notifications'),
         getItem('Tips', 'tips'),
         getItem('Settings', 'settings'),
-        getItem(<Button className={styles.mobileLogout}>
-            <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
-            <FaSignOutAlt size={20} />
-        </Button>, 'logout')
     ]
 
     const navigate = async (e) => {
@@ -50,7 +49,6 @@ const Navbar = () => {
                         <Text className={styles.brandLogoText}>GEMS</Text>
                     </a>
                 </Link>
-
             </div>
             <div className={styles.navbarNav}>
                 <Menu items={items} mode={'horizontal'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
@@ -59,6 +57,20 @@ const Navbar = () => {
                     <FaSignOutAlt size={20} />
                 </Button>
             </div>
+            <Button className={styles.menuIcon} style={{ display: menuToggle ? 'none' : 'flex'}} onClick={() => setMenuToggle(!menuToggle)}>
+                <BiMenu size={50}/>
+            </Button>
+            {
+                menuToggle ?
+                    (<div className={styles.mobileNavbarNav} style={{display: menuToggle ?  'block': 'none'}}>
+                        <Button className={styles.closeIcon} onClick={() => setMenuToggle(!menuToggle)}><GrFormClose size={30}/></Button>
+                        <Menu items={items} mode={'vertical'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
+                        <Button className={styles.logoutBtn}>
+                            <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
+                            <FaSignOutAlt size={20} />
+                        </Button>
+                    </div>) : ''
+            }
         </nav>
     )
 }

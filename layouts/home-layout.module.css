@@ -6,19 +6,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
+  height: 110px;
   margin: 0;
-  padding: 0;
+  padding: 0 30px;
   background-color: white !important;
 }
+
+.content {
+  padding: 0 50px;
+}
+
 
 .footer {
   height: auto;
   background: rgba(145, 162, 184, 0.1);
+  padding-bottom: 0;
 }
+@media only screen and (max-width: 991px) {
+  .content, .header {
+    padding: 0 20px;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .header {
     justify-content: center;
     align-items: center;
+  }
+  .content, .header  {
+    padding: 0 20px;
   }
 }
