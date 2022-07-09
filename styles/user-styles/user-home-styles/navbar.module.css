@@ -95,17 +95,28 @@
     width: 50px !important;
     height: 50px;
 }
+
 .menuIcon:hover, .menuIcon:active, .menuIcon:focus, .menuIcon:focus-visible{
     color: var(--primary-blue);
     opacity: none !important;
 }
 .mobileNavbarNav{
-    background-color: rgb(214, 211, 211);
+    transition: 1s ease;
+    /* background: linear-gradient(to right,var(--gradient-color3),var(--light-text)); */
+    background-color: #fff;
+    box-shadow: 2px 2px 20px #ccc;
     position: absolute;
     top: 0px;
     right: 0;
-    left: 100;
     padding: 50px;
+    border-radius: 0 0 0 100px;
+    animation: dropIn;
+}
+
+@keyframes dropIn {
+    0%{
+      /* z-index: 999;   */
+    }    
 }
 
 

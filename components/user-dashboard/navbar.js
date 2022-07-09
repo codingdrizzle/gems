@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Menu, Button, Typography } from 'antd'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { BiMenu } from 'react-icons/bi'
-import { GrFormClose } from 'react-icons/gr'
+import { IoClose } from 'react-icons/io5'
 import Logo from '../../commons/logo'
 import styles from '../../styles/user-styles/user-home-styles/navbar.module.css'
 
@@ -63,7 +63,9 @@ const Navbar = () => {
             {
                 menuToggle ?
                     (<div className={styles.mobileNavbarNav} style={{display: menuToggle ?  'block': 'none'}}>
-                        <Button className={styles.closeIcon} onClick={() => setMenuToggle(!menuToggle)}><GrFormClose size={30}/></Button>
+                        <Button className={styles.closeIcon} onClick={() => setMenuToggle(!menuToggle)}>
+                            <IoClose size={35}/>
+                        </Button>
                         <Menu items={items} mode={'vertical'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
                         <Button className={styles.logoutBtn}>
                             <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
