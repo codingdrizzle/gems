@@ -8,7 +8,6 @@ import { IoClose } from 'react-icons/io5'
 import Logo from '../../commons/logo'
 import styles from '../../styles/user-styles/user-home-styles/navbar.module.css'
 
-const { Item } = Menu
 const { Text } = Typography
 
 const Navbar = () => {
@@ -29,7 +28,7 @@ const Navbar = () => {
     ]
 
     const navigate = async (e) => {
-        const paths = ['/user/', '/user/notifications', 'user/tips', 'user/settings']
+        const paths = ['/user/', '/user/notifications', '/user/tips', '/user/settings']
         console.log(e.key)
         for (let i = 0; i < items.length; i++) {
             if (items[i].key === e.key)
@@ -38,7 +37,7 @@ const Navbar = () => {
         }
     }
 
-    useEffect(() => { setKey('home') }, [setKey])
+    useEffect(() => { setKey('home') }, [key])
 
     return (
         <nav className={styles.navbar}>

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import router from 'next/router'
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Typography } from 'antd'
-import { Morning, Afternoon, Evening } from '../../commons/suns'
 import styles from '../../styles/home-styles/content.module.css'
 import Logo from '../../commons/logo'
 import { LoginBtn, SignUpBtn } from '../button'
@@ -14,7 +13,6 @@ const { Text } = Typography;
 
 const PageContent = () => {
     const [greeting, setGreeting] = useState('')
-    const [value, setValue] = useState(50)
     const [sun, setSun] = useState(<></>)
 
 
