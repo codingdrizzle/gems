@@ -1,13 +1,11 @@
 import React from 'react'
 import { Layout as Structure } from 'antd'
-import PageFooter from '../components/footer'
 import styles from './home-layout.module.css'
 import Navbar from '../components/home/navbar'
 
 const { Header, Content, Footer } = Structure
-const list = ['Home', 'Report', 'Support']
 
-const Layout = ({ children }) => {
+const Layout = ({ children, footer }) => {
     return (
         <Structure className={styles.layout}>
             <Header className={styles.header}>
@@ -15,7 +13,7 @@ const Layout = ({ children }) => {
             </Header>
             <Content className={styles.content}>{children}</Content>
             <Footer className={styles.footer}>
-                <PageFooter company={{title: '',list: list}}/>
+                {footer}
             </Footer>
         </Structure>
     )
