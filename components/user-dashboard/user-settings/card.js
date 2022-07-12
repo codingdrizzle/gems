@@ -6,12 +6,12 @@ import styles from '../../../styles/user-styles/user-settings-styles/form-card.m
 const { Title, Text } = Typography
 
 const data = {
-    Firstname: "francis",
-    Lastname: "fwusu",
+    Firstname: "Francis",
+    Lastname: "Owusu",
     "Email Address": "codingfrancis100@gmail.com",
     Username: "codingdrizzle",
     Password: "theBigBang",
-    Contact: "055090661",
+    Contact: "0550906616",
 }
 
 const FormCard = () => {
@@ -38,7 +38,7 @@ const FormCard = () => {
                                                 <Text className={styles.label}>{item[0]}</Text>
                                             </Col>
                                             <Col xs={24} md={20} className={styles.inputWrapper}>
-                                                <Input defaultValue={item[0]} disabled={disabled} className={styles.input} id={index} style={{ color: disabled ? '#789' : '' }} />
+                                                <Input defaultValue={item[1]} disabled={disabled} className={styles.input} id={index} style={{ color: disabled ? '#789' : '' }} />
                                             </Col>
                                         </Row>
                                     )
@@ -48,10 +48,11 @@ const FormCard = () => {
                                 <Col xs={24} md={20} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                     {disabled ?
                                         <Button className={styles.editBtn} onClick={() => setDisabled(!disabled)}>
-                                            <MdSave size={20} /> Save Changes
+                                            <MdEdit size={25}/><Text>Edit</Text> 
                                         </Button> :
-                                        <Button className={styles.editBtn} onClick={() => setDisabled(!disabled)}>
-                                            <MdEdit size={20} /> Edit
+                                        <Button className={styles.saveBtn} onClick={() => setDisabled(!disabled)}>
+                                            <MdSave size={25} color={'rgba(0, 188, 109, 1)'} />
+                                            <Text style={{ color: 'rgba(0, 188, 109, 1)'}}>Save Changes</Text> 
                                         </Button>
                                     }
                                 </Col>

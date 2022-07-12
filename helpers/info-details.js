@@ -11,7 +11,7 @@ export const Contact = [
     },
     {
         title: 'Call the Ambulance Service through:',
-        text1: 'Emergency line 193',
+        text1: 'Emergency line 193.',
         text2: 'Contact line 0304521076 - Sunyani.'
     },
     {

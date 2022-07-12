@@ -7,7 +7,7 @@ const list = ['Home', 'Report', 'Support']
 
 const Home = () => {
   return (           
-    <Layout footer={<PageFooter company={{title: '',list: list}}/> }>
+    <Layout footer={<PageFooter company={{title: 'GEMS',list: list}}/> }>
        <PageContent/>
     </Layout>
   )

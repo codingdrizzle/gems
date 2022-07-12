@@ -18,7 +18,6 @@ const Drawer = ({ onClose, visible }) => {
             closeIcon={<GrFormClose size={30} style={{ color: 'red' }} />}
         width={400}
         >
-
             <Row>
                 <Col span={24}><Title level={4}>Help Lines</Title></Col>
                 {
