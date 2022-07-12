@@ -1,45 +1,25 @@
-import React, { useState, useRef, createRef } from 'react'
+import React, { useState } from 'react'
 import { Row, Col, Card, Input, Typography, Button } from 'antd'
-import { MdEdit } from 'react-icons/md'
+import { MdEdit, MdSave } from 'react-icons/md'
 import styles from '../../../styles/user-styles/user-settings-styles/form-card.module.css'
 
 const { Title, Text } = Typography
 
 const data = {
-    firstname : "francis",
-    lastname : "fwusu",
-    email : "codingfrancis100@gmail.com",
-    username : "codingdrizzle",
-    password : "theBigBang",
-    contact : "055090661",
+    Firstname: "francis",
+    Lastname: "fwusu",
+    "Email Address": "codingfrancis100@gmail.com",
+    Username: "codingdrizzle",
+    Password: "theBigBang",
+    Contact: "055090661",
 }
-const capitalizeString = (string) => {
-    //Just to make sure you are dealing with a string
-    const transformed = String(string);
-    return transformed.replace(transformed.charAt(0).toUpperCase());
-};
-const transformObjectToBooleans = (object, defaults = true) => {
-    return Object.keys(object).reduce((prev, cur) => {
-        prev[cur] = defaults;
-        return prev;
-    }, {});
-};
+
 const FormCard = () => {
     // States
     const [disabled, setDisabled] = useState()
-    const [values, setValues] = useState(data);
-    const [buttonDisables, setButtonDisables] = useState(transformObjectToBooleans(data));
-    const transformed = React.useMemo(() => Object.entries(values), [values]);
 
-    // Refs
-    const inputRef = useRef([createRef(), createRef(), createRef(), createRef(), createRef(), createRef()])
+    const transformed = Object.entries(data)
 
-    const handleInput = (e) => {
-        // console.log(inputRef)
-        inputRef.current.input.disabled ? 
-        setDisabled(false) : setDisabled(true)
-        
-    }
     return (
         <Row justify='center' align='middle'>
             <Col xs={24} md={18} lg={18}>
@@ -47,7 +27,7 @@ const FormCard = () => {
                     <Row style={{ marginBottom: 10 }}>
                         <Col span={24}><Title className={styles.title}>Account Settings</Title></Col>
                     </Row>
-                    <Row gutter={[0,48]}>
+                    <Row gutter={[0, 48]}>
                         <Col xs={20} lg={12}>
                             <Title className={styles.subTitle1}>User Information</Title>
                             {
@@ -55,16 +35,27 @@ const FormCard = () => {
                                     return (
                                         <Row key={index} >
                                             <Col span={24}>
-                                                <Text className={styles.label}>{capitalizeString(item[0])}</Text>
+                                                <Text className={styles.label}>{item[0]}</Text>
                                             </Col>
                                             <Col xs={24} md={20} className={styles.inputWrapper}>
-                                                <Input defaultValue={values[item[0]]} disabled={disabled} className={styles.input} id={index} style={{ color: disabled ? '#789' : ''}} ref={inputRef}/>
-                                                <Button className={styles.editBtn} onClick={handleInput}><MdEdit size={20} disabled={buttonDisables[item[0]]} /> Edit</Button>
+                                                <Input defaultValue={item[0]} disabled={disabled} className={styles.input} id={index} style={{ color: disabled ? '#789' : '' }} />
                                             </Col>
                                         </Row>
                                     )
                                 })
                             }
+                            <Row>
+                                <Col xs={24} md={20} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    {disabled ?
+                                        <Button className={styles.editBtn} onClick={() => setDisabled(!disabled)}>
+                                            <MdSave size={20} /> Save Changes
+                                        </Button> :
+                                        <Button className={styles.editBtn} onClick={() => setDisabled(!disabled)}>
+                                            <MdEdit size={20} /> Edit
+                                        </Button>
+                                    }
+                                </Col>
+                            </Row>
                         </Col>
                         <Col xs={20} lg={12}>
                             <Title className={styles.subTitle2}>Account Termination</Title>
