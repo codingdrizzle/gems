@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import User from '../../models/userSchema'
+import Complaints from '../../models/complaintSchema'
 import connect from '../../utils/connect-mongo'
 const ObjectId = mongoose.Types.ObjectId
 /**
@@ -16,41 +16,42 @@ export default async function handleUsersRequests(req, res) {
     switch (req.method) {
         case 'GET':
             const { id } = req.query
-            //Get a single user - route
+            //Get a single complaint - route
             if (id) {
                 try {
-                    const user = await User.findOne({ _id: ObjectId(id) })
-                    res.status(200).json(user)
+                    const complaint = await Complaints.findOne({ _id: ObjectId(id) }).populate('user')
+                    res.status(200).json(complaint)
                     res.setHeader({ ContentType: 'application/json' })
-                    // Query example --- http://localhost:3000/api/user/?id=62b48ffc8f11e7a2a521d18a
 
                 } catch (error) {
                     res.status(500).json({ message: error.message })
                 }
             }
             else {
-                // Get all users - route
+                // Get all complaints - route
                 try {
-                    const users = await User.find().populate('complaints').exec();
-                    res.status(200).json(users)
+                    const complaints = await Complaints.find().populate('user').exec();
+                    res.status(200).json(complaints)
                 } catch (error) {
                     res.status(500).json({ message: error.message })
                 }
             }
-        break;
+            break;
 
         case 'POST':
-            // Create a new user - route
+            // Create a new complaint - route
             try {
-                if (!req.body) {
+                const { id } = req.query
+                const { title, description } = req.body
+                if (!req.body || !id) {
                     res.status(400).json({ message: "Bad request." })
                 }
-                const user = await User.create(req.body)
-                res.status(200).json(user)
+                const complaint = await Complaints.create({user: ObjectId(id), title: title, description: description})
+                res.status(200).json(complaint)
             } catch (error) {
                 res.status(400).json({ message: error.message })
             }
-        break;
+            break;
         case 'PATCH':
             // Update a user - route
             try {
@@ -63,7 +64,7 @@ export default async function handleUsersRequests(req, res) {
             } catch (error) {
                 res.status(500).json({ message: error.message })
             }
-        break;
+            break;
         case 'DELETE':
             // Delete a user = route
             try {
@@ -76,9 +77,6 @@ export default async function handleUsersRequests(req, res) {
             } catch (error) {
                 res.status(500).json({ message: error.message })
             }
-        break;
+            break;
     }
-
-
-
 }

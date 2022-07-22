@@ -20,10 +20,14 @@ const TipsCard = () => {
                                 return (
                                     <>
                                         <Col span={24} key={index}>
-                                            <div className={styles.listTitle}>
-                                                <BsCheckAll size={25} />
-                                                <Text className={styles.title}>{item.title}</Text>
-                                            </div>
+                                            <Row className={styles.listTitle}>
+                                                <Col span={2}>
+                                                    <BsCheckAll size={25} />
+                                                </Col>
+                                                <Col span={20}>
+                                                    <Text className={styles.title}>{item.title}</Text>
+                                                </Col>
+                                            </Row>
                                             <div className={styles.listText}>
                                                 <BsDash />
                                                 <Text className={styles.text}>{item.text1}</Text>
@@ -46,7 +50,7 @@ const TipsCard = () => {
                                 return (
                                     <>
                                         <Col span={24} key={index} className={styles.policy}>
-                                            <Row style={{width : '100%'}}>
+                                            <Row style={{ width: '100%' }}>
                                                 <Col span={2}>
                                                     <BsCheckAll size={25} style={{ color: 'rgb(255, 0, 0)' }} />
                                                 </Col>

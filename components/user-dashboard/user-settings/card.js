@@ -16,7 +16,7 @@ const data = {
 
 const FormCard = () => {
     // States
-    const [disabled, setDisabled] = useState()
+    const [disabled, setDisabled] = useState(true)
 
     const transformed = Object.entries(data)
 

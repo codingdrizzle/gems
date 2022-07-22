@@ -22,13 +22,14 @@ const userSchema =  Schema({
         required: true
     },
     contact: {
-        type: Number,
+        type: NumberInt,
         required: true
     },
-    complaints: {
-        type: Array,
-        required: true
-    }
+    complaints: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: 'Complaints'
+    }]
+
 })
 
 const User = models.Users || model('Users', userSchema);

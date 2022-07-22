@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const adminSchema = new mongoose.Schema({
+const agentSchema = new mongoose.Schema({
     firstname: {
         type: String,
         required: true,
@@ -23,6 +23,6 @@ const adminSchema = new mongoose.Schema({
     }
 })
 
-const Agent = mongoose.models.Agents || mongoose.model('Agents', adminSchema);
+const Agent = mongoose.models.Agent || mongoose.model('Agent', agentSchema);
 
 export default Agent
