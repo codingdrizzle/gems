@@ -1,17 +1,18 @@
 import Joi from 'joi'
 
 export const loginSchema = Joi.object({
-    username: Joi.string().alphanum().required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required,
+    Username: Joi.string().alphanum().required(),
+    Password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
 })
 
-const registerSchema = Joi.object({
-    firstname: Joi.string().required(),
-    lastname: Joi.string().required(),
-    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-    username: Joi.string().alphanum().min(3).max(10).required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-    repeat_password: Joi.ref('password'),
+export const registerSchema = Joi.object({
+    Firstname: Joi.string().required(),
+    Lastname: Joi.string().required(),
+    Email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    Username: Joi.string().alphanum().min(6).required(),
+    Password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    Repeat_password: Joi.ref('Password'),
+    Contact: Joi.number().required()
 
 })
 

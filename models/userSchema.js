@@ -3,7 +3,7 @@ import { Schema, models, model} from 'mongoose';
 const userSchema =  Schema({
     firstname: {
         type: String,
-        required: true
+        required: true,
     },
     lastname: {
         type: String,
@@ -22,7 +22,7 @@ const userSchema =  Schema({
         required: true
     },
     contact: {
-        type: NumberInt,
+        type: Number,
         required: true
     },
     complaints: [{ 

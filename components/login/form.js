@@ -1,64 +1,71 @@
 import Link from 'next/link'
-import React, { useState, useRef } from 'react'
-import { Row, Col, Typography, Input, Divider, Button } from 'antd'
+import Router from 'next/router'
+import axios from 'axios'
+import React, { useState, useRef, useMemo } from 'react'
+import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock, BiLogIn } from 'react-icons/bi'
 import { BsEye, BsEyeSlash, BsArrowReturnLeft } from 'react-icons/bs'
 import styles from '../../styles/login-styles/login-card.module.css'
 import colors from '../../styles/colors.module.css'
 import { loginSchema } from '../../helpers/form-validation'
 
+const router = Router
+
 const { Text } = Typography
-let username;
-let password;
+
 
 const Form = () => {
     const [show, setShow] = useState(false)
     const [passwordHash, setPasswordHash] = useState('password')
-    const [successMssg, setSuccessMssg] = useState('')
-    const [errorMssg, setErrorMssg] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const showEye = () => {
         setPasswordHash(show ? 'password' : 'text')
         setShow(!show)
     }
+    const handleUsername = (e) => setUsername(e.target.value)
+    const handlePassword = (e) => setPassword(e.target.value)
 
-    const handleUsername = (e) => {
-        username = e.target.value
-    }
-    const handlePassword = (e) => {
-        password = e.target.value  
+    const handleLogin = async () => {
+        const { error, value } = loginSchema.validate({ Username: username, Password: password })
+        
+        if (error){
+            await message.error({content: error.message, duration: 5,style: {color: 'red'}});
+        }else{
+          let user
+          await axios.get(`http://localhost:3000/api/users/?username=${username}?password=${password}`)
+            .then((result) => user = result.data)
+            .catch(err => console.error(err))
+            console.log(user)
+            // if(user[0].username === username && user[0].password === password){
+            //     await notification.success('Login successful')
+            //     await router.push('/user')
+            // }else{
+            //     await message.error('Username or Password is incorrect.')
+            // }
+        }
     }
 
-    const handleLogin = () => {
-        console.log(username, password)
-        const usernameInput = loginSchema.validate({ username: username })
-        const passwordInput = loginSchema.validate({ password: password })
-        console.log(usernameInput)
-        console.log(passwordInput)
-        // console.log(validatedInput.error)
-    }
-    
     return (
         <Row>
             <Col span={24}><Text className={[styles.loginText, colors.primaryTextColor2]}>Login</Text></Col>
             <Col span={24}>
                 <div className={styles.inputArea}>
                     <Input
-                        id={styles.usernameText}
-                        defaultValue={''}
+                        defaultValue={username}
                         type={'text'}
                         prefix={<BiUser className={styles.formIcon} />}
                         placeholder="Username"
                         bordered={false}
                         onChange={handleUsername}
-                        />
+                    />
                     <Divider className={styles.divider} />
                     <Button className={styles.loginBtn} title='Login' onClick={handleLogin}>
                         <BiLogIn className={styles.loginBtnIcon} />
                     </Button>
                     <Input
-                        id={styles.usernameText}
-                        defaultValue={''}
+                        defaultValue={password}
                         type={passwordHash}
                         prefix={<BiLock className={styles.formIcon} />}
                         suffix={show ?
@@ -67,7 +74,7 @@ const Form = () => {
                         placeholder="Password"
                         bordered={false}
                         onChange={handlePassword}
-                        />
+                    />
                 </div>
                 <div className={styles.otherLinks}>
                     <Link href={'/forgot-password'}><a><Text className={styles.forgotPassword}>Forgot Password?</Text></a></Link>
@@ -77,10 +84,10 @@ const Form = () => {
                     </Text>
 
                 </div>
-                    <Text className={styles.backHome}>
-                        Go back &nbsp;
-                    <Link href={'/'}><a><Text style={{ color: '#24E9A3', textDecoration: 'underline', fontWeight: 500 }}><BsArrowReturnLeft/>Home</Text></a></Link>
-                    </Text>
+                <Text className={styles.backHome}>
+                    Go back &nbsp;
+                    <Link href={'/'}><a><Text style={{ color: '#24E9A3', textDecoration: 'underline', fontWeight: 500 }}><BsArrowReturnLeft />Home</Text></a></Link>
+                </Text>
             </Col>
         </Row>
     )

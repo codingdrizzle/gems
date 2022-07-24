@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 import User from '../../models/userSchema'
 import connect from '../../utils/connect-mongo'
 const ObjectId = mongoose.Types.ObjectId
@@ -15,11 +16,11 @@ export default async function handleUsersRequests(req, res) {
 
     switch (req.method) {
         case 'GET':
-            const { id } = req.query
+            const { username, password } = req.query
             //Get a single user - route
-            if (id) {
+            if (username && password) {
                 try {
-                    const user = await User.findOne({ _id: ObjectId(id) })
+                    const user = await User.findOne({ username: username, password: password })
                     res.status(200).json(user)
                     res.setHeader({ ContentType: 'application/json' })
                     // Query example --- http://localhost:3000/api/user/?id=62b48ffc8f11e7a2a521d18a
@@ -37,7 +38,7 @@ export default async function handleUsersRequests(req, res) {
                     res.status(500).json({ message: error.message })
                 }
             }
-        break;
+            break;
 
         case 'POST':
             // Create a new user - route
@@ -45,12 +46,21 @@ export default async function handleUsersRequests(req, res) {
                 if (!req.body) {
                     res.status(400).json({ message: "Bad request." })
                 }
-                const user = await User.create(req.body)
-                res.status(200).json(user)
+                const existUser = await User.findOne({ email: req.body.email })
+                console.log(existUser)
+                if (existUser) {
+                    res.json({ exist: 'User already exist' })
+                } else {
+                    bcrypt.hash(req.body.password, 10).then((hash) => {
+                        req.body.password = hash
+                        const user = User.create(req.body)
+                        res.status(200).json({user: 'You have successfully created your account.'})
+                    })
+                }
             } catch (error) {
                 res.status(400).json({ message: error.message })
             }
-        break;
+            break;
         case 'PATCH':
             // Update a user - route
             try {
@@ -63,7 +73,7 @@ export default async function handleUsersRequests(req, res) {
             } catch (error) {
                 res.status(500).json({ message: error.message })
             }
-        break;
+            break;
         case 'DELETE':
             // Delete a user = route
             try {
@@ -76,7 +86,7 @@ export default async function handleUsersRequests(req, res) {
             } catch (error) {
                 res.status(500).json({ message: error.message })
             }
-        break;
+            break;
     }
 
 

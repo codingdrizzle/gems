@@ -51,7 +51,7 @@
     border-width: 1px;
 }
 
-.registerBtn {
+.registerBtn, .registerBtn:focus, .registerBtn:active  {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,9 +68,8 @@
     box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.2);
 }
 
-.registerBtn:hover {
-    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
-    box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.2);
+.registerBtn:hover{
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2)) !important;
     margin-left: 10px !important;
 }
 
