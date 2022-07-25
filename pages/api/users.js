@@ -53,6 +53,7 @@ export default async function handleUsersRequests(req, res) {
                 } else {
                     bcrypt.hash(req.body.password, 10).then((hash) => {
                         req.body.password = hash
+                        req.setHeader({"Content-Type": "application/json"})
                         const user = User.create(req.body)
                         res.status(200).json({user: 'You have successfully created your account.'})
                     })
