@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Router from 'next/router'
 import axios from 'axios'
+import bcrypt from 'bcryptjs'
 import React, { useState, useRef, useMemo } from 'react'
 import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock, BiLogIn } from 'react-icons/bi'
@@ -33,17 +34,18 @@ const Form = () => {
         if (error){
             await message.error({content: error.message, duration: 5,style: {color: 'red'}});
         }else{
-          let user
-          await axios.get(`http://localhost:3000/api/users/?username=${username}?password=${password}`)
-            .then((result) => user = result.data)
+          let users
+          await axios.get(`http://localhost:3000/api/users`)
+            .then((result) => users = result.data)
             .catch(err => console.error(err))
-            console.log(user)
-            // if(user[0].username === username && user[0].password === password){
-            //     await notification.success('Login successful')
-            //     await router.push('/user')
-            // }else{
-            //     await message.error('Username or Password is incorrect.')
-            // }
+            users.forEach(user => {
+                const isPassword = bcrypt.compare(password, user.password).then(equal => equal).catch(err => console.error(err))
+                
+                if(user.username === username && isPassword){
+                    message.success('Login successful!')
+                    console.log(user)
+                }
+            });
         }
     }
 
