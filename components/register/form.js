@@ -89,7 +89,6 @@ return (
             <div className={styles.inputArea}>
                 <Input.Group size={'6'}>
                     <Input
-                        id={styles.text}
                         type={'text'}
                         prefix={<BsCardText className={styles.formIcon} />}
                         placeholder="First name"
@@ -99,7 +98,6 @@ return (
                     />
                     <Divider className={styles.divider} />
                     <Input
-                        id={styles.text}
                         type={'text'}
                         prefix={<BsCardText className={styles.formIcon} />}
                         placeholder="Last name"
@@ -109,7 +107,6 @@ return (
                     />
                     <Divider className={styles.divider} />
                     <Input
-                        id={styles.text}
                         type={'text'}
                         prefix={<GoMail className={styles.formIcon} />}
                         placeholder="Email address"
@@ -119,7 +116,6 @@ return (
                     />
                     <Divider className={styles.divider} />
                     <Input
-                        id={styles.text}
                         type={'text'}
                         prefix={<BiUser className={styles.formIcon} />}
                         placeholder="Username"
@@ -129,7 +125,6 @@ return (
                     />
                     <Divider className={styles.divider} />
                     <Input
-                        id={styles.text}
                         type={passwordHash}
                         prefix={<BiLock className={styles.formIcon} />}
                         suffix={show ?
@@ -142,7 +137,6 @@ return (
                     />
                     <Divider className={styles.divider} />
                     <Input
-                        id={styles.text}
                         type={passwordHash}
                         prefix={<BiLock className={styles.formIcon} />}
                         suffix={show ?
@@ -155,7 +149,6 @@ return (
                     />
                     <Divider className={styles.divider} />
                     <Input
-                        id={styles.text}
                         type={'contact'}
                         prefix={<span className={styles.telephoneSuffix}><FormFlag />+233 </span>}
                         placeholder="Telephone"
