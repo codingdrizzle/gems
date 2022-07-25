@@ -70,7 +70,7 @@ const Form = () => {
                     if(result.data.exist){
                         message.error(result.data.exist)
                     }else{
-                        message.success(result.data.user)
+                        message.success(result.data.created)
                         router.push('/login/')
                     }
                 })

@@ -49,13 +49,12 @@ export default async function handleUsersRequests(req, res) {
                 const existUser = await User.findOne({ email: req.body.email })
                 console.log(existUser)
                 if (existUser) {
-                    res.json({ exist: 'User already exist' })
+                    res.status(200).json({ exist: 'User already exist' })
                 } else {
-                    bcrypt.hash(req.body.password, 10).then((hash) => {
+                    await bcrypt.hash(req.body.password, 10).then((hash) => {
                         req.body.password = hash
-                        req.setHeader({"Content-Type": "application/json"})
-                        const user = User.create(req.body)
-                        res.status(200).json({user: 'You have successfully created your account.'})
+                        User.create(req.body)
+                        res.status(200).json({created: 'You have successfully created your account.'})
                     })
                 }
             } catch (error) {
