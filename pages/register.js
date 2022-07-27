@@ -1,14 +1,14 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SignUp from '../components/register'
 import Preloader from '../commons/preloader'
 
 const SignUpPage = () => {
-  const [loading, setloading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
-  setTimeout(() => {
-    setloading(false)
-  }, 1000);
+  useEffect(() => {
+    setLoading(false)
+  }, [])
 
   return (
     <>

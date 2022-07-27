@@ -65,7 +65,7 @@ const Form = () => {
         if (error, validateContact()) {
             message.error(error.message === '"Repeat_password" must be [ref:Password]' ? 'Passwords does not match' : error.message)
         } else {
-            axios.post('http://localhost:3000/api/users', { firstname, lastname, email, username, password, contact })
+            axios.post('/api/users', { firstname, lastname, email, username, password, contact })
                 .then((result) => { 
                     if(result.data.exist){
                         message.error(result.data.exist)

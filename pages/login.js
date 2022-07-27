@@ -1,14 +1,14 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Login from '../components/login'
 import Preloader from '../commons/preloader'
 
 const LoginPage = () => {
-  const [loading, setloading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
-  setTimeout(() => {
-    setloading(false)
-  }, 1000);
+  useEffect(() => {
+    setLoading(false)
+  }, [])
 
   return (
     <>
@@ -17,9 +17,7 @@ const LoginPage = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {loading ? <Preloader /> :
-    <Login/>
-    }
+      {loading ? <Preloader /> : <Login/>}
     </>
   )
 }

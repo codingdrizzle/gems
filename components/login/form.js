@@ -35,7 +35,7 @@ const Form = () => {
             await message.error({content: error.message, duration: 5,style: {color: 'red'}});
         }else{
           let users
-          await axios.get(`http://localhost:3000/api/users`)
+          await axios.get(`/api/users`)
             .then((result) => users = result.data)
             .catch(err => console.error(err))
             users.forEach(user => {
