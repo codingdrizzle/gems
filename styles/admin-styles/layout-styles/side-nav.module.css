@@ -1,25 +1,74 @@
-.sideNav{
-    width: 100px;
+.sideNavParent{
+    width: 300px;
     height: 100vh;
-    background: #fff;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.08);
-    border-radius: 0 70px 70px 0;
+    padding: 15px 10px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    padding: 0 15px;
+    justify-content: center;
 }
 
-.navItem{
+.sideNav{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    height: 60px;
+    align-items: flex-start;
+    height: 97vh;
+    width: 100%;
+    background: #090036;
+    border-radius: 15px;
 }
+
+.navItems{
+    padding: 0;
+    padding-left: 10px;
+    width: 100%;
+    position: relative;
+}
+
+.item{
+    position: relative;
+    top: 20px;
+    display: block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    width: 100%;
+    padding: 15px 12px;
+    border-radius: 15px 0 0 15px ;
+    color: #ccc;
+    /* transition: .5s; */
+}
+
+.navItem:active{
+    background: #fff;
+    letter-spacing: 0.2px;
+}
+
+.navItem:active::after{
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: #090036;
+    right: 0;
+    bottom: 100%;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0  17px 0 #fff;
+}
+.navItem:active:before{
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: #090036;
+    right: 0;
+    top: 100%;
+    border-top-right-radius: 15px;
+    box-shadow: 0  -17px 0 #fff;
+}
+
 
 .navIcon{
     color: #91A2B8;

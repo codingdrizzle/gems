@@ -102,7 +102,6 @@
 }
 .mobileNavbarNav{
     transition: 1s ease;
-    /* background: linear-gradient(to right,var(--gradient-color3),var(--light-text)); */
     background-color: #fff;
     box-shadow: 2px 2px 20px #ccc;
     position: absolute;
@@ -110,13 +109,7 @@
     right: 0;
     padding: 50px;
     border-radius: 0 0 0 100px;
-    animation: dropIn;
-}
-
-@keyframes dropIn {
-    0%{
-      /* z-index: 999;   */
-    }    
+    z-index: 100;
 }
 
 

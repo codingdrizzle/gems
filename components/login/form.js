@@ -36,7 +36,9 @@ const Form = () => {
         }else{
           let users
           await axios.get(`/api/users`)
-            .then((result) => users = result.data)
+            .then((result) => {users = result.data
+                console.log(result)
+            })
             .catch(err => console.error(err))
             users.forEach(user => {
                 const isPassword = bcrypt.compare(password, user.password).then(equal => equal).catch(err => console.error(err))
