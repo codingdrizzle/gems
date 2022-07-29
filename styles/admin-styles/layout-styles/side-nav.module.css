@@ -1,34 +1,51 @@
-.sideNavParent{
-    width: 300px;
-    height: 100vh;
+.sideNavParent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 250px;
+    height: 100%;
     padding: 15px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 2s ease;
 }
 
-.sideNav{
+.sideNav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: space-around;
     height: 97vh;
     width: 100%;
     background: #090036;
     border-radius: 15px;
+    padding: 10px 0 150px 0;
 }
 
-.navItems{
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: auto !important;
+}
+
+.navItems {
     padding: 0;
     padding-left: 10px;
     width: 100%;
     position: relative;
 }
 
-.item{
+.navItem {
     position: relative;
     top: 20px;
-    display: block;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -36,40 +53,141 @@
     cursor: pointer;
     width: 100%;
     padding: 15px 12px;
-    border-radius: 15px 0 0 15px ;
+    border-radius: 25px 0 0 25px;
     color: #ccc;
     /* transition: .5s; */
 }
 
-.navItem:active{
+.logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.navItem:hover {
     background: #fff;
     letter-spacing: 0.2px;
 }
 
-.navItem:active::after{
+.navItem:hover::after {
     position: absolute;
     content: '';
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background: #090036;
     right: 0;
     bottom: 100%;
-    border-bottom-right-radius: 15px;
-    box-shadow: 0  17px 0 #fff;
+    border-bottom-right-radius: 25px;
+    box-shadow: 0 20px 0 #fff;
 }
-.navItem:active:before{
+
+.navItem:hover:before {
     position: absolute;
     content: '';
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background: #090036;
     right: 0;
     top: 100%;
-    border-top-right-radius: 15px;
-    box-shadow: 0  -17px 0 #fff;
+    border-top-right-radius: 25px;
+    box-shadow: 0 -20px 0 #fff;
 }
 
+.navItem a {
+    display: block;
+}
 
-.navIcon{
+.navIcon {
     color: #91A2B8;
+}
+
+.mainContent {
+    padding: 15px 10px;
+    margin-left: 250px;
+}
+
+/* Bottom Nav */
+.bottomNavParent {
+    display: none;
+}
+/* Bottom Nav */
+
+/* Media queries */
+/* Medium screen devices (Tablet screens */
+@media only screen and (max-width: 950px) {
+    .sideNavParent {
+        width: 90px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .navItems {
+        padding: 0;
+    }
+
+    .navItem {
+        border-radius: 0;
+        justify-content: center;
+    }
+
+    .navItem:hover {
+        background: none;
+        letter-spacing: 0.2px;
+    }
+
+    .navItem:hover::after,
+    .navItem:hover:before {
+        display: none;
+    }
+
+    .navItem a {
+        display: none !important;
+    }
+
+    .mainContent {
+        margin-left: 90px;
+    }
+}
+
+/* Small screen devices (Mobile Phones etc) */
+@media only screen and (max-width: 530px) {
+    .sideNavParent {
+        display: none;
+    }
+
+    .mainContent {
+        margin: 0;
+        width: 100%;
+    }
+
+    .bottomNavParent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        height: 70px;
+        transition: all 2s ease;
+    }
+    
+    .bottomNav {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: calc(100% - 20px);
+        height: 60px;
+        border-radius: 15px;
+        background: #090036 !important;
+    }
+    .bottomNav a:active{
+        background-color: #fff;
+    }
 }

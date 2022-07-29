@@ -1,9 +1,9 @@
 import React from 'react'
-import Layout from '../../layouts/admin-dashboard-layouts'
+import Home from '../../components/admin-dashboard/home'
 
 const AdminHomePage = () => {
   return (
-    <Layout></Layout>
+    <Home/>
   )
 }
 
