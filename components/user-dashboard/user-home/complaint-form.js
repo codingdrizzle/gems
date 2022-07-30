@@ -26,38 +26,43 @@ const ModalForm = ({ visible, onClose }) => {
     const descriptionRef = useRef(null)
     const locDescriptionRef = useRef(null)
 
-    useEffect(() => {
-    }, [])
-    const handleFormSubmit = () => {
-        alert('form was successfully submited')
-    }
+    let file
+
     const handleFileSelect = () => {
-        const file = document.getElementById('file').files[0]
+        setIsDone(!isDone)
+        file = document.getElementById('file').files[0]
         setImageName(file.name)
+    };
+    
+    const upLoadImage = () => {
         const image = new FormData();
         image.append('file', file);
         image.append('upload_preset', 'gems-images');
         image.append("cloud_name", "dxclgkewn")
 
         fetch('https://api.cloudinary.com/v1_1/dxclgkewn/image/upload', {
-                method: 'POST',
-                body: image,
-                mode: 'cors'
+            method: 'POST',
+            body: image,
+            mode: 'cors'
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setIsDone(!isDone)
+                setStatusIcon(<BsCheckCircleFill size={20} />)
+                console.log(data)
             })
-                .then((res) => res.json())
-                .then((data) => {
-                    setIsDone(!isDone)
-                    setStatusIcon(<BsCheckCircleFill size={20} />)
-                    console.log(data)
-                })
-                .catch(() => {
-                    setIsDone(!isDone)
-                    setStatusIcon(<IoCloseCircle size={20} />)
-                })
-        };
-
-
-    return (
+            .catch(() => {
+                setIsDone(!isDone)
+                setStatusIcon(<IoCloseCircle size={20} />)
+            })
+    }
+    
+    const handleFormSubmit = () => {
+        alert('form was successfully submited')
+    }
+        
+        
+        return (
         <Modal
             closable={true}
             centered={true}
@@ -117,12 +122,12 @@ const ModalForm = ({ visible, onClose }) => {
                                         <IoIosAttach style={{ transform: 'rotate(90deg)', fontSize: 30, color: 'rgba(0,0,0,0.5)' }} />
                                     </span>
                                 </Button>
-                                <Button>Upload</Button>
+                                <Button onClick={upLoadImage}>Upload</Button>
                             </Col>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 15 }}>
-                                <p>{imageName}</p> {isDone? statusIcon : ''}
+                                <p>{imageName}</p> {isDone ? statusIcon : ''}
                             </Col>
-                            
+
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
