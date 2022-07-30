@@ -52,3 +52,7 @@ a:active {
   align-items: flex-start !important;
   gap: 15px !important;
 }
+
+.myCard .ant-card-body{
+  padding: 15px;
+}

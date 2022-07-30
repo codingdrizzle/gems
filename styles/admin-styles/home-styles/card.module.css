@@ -1,0 +1,28 @@
+.card{
+    border-radius: 20px;
+    box-shadow: 3px 3px 8px #eee;
+    border: none;
+}
+.userCircle {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+}
+
+.typeNumber {
+    font-weight: 800 !important;
+    font-size: 20px !important;
+    line-height: 23px;
+    /* color: #00115B; */
+}
+
+.typeText{
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #00115B;
+}

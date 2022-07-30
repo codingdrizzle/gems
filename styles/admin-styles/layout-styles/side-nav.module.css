@@ -58,11 +58,23 @@
     /* transition: .5s; */
 }
 
-.logout {
+.logoutBtn{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    align-items: center !important;
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    height: 40px;
+    font-size: 15px;
+    color: #fff !important;
+    gap: 10px;
+    border: none;
+    border-radius: 15px;
+}
 
+.logoutBtn:hover {
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    border: none;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navItem:hover {
@@ -189,5 +201,8 @@
     }
     .bottomNav a:active{
         background-color: #fff;
+    }
+    .logoutText{
+        display: none !important;
     }
 }
