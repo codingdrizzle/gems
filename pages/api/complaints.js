@@ -1,13 +1,15 @@
 import mongoose from 'mongoose'
+import cloudinary from 'cloudinary'
 import Complaints from '../../models/complaintSchema'
 import connect from '../../utils/connect-mongo'
 const ObjectId = mongoose.Types.ObjectId
-/**
- * 
- * @param {import('next').NextApiRequest} req 
- * @param {import('next').NextApiResponse} res 
- * @returns 
- */
+
+cloudinary.config({
+    cloud_name: 'dxclgkewn',
+    api_key: '268165714611856',
+    api_secret: 'XztvrLu5H1irDym1EpdICqpmOrc',
+    secure: true
+});
 
 export default async function handleUsersRequests(req, res) {
     // Connect to mongoDB 

@@ -12,20 +12,20 @@
 }
 
 .signUpBtnNav {
-    background: transparent;
+    background: transparent !important;
     color: var(--primary-green) !important;
     border-color: var(--primary-green) !important;
     box-shadow: 0px 2px 30px rgba(36, 233, 163, 0.3);
 }
 
 .signUpBtnNav:hover {
-    background: var(--primary-green);
+    background: var(--primary-green) !important;
     color: #fff !important;
     border-color: var(--primary-green) !important;
 }
 
 .loginBtn {
-    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2));
+    background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2)) !important;
     /* border-image: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2)); */
     color: white !important;
     border: none !important;
@@ -33,7 +33,7 @@
 }
 
 .loginBtn:hover, .loginBtn:active, .loginBtn:focus, .loginBtn:focus-visible {
-    background: transparent;
+    background: transparent !important;
     border-width: 3px;
     border-style: solid;
     color: var(--primary-blue) !important;
@@ -47,7 +47,7 @@
 }
 
 .signUpBtn {
-    background: transparent;
+    background: transparent !important;
     border-color: var(--primary-blue);
     color: var(--primary-blue) !important;
     box-shadow: 0px 10px 50px 1px rgba(0, 0, 0, 0.3);

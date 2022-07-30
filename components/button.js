@@ -1,22 +1,17 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button as Btn} from 'antd'
 import styles from './button.module.css'
+import { useRouter } from 'next/router'
 
-export const LoginBtn = ({btnColor, btnProps}) => {
+const Button = ({ btnColor, btnProps, urlProp, innerText }) => {
+  const router = useRouter()
   return (
-    <Button className={[styles.button, btnColor, btnProps]}>LOGIN</Button>
+    <a href={urlProp}>
+      <Btn className={[styles.button, btnColor, btnProps]}>
+        {innerText}
+      </Btn>
+    </a>
   )
 }
-export const SignUpBtn = ({ btnColor, btnProps}) => {
-  return (
-    <Button className={[styles.button, btnColor, btnProps]}>SIGN UP</Button>
-  ) 
-}
 
-LoginBtn.defaultProps = {
-  btnProps: ''
-}
-SignUpBtn.defaultProps = {
-  btnProps: ''
-}
-
+export default Button

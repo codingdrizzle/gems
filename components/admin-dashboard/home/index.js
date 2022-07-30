@@ -5,6 +5,7 @@ import { AnalyticsCard, UsersCard } from './card';
 import { BsStack } from 'react-icons/bs'
 import { IoToday } from 'react-icons/io5'
 import { FaCalendarAlt, FaUserCheck } from 'react-icons/fa'
+import BarChart from '../charts/bar-chart';
 
 
 
@@ -27,6 +28,7 @@ const Home = () => {
                     <UsersCard cardBg={'rgba(216, 216, 216, 0.3)'} textColor={'rgb(130, 130, 130)'} icon={<FaUserCheck size={20} color={'#00115B'}/>} typeText={'USERS'} typeNumber={'2,300'}/>
                 </Col>
             </Row>
+            {/* <BarChart/> */}
         </Layout>
     );
 }

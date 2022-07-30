@@ -6,7 +6,6 @@ import styles from '../../styles/admin-styles/layout-styles/side-nav.module.css'
 import { BsFillGridFill, BsCheckCircleFill, BsBarChartLineFill, BsFillChatDotsFill } from 'react-icons/bs'
 import { FaBell } from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
-import { link } from 'joi'
 
 const { Text } = Typography
 

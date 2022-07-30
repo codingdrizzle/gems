@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Typography } from 'antd'
 import styles from '../../styles/home-styles/content.module.css'
 import Logo from '../../commons/logo'
-import { LoginBtn, SignUpBtn } from '../button'
+import Button from '../button'
 import { Times } from '../../helpers/times'
 import colors from '../../styles/colors.module.css'
 import { Abumlance, Fire, Nadmo, Police } from '../../commons/partners'
@@ -17,14 +17,14 @@ const PageContent = () => {
 
 
     useEffect(() => {
-       setGreeting(Times().greeting)
-       setSun(Times().sun)
+        setGreeting(Times().greeting)
+        setSun(Times().sun)
     }, [Times()])
 
     return (
         <>
             {/* Header Section */}
-            <Row style={{marginTop: 20}}>
+            <Row style={{ marginTop: 20 }}>
                 <Col xs={24} lg={12}>
                     <Row>
                         <Col xs={24}>
@@ -47,16 +47,8 @@ const PageContent = () => {
             {/* Login and Signup Section */}
             <Row className={styles.motherGap}>
                 <Col xs={24} className={styles.btnContainer}>
-                    <Link href={'/login/'}>
-                        <a onClick={() => router.push('/login/')}>
-                            <LoginBtn btnProps={styles.btn} btnColor={colors.loginBtn} />
-                        </a>
-                    </Link>
-                    <Link href={'/register/'}>
-                        <a onClick={() => router.push('/register/')}>
-                            <SignUpBtn btnProps={styles.btn} btnColor={colors.signUpBtn} />
-                        </a>
-                    </Link>
+                    <Button urlProp={'/login'} innerText={'LOGIN'} btnProps={styles.btn} btnColor={colors.loginBtn} />
+                    <Button urlProp={'/register'} innerText={'REGISTER'} btnProps={styles.btn} btnColor={colors.signUpBtn} />
                 </Col>
             </Row>
             {/* Partners Section */}
@@ -64,19 +56,19 @@ const PageContent = () => {
                 <Col xs={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Text className={[styles.partnerText, colors.primaryTextColor2]}>Partners</Text>
                 </Col>
-                <Col xs={24} style={{marginTop: 15}}>
+                <Col xs={24} style={{ marginTop: 15 }}>
                     <Row align={'center'} justify={'center'}>
                         <Col span={4} className={styles.partnerLogo}>
-                            <Police value={100}/>
+                            <Police value={100} />
                         </Col>
                         <Col span={4} className={styles.partnerLogo}>
-                            <Fire value={100}/>
+                            <Fire value={100} />
                         </Col>
                         <Col span={4} className={styles.partnerLogo}>
-                            <Abumlance value={100}/>
+                            <Abumlance value={100} />
                         </Col>
                         <Col span={4} className={styles.partnerLogo}>
-                            <Nadmo value={100}/>
+                            <Nadmo value={100} />
                         </Col>
                     </Row>
                 </Col>

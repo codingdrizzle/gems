@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import {Flag} from '../../commons/flag'
 import Logo from '../../commons/logo'
-import { LoginBtn, SignUpBtn } from '../button'
+import Button from '../button'
 import styles from '../../styles/home-styles/navbar.module.css'
 import colors from '../../styles/colors.module.css'
 
@@ -19,16 +19,8 @@ const Navbar = () => {
                 </div>
             </div>
             <div className={styles.btnContainerNav}>
-                <Link href={'/login'}>
-                    <a>
-                        <LoginBtn btnColor={colors.loginBtnNav} className={styles.btnNav} />
-                    </a>
-                </Link>
-                <Link href={'/register'}>
-                    <a>
-                        <SignUpBtn btnColor={colors.signUpBtnNav} className={styles.btnNav} />
-                    </a>
-                </Link>
+                <Button urlProp={'/login'} innerText={'LOGIN'} btnProps={styles.btnNav} btnColor={colors.loginBtnNav}/>
+                <Button urlProp={'/register'} innerText={'REGISTER'} btnProps={styles.btnNav} btnColor={colors.signUpBtnNav} />
             </div>
         </>
 
