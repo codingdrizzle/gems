@@ -7,7 +7,6 @@ import { BsCheckCircleFill } from 'react-icons/bs'
 import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Upload, Divider, Checkbox, Progress } from 'antd'
 import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
-import uploadImage from '../../../helpers/image-upload'
 
 const { Text } = Typography
 const { Option } = Select
