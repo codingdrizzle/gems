@@ -10,11 +10,11 @@ const NotificationPreview = () => {
   )
 }
 
-export async function getStaticPaths(){
-    return {
-        paths: 'id',
-        fallback: true
-    }
-}
+// export async function getStaticPaths(){
+//     return {
+//         paths: 'id',
+//         fallback: true
+//     }
+// }
 
 export default NotificationPreview
