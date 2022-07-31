@@ -1,13 +1,11 @@
 import React from 'react';
 import { Row, Col } from 'antd'
-import Layout from "../../../layouts/admin-dashboard-layouts";
-import { AnalyticsCard, UsersCard } from './card';
 import { BsStack } from 'react-icons/bs'
 import { IoToday } from 'react-icons/io5'
 import { FaCalendarAlt, FaUserCheck } from 'react-icons/fa'
+import Layout from "../../../layouts/admin-dashboard-layouts";
+import { AnalyticsCard, UsersCard } from './card';
 import { ChartBar, ChartPie, ChartLine } from '../../../helpers/charts'
-
-
 
 
 const Home = () => {
