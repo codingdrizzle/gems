@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { Typography } from 'antd'
 import Logo from '../../commons/logo'
 import styles from '../../styles/admin-styles/layout-styles/side-nav.module.css'
-import { BsFillGridFill, BsCheckCircleFill, BsBarChartLineFill, BsFillChatDotsFill } from 'react-icons/bs'
-import { FaBell } from 'react-icons/fa'
+import { BsFillGridFill, BsBarChartLineFill } from 'react-icons/bs'
+import { FaBell, FaPodcast } from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
 
 const { Text } = Typography
@@ -32,23 +32,19 @@ const Navigation = () => {
                         </li>
                         <li className={styles.navItem} onClick={handleClick}>
                             <FaBell size={25} className={styles.navIcon} />
-                            <Link href={'/admin/notification'} className={styles.link}>Notifications</Link>
-                        </li>
-                        <li className={styles.navItem} onClick={handleClick}>
-                            <BsCheckCircleFill size={25} className={styles.navIcon} />
-                            <Link href={'/admin/'} className={styles.link}>Resolved</Link>
+                            <Link href={'/admin/complaints'} className={styles.link}>Complaints</Link>
                         </li>
                         <li className={styles.navItem} onClick={handleClick}>
                             <BsBarChartLineFill size={25} className={styles.navIcon} />
-                            <Link href={'/admin/'} className={styles.link}>Statistics</Link>
+                            <Link href={'/admin/statistics'} className={styles.link}>Statistics</Link>
                         </li>
                         <li className={styles.navItem} onClick={handleClick}>
-                            <BsFillChatDotsFill size={25} className={styles.navIcon} />
-                            <Link href={'/admin/'} className={styles.link}>Messages</Link>
+                            <FaPodcast size={25} className={styles.navIcon} />
+                            <Link href={'/admin/broadcast'} className={styles.link}>Broadcast</Link>
                         </li>
                         <li className={styles.navItem} onClick={handleClick}>
                             <IoSettings size={25} className={styles.navIcon} />
-                            <Link href={'/admin/'} className={styles.link}>Settings</Link>
+                            <Link href={'/admin/settings'} className={styles.link}>Settings</Link>
                         </li>
                     </ul>
                 </div>
@@ -57,8 +53,8 @@ const Navigation = () => {
                 <div className={styles.bottomNav}>
                         <Link href={'/admin/'}><BsFillGridFill size={25} className={styles.navIcon} /></Link>
                         <Link href={'/admin/notification'}><FaBell size={25} className={styles.navIcon} /></Link>
-                        <Link href={'/admin/'}><BsCheckCircleFill size={25} className={styles.navIcon} /></Link>
                         <Link href={'/admin/'}><BsBarChartLineFill size={25} className={styles.navIcon} /></Link>
+                    <Link href={'/admin/'}><FaPodcast size={25} className={styles.navIcon} /></Link>
                         <Link href={'/admin/'}><IoSettings size={25} className={styles.navIcon} /></Link>
                 </div>
             </div>

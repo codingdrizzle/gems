@@ -1,0 +1,45 @@
+.alertDanger,
+.alertSuccess {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 13px;
+    gap: 20px;
+    cursor: pointer;
+    margin: 15px 0;
+    
+}
+.preview {
+    color: #91A2B8;
+    font-size: 20px;
+}
+
+.text {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #91a2b8cc;
+}
+
+.alertDanger {
+    background: #e924240d;
+    border: 1px solid #ff000080;
+    box-shadow: 2px 2px 5px #ff00001a;
+}
+
+.iconDanger {
+    font-size: 30px !important;
+    color: #ff000080 !important;
+}
+
+
+.alertSuccess{
+    background: #80e3a826;
+        border: 1px solid #80E3A8;
+        box-shadow: 2px 2px 5px #80e3a81a;
+}
+
+.iconSuccess{
+    color: #80E3A8;
+    font-size: 30px;
+}

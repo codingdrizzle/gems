@@ -3,6 +3,9 @@
 * {
   box-sizing: border-box;
 }
+*::selection{
+  background: transparent !important;
+}
 
 html,
 body {
