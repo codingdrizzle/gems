@@ -12,7 +12,7 @@ const RenderAgents = () => {
                 users.map((user, _) => {
                     return(
                         <Col key={_} xs={24} lg={8}>
-                            <Card className={[styles.userCard,'userCard']}>
+                            <Card hoverable className={[styles.userCard,'userCard']}>
                                 <div className={styles.icon}><FaUser size={25} color={'#fff'}/></div>
                                 <Text className={styles.username}>{user}</Text>                                    
                             </Card>
