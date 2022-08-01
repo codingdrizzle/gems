@@ -65,3 +65,11 @@ a:active {
   outline: hidden !important;
   box-shadow: none;
 }
+
+.userCard .ant-card-body{
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 30px !important;
+  padding-left: 0 !important;
+}
