@@ -51,8 +51,8 @@ const Navigation = () => {
             </div>
             <div className={styles.bottomNavParent}>
                 <div className={styles.bottomNav}>
-                        <Link href={'/admin/'}><BsFillGridFill size={25} className={styles.navIcon} /></Link>
-                        <Link href={'/admin/complaints'}><FaBell size={25} className={styles.navIcon} /></Link>
+                    <Link href={'/admin/'}><BsFillGridFill size={25} className={styles.navIcon} /></Link>
+                    <Link href={'/admin/complaints'}><FaBell size={25} className={styles.navIcon} /></Link>
                     <Link href={'/admin/statistics'}><BsBarChartLineFill size={25} className={styles.navIcon} /></Link>
                     <Link href={'/admin/broadcast'}><FaPodcast size={25} className={styles.navIcon} /></Link>
                     <Link href={'/admin/settings'}><IoSettings size={25} className={styles.navIcon} /></Link>
