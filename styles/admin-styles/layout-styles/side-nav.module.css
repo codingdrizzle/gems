@@ -122,6 +122,14 @@
     margin-left: 250px;
 }
 
+.stickyNav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+}
+
 /* Bottom Nav */
 .bottomNavParent {
     display: none;

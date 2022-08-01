@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import {Flag} from '../../commons/flag'
 import Logo from '../../commons/logo'

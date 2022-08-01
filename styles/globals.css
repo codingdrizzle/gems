@@ -5,6 +5,7 @@
 }
 *::selection{
   background: transparent !important;
+  color: inherit;
 }
 
 html,
@@ -58,4 +59,9 @@ a:active {
 
 .myCard .ant-card-body{
   padding: 15px;
+}
+
+.ant-input:focus, .ant-input:active, input:focus, input:active{
+  outline: hidden !important;
+  box-shadow: none;
 }

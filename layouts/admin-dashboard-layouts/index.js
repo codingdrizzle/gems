@@ -10,14 +10,14 @@ const Layout = ({ title, children, setActiveTab }) => {
     <div className={styles.parent} style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', overflowX: 'hidden',  }}>
       <Navigation setActiveTab={setActiveTab}/>
       <Row className={styles.mainContent}>
-        <Col span={24} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <Col span={24} className={styles.stickyNav} >
           <Title style={{margin: 0}}>{title}</Title>
           <Button className={styles.logoutBtn}>
             <Text style={{ color: '#fff', fontWeight: 500 }} className={styles.logoutText}>Logout</Text>
             <FaSignOutAlt size={20} />
           </Button>
         </Col>
-        <Col span={24}>
+        <Col span={24} style={{ paddingTop: 50}}>
           {children}
         </Col>
       </Row>
