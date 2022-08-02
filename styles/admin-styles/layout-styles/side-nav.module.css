@@ -108,7 +108,9 @@
     border-top-right-radius: 25px;
     box-shadow: 0 -20px 0 #fff;
 }
-
+.text{
+    color: #91A2B8;
+}
 .navItem a {
     display: block;
 }
@@ -167,7 +169,7 @@
         display: none;
     }
 
-    .navItem a {
+    .navItem .text {
         display: none !important;
     }
 

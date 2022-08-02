@@ -73,3 +73,9 @@ a:active {
   gap: 30px !important;
   padding-left: 0 !important;
 }
+
+.registerCard .ant-card-body{
+      display: flex;
+          justify-content: center !important;
+          align-items: center !important;
+}
