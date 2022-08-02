@@ -1,0 +1,80 @@
+.userCard {
+    border: none !important;
+    box-shadow: 1px 1px 5px #ddd;
+    border-radius: 10px;
+    cursor: default;
+}
+
+.icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-blue) !important;
+}
+
+.username {
+    font-size: 15px;
+    line-height: 18px;
+    color: var(--light-text);
+}
+
+.deleteUser,
+.deleteUser:hover,
+.deleteUser:focus {
+    position: absolute;
+    left: 290px;
+    /* z-index: 1; */
+    color: #00115b;
+    cursor: pointer;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchInput {
+    padding: 4px 20px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.searchInput:hover,
+.searchInput:active,
+.searchInput:focus {
+    outline: none;
+    border-color: #d9d9d9 !important;
+}
+
+.searchBtn {
+    background: var(--primary-blue) !important;
+    color: #fff !important;
+    border: 1px solid var(--primary-blue);
+}
+
+.searchBtn:hover,
+.searchBtn:focus {
+    outline: none !important;
+    border: 1px solid var(--primary-blue);
+    background: var(--primary-blue) !important;
+}
+
+@media only screen and (min-width: 390px) and (max-width: 767px){
+    .deleteUser{
+        position: absolute;
+        left: 300px !important;
+    }
+
+}
+
+@media only screen and (max-width: 390px){
+    .deleteUser{
+        position: absolute;
+        left: 270px !important;
+    }
+
+}

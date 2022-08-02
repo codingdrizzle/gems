@@ -18,7 +18,7 @@ const Statistics = () => {
         <Layout title={'Statistics'} >
             <Row gutter={[20, 52]} align={'middle'} justify={'center'} style={{ marginBottom: 30 }}>
                 <Col span={24} className={styles.searchBar}>
-                    <Input placeholder='Search for a record...' prefix={<FaSearch color='#888' size={18} />} className={styles.searchInput} onChange={handleChange}/>
+                    <Input placeholder='Search for a record...' prefix={<FaSearch color='#888' size={18} style={{marginRight: 10}}/>} className={styles.searchInput} onChange={handleChange}/>
                     <Button className={styles.searchBtn}>Search</Button>
                 </Col>
             </Row>

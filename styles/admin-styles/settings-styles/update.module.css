@@ -1,5 +1,5 @@
 .card {
-    width: 40%;
+    width: 80%;
     margin: auto;
     border: none;
     box-shadow: 2px 2px 15px #ddd;
@@ -9,7 +9,7 @@
 }
 
 .cardRow {
-    width: 80% !important;
+    width: 90% !important;
 }
 
 .btn,
@@ -34,9 +34,6 @@
 .input {
     border-radius: 5px !important;
 }
-
-
-
 
 .searchBar {
     display: flex;
@@ -87,6 +84,9 @@
 }
 
 .username {
+    display: block;
+    word-wrap: break-word;
+    width: 50%;
     font-size: 15px;
     line-height: 18px;
     color: var(--light-text);
@@ -105,6 +105,14 @@
 .usernameDisabled {
     background: #bbb !important;
     height: 5px;
+}
+
+.activateEdit, .activateEdit:hover, .activateEdit:focus{
+    position: absolute;
+    left: 410px;
+    background-color: #00115b;
+    color: #fff;
+    border: 1px solid#00115b !important;
 }
 
 @media only screen and (min-width: 750px) and (max-width : 900px) {
