@@ -139,14 +139,10 @@ const ModalForm = ({ visible, onClose }) => {
                                             setTypes(prev => [...prev, e.target.placeholder])
                                         }else{
                                             types.pop()
-                                            setTypes(prev => prev)
+                                            setTypes(prev => (prev))
                                         }
                                         console.log(types)
                                     }}
-                                    // className={styles.formInput}
-                                    // value={FormDescription}
-                                    // ref={descriptionRef}
-                                    // onChange={() => dispatcher(formDescription(descriptionRef.current.resizableTextArea.textArea.value))}
                                 />
                             </Col>
                         </Row>
