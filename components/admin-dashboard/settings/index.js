@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { MdMenuOpen, MdAddCircle, MdEdit } from 'react-icons/md'
 import { FaUserAlt, FaTrash } from 'react-icons/fa'
 import { Typography, Row, Col } from 'antd'
@@ -13,11 +14,12 @@ import styles from '../../../styles/admin-styles/settings-styles/settings.module
 
 const { Title } = Typography
 
-const Settings = () => {
+const Settings = ({agents}) => {
     const [all, setAll] = useState(true)
     const [new_, setNew] = useState(false)
     const [edit, setEdit] = useState(false)
     const [remove, setRemove] = useState(false)
+    const [ data, setData ] = useState(null)
 
     const handleAll = () => {
         setAll(true)
@@ -68,13 +70,24 @@ const Settings = () => {
                 </Col>
             </Row>
 
-            {all ? <RenderAgents /> : ''}
+            {all ? <RenderAgents data={agents}/> : ''}
             {new_ ? <RegisterForm /> : ''}
             {edit ? <UpdateForm /> : ''}
             {remove ? <DeleteForm /> : ''}
 
         </Layout>
     )
+}
+export async function getStaticProps(context) {
+        const response = await axios.get('/api/agents')
+        const agents = response.data
+        console.log(agents)
+        return {
+            props: {
+                agents,
+            },
+            unstable_revalidate: 1
+        }
 }
 
 export default Settings

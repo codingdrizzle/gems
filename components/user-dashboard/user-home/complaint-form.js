@@ -18,6 +18,10 @@ const ModalForm = ({ visible, onClose }) => {
     const [imageName, setImageName] = useState('')
     const [isDone, setIsDone] = useState(false)
     const [statusIcon, setStatusIcon] = useState()
+    const [file, setFile] = useState(null)
+    const [btnDisabled, setBtnDisabled] = useState(false)
+    const [checked, setChecked] = useState(false)
+    const [typer, setTyper] = useState(false) // State for when or not location description is disabled...
     const dispatcher = useDispatch()
 
     // Refs
@@ -25,43 +29,58 @@ const ModalForm = ({ visible, onClose }) => {
     const descriptionRef = useRef(null)
     const locDescriptionRef = useRef(null)
 
-    let file
-
     const handleFileSelect = () => {
         setIsDone(!isDone)
-        file = document.getElementById('file').files[0]
-        setImageName(file.name)
+        setFile(document.getElementById('file').files[0])
+        setStatusIcon('')
+        setImageName(document.getElementById('file').files[0].name)
+        setBtnDisabled(false)
     };
-    
-    const upLoadImage = () => {
-        const image = new FormData();
-        image.append('file', file);
-        image.append('upload_preset', 'gems-images');
-        image.append("cloud_name", "dxclgkewn")
 
-        fetch('https://api.cloudinary.com/v1_1/dxclgkewn/image/upload', {
-            method: 'POST',
-            body: image,
-            mode: 'cors'
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setIsDone(!isDone)
-                setStatusIcon(<BsCheckCircleFill size={20} />)
-                console.log(data)
+    const upLoadImage = () => {
+        if (!file) {
+            return message.warning('Please attach an image file.')
+        } else {
+
+            console.log(file)
+            const image = new FormData();
+            image.append('file', file);
+            image.append('upload_preset', 'gems-images');
+            image.append("cloud_name", "dxclgkewn")
+
+            fetch('https://api.cloudinary.com/v1_1/dxclgkewn/image/upload', {
+                method: 'POST',
+                body: image,
+                mode: 'cors'
             })
-            .catch(() => {
-                setIsDone(!isDone)
-                setStatusIcon(<IoCloseCircle size={20} />)
-            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setBtnDisabled(true)
+                    dispatcher(formAttach(data.secure_url))
+                    setIsDone(true)
+                    setStatusIcon(<span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>: <b>Uploaded successfully.</b><BsCheckCircleFill size={20} color={'rgba(0, 200, 81, 1)'} /></span>)
+                })
+                .catch(() => {
+                    setIsDone(false)
+                    setStatusIcon(<span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>: <b>Error uploading, try again.</b><IoCloseCircle size={20} color={'#E92424;'} /></span>)
+                })
+        }
     }
-    
+
     const handleFormSubmit = () => {
+        const complaintData = {
+            category: FormCategory,
+            content: FormDescription,
+            image: FormAttachFile,
+            geoLocation: FormCheckLocation,
+            descLocation: FormDescribeLocation,
+            TnC: FormSwearCheck
+        }
         alert('form was successfully submited')
     }
-        
-        
-        return (
+
+
+    return (
         <Modal
             closable={true}
             centered={true}
@@ -121,18 +140,15 @@ const ModalForm = ({ visible, onClose }) => {
                                         <IoIosAttach style={{ transform: 'rotate(90deg)', fontSize: 30, color: 'rgba(0,0,0,0.5)' }} />
                                     </span>
                                 </Button>
-                                <Button onClick={upLoadImage}>Upload</Button>
+                                <Button onClick={upLoadImage} disabled={btnDisabled} className={styles.uploadBtn}>Upload</Button>
                             </Col>
-                            <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 15 }}>
-                                <p>{imageName}</p> {isDone ? statusIcon : ''}
+                            <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 5 }}>
+                                <Text style={{ fontSize: 15 }}>{imageName}</Text>{isDone ? statusIcon : ''}
                             </Col>
-
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
-                                <Checkbox checked={FormCheckLocation}
-                                    onChange={() => { dispatcher(locationCheck()) }}
-                                    className={styles.checkbox} />
+                                <Checkbox checked={FormCheckLocation} onChange={() => dispatcher(locationCheck())} className={styles.checkbox} disabled={FormDescribeLocation === '' ? false : true} />
                                 <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
                             </Col>
                             <Col span={24}>
@@ -142,6 +158,7 @@ const ModalForm = ({ visible, onClose }) => {
                                     className={styles.desc}
                                     value={FormDescribeLocation}
                                     ref={locDescriptionRef}
+                                    disabled={FormCheckLocation ? true : false}
                                     onChange={() => dispatcher(locationDescription(locDescriptionRef.current.input.value))}
                                 />
                             </Col>

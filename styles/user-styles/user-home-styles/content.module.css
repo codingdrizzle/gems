@@ -216,6 +216,19 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
+.uploadBtn, .uploadBtn:hover, .uploadBtn:focus {
+    background: #FFFFFF;
+    border: 1px solid rgba(145, 162, 184, 0.7);
+    box-shadow: inset 0px 4px 40px var(--primary-blue);
+    border-radius: 10px;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
 .checkbox {
     margin: 0 !important;
     padding: 0 !important;

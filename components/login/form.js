@@ -6,6 +6,7 @@ import React, { useState, useRef, useMemo } from 'react'
 import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock, BiLogIn } from 'react-icons/bi'
 import { BsEye, BsEyeSlash, BsArrowReturnLeft } from 'react-icons/bs'
+import { signIn } from "next-auth/react"
 import styles from '../../styles/login-styles/login-card.module.css'
 import colors from '../../styles/colors.module.css'
 import { loginSchema } from '../../helpers/form-validation'
@@ -34,20 +35,21 @@ const Form = () => {
         if (error){
             await message.error({content: error.message, duration: 5,style: {color: 'red'}});
         }else{
-          let users
-          await axios.get(`/api/users`)
-            .then((result) => {users = result.data
-                console.log(result)
-            })
-            .catch(err => console.error(err))
-            users.forEach(user => {
-                const isPassword = bcrypt.compare(password, user.password).then(equal => equal).catch(err => console.error(err))
+            signIn('credentials', { redirect: false, password: 'password' })
+        //   let users
+        //   await axios.get(`/api/users`)
+        //     .then((result) => {users = result.data
+        //         console.log(result)
+        //     })
+        //     .catch(err => console.error(err))
+        //     users.forEach(user => {
+        //         const isPassword = bcrypt.compare(password, user.password).then(equal => equal).catch(err => console.error(err))
                 
-                if(user.username === username && isPassword){
-                    message.success('Login successful!')
-                    console.log(user)
-                }
-            });
+        //         if(user.username === username && isPassword){
+        //             message.success('Login successful!')
+        //             console.log(user)
+        //         }
+        //     });
         }
     }
 

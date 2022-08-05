@@ -5,7 +5,8 @@ import styles from '../../../styles/admin-styles/settings-styles/agents.module.c
 
 const users = ['Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith', 'Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith', 'Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith', 'Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith']
 const { Text } = Typography
-const RenderAgents = () => {
+
+const RenderAgents = ({data}) => {
     return (
         <Row gutter={[20,20]}>
             {
