@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 import { GrFormClose } from 'react-icons/gr'
 import { IoIosAttach } from 'react-icons/io'
 import { IoCloseCircle } from 'react-icons/io5'
@@ -20,8 +21,7 @@ const ModalForm = ({ visible, onClose }) => {
     const [statusIcon, setStatusIcon] = useState()
     const [file, setFile] = useState(null)
     const [btnDisabled, setBtnDisabled] = useState(false)
-    const [checked, setChecked] = useState(false)
-    const [typer, setTyper] = useState(false) // State for when or not location description is disabled...
+    const [types, setTypes] = useState([])
     const dispatcher = useDispatch()
 
     // Refs
@@ -76,6 +76,19 @@ const ModalForm = ({ visible, onClose }) => {
             descLocation: FormDescribeLocation,
             TnC: FormSwearCheck
         }
+        const options = {
+            url: '/api/complaints',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: complaintData
+        };
+        axios(options)
+            .then(response => {
+                console.log(response.status);
+            });
         alert('form was successfully submited')
     }
 
@@ -113,6 +126,28 @@ const ModalForm = ({ visible, onClose }) => {
                                     <Option value="Ghana Fire Service">Ghana Fire Service</Option>
                                     <Option value="Ghana Ambulance Service">Ghana Ambulance Service</Option>
                                 </Select>
+                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
+                            <Col span={24}>
+                                <Text className={styles.formLabel}>Type</Text>
+                                <Input
+                                type={'checkbox'}
+                                placeholder='my dear'
+                                    onChange={(e) => {
+                                        if(e.target.checked){
+                                            setTypes(prev => [...prev, e.target.placeholder])
+                                        }else{
+                                            types.pop()
+                                            setTypes(prev => prev)
+                                        }
+                                        console.log(types)
+                                    }}
+                                    // className={styles.formInput}
+                                    // value={FormDescription}
+                                    // ref={descriptionRef}
+                                    // onChange={() => dispatcher(formDescription(descriptionRef.current.resizableTextArea.textArea.value))}
+                                />
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
