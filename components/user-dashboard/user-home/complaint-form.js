@@ -13,6 +13,10 @@ const { Text } = Typography
 const { Option } = Select
 const { TextArea } = Input
 
+const police = ['Crime', 'Homicide', 'Violence/Assault', 'Other'];
+const fire = ['Fire outbreak', 'Other'];
+const amb = ['Emergency Health Issue', 'Death', 'Other'];
+
 const ModalForm = ({ visible, onClose }) => {
     const states = useSelector(state => state)
     const { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck } = states
@@ -21,11 +25,12 @@ const ModalForm = ({ visible, onClose }) => {
     const [statusIcon, setStatusIcon] = useState()
     const [file, setFile] = useState(null)
     const [btnDisabled, setBtnDisabled] = useState(false)
-    const [types, setTypes] = useState([])
+    const [types, setTypes] = useState('')
+    const [formCat, setFormCat] = useState('')
+
     const dispatcher = useDispatch()
 
     // Refs
-    const categoryRef = useRef(null)
     const descriptionRef = useRef(null)
     const locDescriptionRef = useRef(null)
 
@@ -67,31 +72,52 @@ const ModalForm = ({ visible, onClose }) => {
         }
     }
 
-    const handleFormSubmit = () => {
-        const complaintData = {
-            category: FormCategory,
-            content: FormDescription,
-            image: FormAttachFile,
-            geoLocation: FormCheckLocation,
-            descLocation: FormDescribeLocation,
-            TnC: FormSwearCheck
+    const handleCheck = (e) => {
+        if (e.target.checked) {
+            setTypes(e.target.placeholder)
+        } else {
+            setTypes('')
         }
-        const options = {
-            url: '/api/complaints',
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data: complaintData
-        };
-        axios(options)
-            .then(response => {
-                console.log(response.status);
-            });
-        alert('form was successfully submited')
     }
+    console.log(types)
 
+    const handleFormSubmit = () => {
+    const complaintData = {
+        category: FormCategory,
+        type: types,
+        content: FormDescription,
+        image: FormAttachFile,
+        geoLocation: FormCheckLocation,
+        descLocation: FormDescribeLocation === ''? ' ' : FormDescribeLocation,
+        TnC: FormSwearCheck
+    }
+        if(FormCategory === ''){
+            message.warning('Please choose a category.')
+        } else if (types === '') {
+            message.warning('Please choose a type.')
+        } else if (FormDescription === '') {
+            message.warning('Please describe what happened.')
+        } else if(FormAttachFile === ''){
+            message.warning('Please upload a file.')
+        } else if (!FormCheckLocation && FormDescribeLocation === '') {
+            message.warning('Please fill the location section.')
+        } else if (!FormSwearCheck){
+            message.warning('Please agree to the terms and conditions.')
+        } else{
+            const options = {
+                url: '/api/complaints?id=62ed0c7a3e1052b49ff784d4',
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: complaintData
+            };
+            axios(options)
+                .then(response => message.warning('successful'))
+                .catch(err => message.warning(err.response.data.message._message));
+        }
+    }
 
     return (
         <Modal
@@ -113,39 +139,66 @@ const ModalForm = ({ visible, onClose }) => {
                         <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
                             <Col span={24}><Text className={styles.formLabel}>Select category</Text></Col>
                             <Col span={24}>
-                                <Select
+                                <select
+                                    id='select'
+                                    required
                                     fieldNames={{ label: 'Select', value: 'value' }}
-                                    placeholder={'Select'}
-                                    size={'large'}
-                                    value={FormCategory}
+                                    placeholder='Select'
                                     className={styles.selectOption}
-                                    ref={categoryRef}
-                                // onChange={() => dispatcher(formCategory(categoryRef.current.value))}
-                                >
-                                    <Option value="Ghana Police Service">Ghana Police Service</Option>
-                                    <Option value="Ghana Fire Service">Ghana Fire Service</Option>
-                                    <Option value="Ghana Ambulance Service">Ghana Ambulance Service</Option>
-                                </Select>
-                            </Col>
-                        </Row>
-                        <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
-                            <Col span={24}>
-                                <Text className={styles.formLabel}>Type</Text>
-                                <Input
-                                type={'checkbox'}
-                                placeholder='my dear'
+                                    value={FormCategory}
                                     onChange={(e) => {
-                                        if(e.target.checked){
-                                            setTypes(prev => [...prev, e.target.placeholder])
-                                        }else{
-                                            types.pop()
-                                            setTypes(prev => (prev))
-                                        }
-                                        console.log(types)
+                                        dispatcher(formCategory(e.target.value))
+                                        setFormCat(e.target.value)
+                                        console.log(FormCategory)
                                     }}
-                                />
+                                >
+                                    <option value="" hidden>Select something</option>
+                                    <option value="Ghana Police Service">Ghana Police Service</option>
+                                    <option value="Ghana Fire Service">Ghana Fire Service</option>
+                                    <option value="Ghana Ambulance Service">Ghana Ambulance Service</option>
+                                </select>
                             </Col>
                         </Row>
+                        {
+                            formCat ?
+                                <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
+                                    <Col span={24}>
+                                        <Text className={styles.formLabel}>Type</Text> <span>(Choose only one)</span>
+                                    </Col>
+
+                                    <Row align='middle' justify='start' gutter={[20, 5]} >
+                                        {
+
+                                            formCat === "Ghana Police Service" ?
+                                                police.map((item, _) => {
+                                                    return (
+                                                        <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                            <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                            <p style={{ margin: 0 }}>{item}</p>
+                                                        </Col>
+                                                    )
+                                                }) :
+                                                formCat === "Ghana Fire Service" ?
+                                                    fire.map((item, _) => {
+                                                        return (
+                                                            <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                                <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                <p style={{ margin: 0 }}>{item}</p>
+                                                            </Col>
+                                                        )
+                                                    }) :
+                                                    amb.map((item, _) => {
+                                                        return (
+                                                            <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                                <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                <p style={{ margin: 0 }}>{item}</p>
+                                                            </Col>
+                                                        )
+                                                    })
+
+                                        }
+                                    </Row>
+                                </Row> : null}
                         <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
                             <Col span={24}><Text className={styles.formLabel}>What happened?</Text></Col>
                             <Col span={24}>
@@ -154,13 +207,14 @@ const ModalForm = ({ visible, onClose }) => {
                                     className={styles.formInput}
                                     value={FormDescription}
                                     ref={descriptionRef}
+                                    required
                                     onChange={() => dispatcher(formDescription(descriptionRef.current.resizableTextArea.textArea.value))}
                                 />
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 15 }}>
-                                <Input id='file' type='file' name='file' hidden={true} onChange={handleFileSelect}></Input>
+                                <Input id='file' type='file' name='file' required hidden={true} onChange={handleFileSelect}></Input>
                                 <Button className={styles.attachBtn} onClick={() => { document.getElementById('file').click() }}>
                                     <Text className={styles.attachBtnText}> Attach a file. <span className={styles.vanish}>[ Image | Video ]</span></Text>
 
@@ -179,7 +233,7 @@ const ModalForm = ({ visible, onClose }) => {
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
-                                <Checkbox checked={FormCheckLocation} onChange={() => dispatcher(locationCheck())} className={styles.checkbox} disabled={FormDescribeLocation === '' ? false : true} />
+                                <Checkbox required checked={FormCheckLocation} onChange={() => dispatcher(locationCheck())} className={styles.checkbox} disabled={FormDescribeLocation === '' ? false : true} />
                                 <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
                             </Col>
                             <Col span={24}>
@@ -190,6 +244,7 @@ const ModalForm = ({ visible, onClose }) => {
                                     value={FormDescribeLocation}
                                     ref={locDescriptionRef}
                                     disabled={FormCheckLocation ? true : false}
+                                    required
                                     onChange={() => dispatcher(locationDescription(locDescriptionRef.current.input.value))}
                                 />
                             </Col>
@@ -205,6 +260,7 @@ const ModalForm = ({ visible, onClose }) => {
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
                                 <Checkbox checked={FormSwearCheck}
                                     className={styles.checkbox}
+                                    required
                                     onChange={() => { dispatcher(swearCheck()) }}
                                 />
                                 <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
@@ -213,6 +269,7 @@ const ModalForm = ({ visible, onClose }) => {
                                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
                                     <Checkbox checked={FormSwearCheck}
                                         className={styles.checkbox}
+                                        required
                                         onChange={() => { dispatcher(swearCheck()) }}
                                     />
                                     <Text className={styles.checkText}>I agree to face the penalty or pay a fine if this complaint is fake.</Text>
@@ -221,7 +278,7 @@ const ModalForm = ({ visible, onClose }) => {
                         </Row>
                         <Row style={{ marginTop: 40, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Button className={styles.submitBtn} onClick={handleFormSubmit}>Submit</Button>
+                                <Button className={styles.submitBtn} onClick={handleFormSubmit} >Submit</Button>
                             </Col>
                         </Row>
 

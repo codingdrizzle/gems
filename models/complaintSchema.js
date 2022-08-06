@@ -19,7 +19,7 @@ const complaintSchema = Schema({
         required: true
     },
     geoLocation: {
-        type: Object,
+        type: String,
         required: true
     },
     descLocation: {
@@ -27,7 +27,7 @@ const complaintSchema = Schema({
         required: true
     },
     TnC: {
-        type: String,
+        type: Boolean,
         required: true    
     },
     user: { type: Schema.Types.ObjectId, ref: 'Users' }
