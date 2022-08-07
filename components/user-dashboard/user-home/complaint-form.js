@@ -117,7 +117,8 @@ const ModalForm = ({ visible, onClose }) => {
 
     const resetForm = () => {
         dispatcher(formCategory(''))
-        setTypes('')
+        setTypes(false)
+        setFormCat('')
         dispatcher(formDescription(''))
         setIsDone(false)
         setImageName('')
