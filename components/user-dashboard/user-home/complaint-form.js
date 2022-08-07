@@ -5,7 +5,7 @@ import { GrFormClose } from 'react-icons/gr'
 import { IoIosAttach } from 'react-icons/io'
 import { IoCloseCircle } from 'react-icons/io5'
 import { BsCheckCircleFill } from 'react-icons/bs'
-import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Divider, Checkbox, Spin } from 'antd'
+import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Divider, Checkbox, Spin, Alert } from 'antd'
 import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
 import getLocation from '../../../helpers/generate-geo-location'
@@ -114,10 +114,21 @@ const ModalForm = ({ visible, onClose }) => {
             dispatcher(locationCheck({}))
         }
     }
-    console.log(FormCheckLocation)
+
+    const resetForm = () => {
+        dispatcher(formCategory(''))
+        setTypes('')
+        dispatcher(formDescription(''))
+        setIsDone(false)
+        setImageName('')
+        setFile('')
+        setStatusIcon(null)
+        setChecker(false)
+        dispatcher(locationDescription(''))
+        dispatcher(swearCheck())
+    }
 
     const handleFormSubmit = () => {
-        
         const complaintData = {
             category: FormCategory,
             type: types,
@@ -151,9 +162,15 @@ const ModalForm = ({ visible, onClose }) => {
             };
             axios(options)
                 .then(response => {
-                    message.warning('successful');
+                    // return(
+                    //     <Alert message="Warning Text" type="success" closable/>
+                    //     )
+                    
+                    message.success('Successfully submitted complaint.');
+                    resetForm()
+                        
                 })
-                .catch(err => message.warning(err.response.data.message._message));
+                .catch(err => message.warning(err.response.data));
         }
     }
 
@@ -187,7 +204,6 @@ const ModalForm = ({ visible, onClose }) => {
                                     onChange={(e) => {
                                         dispatcher(formCategory(e.target.value))
                                         setFormCat(e.target.value)
-                                        console.log(FormCategory)
                                     }}
                                 >
                                     <option value="" hidden>Select something</option>
@@ -225,6 +241,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                             </Col>
                                                         )
                                                     }) :
+                                                    formCat === "Ghana Ambulance Service" ?
                                                     amb.map((item, _) => {
                                                         return (
                                                             <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -232,7 +249,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                                 <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                             </Col>
                                                         )
-                                                    })
+                                                    }) : null
                                         }
                                     </Row>
                                 </Row> : null}
