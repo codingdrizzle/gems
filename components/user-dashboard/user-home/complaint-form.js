@@ -8,10 +8,8 @@ import { BsCheckCircleFill } from 'react-icons/bs'
 import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Divider, Checkbox, Spin, Alert } from 'antd'
 import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
-import getLocation from '../../../helpers/generate-geo-location'
 
 const { Text } = Typography
-const { Option } = Select
 const { TextArea } = Input
 
 const police = ['Crime', 'Homicide', 'Violence/Assault', 'Other'];
@@ -60,7 +58,7 @@ const ModalForm = ({ visible, onClose }) => {
             fetch('https://api.cloudinary.com/v1_1/dxclgkewn/image/upload', {
                 method: 'POST',
                 body: image,
-                mode: 'cors'
+                // mode: 'cors'
             })
                 .then((res) => res.json())
                 .then((data) => {
@@ -88,6 +86,7 @@ const ModalForm = ({ visible, onClose }) => {
                 .then(res => {
                     const { city, locality, latitude, longitude } = res.data
                     dispatcher(locationCheck({city, locality, latitude, longitude}))
+                    console.log({ city, locality, latitude, longitude })
                 })
                 .catch(err => console.log(err))
         }
@@ -123,8 +122,11 @@ const ModalForm = ({ visible, onClose }) => {
         setIsDone(false)
         setImageName('')
         setFile('')
+        dispatcher(formAttach(''))
         setStatusIcon(null)
         setChecker(false)
+        document.getElementById('typeCheck').checked = false
+        dispatcher(locationCheck({}))
         dispatcher(locationDescription(''))
         dispatcher(swearCheck())
     }
@@ -166,7 +168,7 @@ const ModalForm = ({ visible, onClose }) => {
                     // return(
                     //     <Alert message="Warning Text" type="success" closable/>
                     //     )
-                    
+                    console.log(response)
                     message.success('Successfully submitted complaint.');
                     resetForm()
                         
@@ -228,7 +230,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                 police.map((item, _) => {
                                                     return (
                                                         <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
-                                                            <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                            <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
                                                             <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                         </Col>
                                                     )
@@ -237,7 +239,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                     fire.map((item, _) => {
                                                         return (
                                                             <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
-                                                                <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
                                                                 <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                             </Col>
                                                         )
@@ -246,7 +248,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                     amb.map((item, _) => {
                                                         return (
                                                             <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
-                                                                <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
                                                                 <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                             </Col>
                                                         )
