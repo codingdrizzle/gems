@@ -16,9 +16,10 @@ export const formAttach = (value) => {
         payload: value
     }
 }
-export const locationCheck = () => {
+export const locationCheck = (value) => {
     return {
         type : 'LOCATION_CHECK',
+        payload: value
     }
 }
 export const locationDescription = (value) => {

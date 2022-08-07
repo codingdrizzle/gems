@@ -19,7 +19,7 @@ const complaintSchema = Schema({
         required: true
     },
     geoLocation: {
-        type: String,
+        type: Object,
         required: true
     },
     descLocation: {

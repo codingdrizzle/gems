@@ -5,9 +5,10 @@ import { GrFormClose } from 'react-icons/gr'
 import { IoIosAttach } from 'react-icons/io'
 import { IoCloseCircle } from 'react-icons/io5'
 import { BsCheckCircleFill } from 'react-icons/bs'
-import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Upload, Divider, Checkbox, Progress } from 'antd'
+import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Divider, Checkbox, Spin } from 'antd'
 import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
+import getLocation from '../../../helpers/generate-geo-location'
 
 const { Text } = Typography
 const { Option } = Select
@@ -24,9 +25,11 @@ const ModalForm = ({ visible, onClose }) => {
     const [isDone, setIsDone] = useState(false)
     const [statusIcon, setStatusIcon] = useState()
     const [file, setFile] = useState(null)
-    const [btnDisabled, setBtnDisabled] = useState(false)
+    const [btnDisabled, setBtnDisabled] = useState(true)
     const [types, setTypes] = useState('')
     const [formCat, setFormCat] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [checker, setChecker] = useState(false)
 
     const dispatcher = useDispatch()
 
@@ -40,14 +43,15 @@ const ModalForm = ({ visible, onClose }) => {
         setStatusIcon('')
         setImageName(document.getElementById('file').files[0].name)
         setBtnDisabled(false)
+        setLoading(false)
     };
 
     const upLoadImage = () => {
+        setStatusIcon('')
         if (!file) {
             return message.warning('Please attach an image file.')
         } else {
-
-            console.log(file)
+            setLoading(true)
             const image = new FormData();
             image.append('file', file);
             image.append('upload_preset', 'gems-images');
@@ -60,6 +64,7 @@ const ModalForm = ({ visible, onClose }) => {
             })
                 .then((res) => res.json())
                 .then((data) => {
+                    setLoading(false)
                     setBtnDisabled(true)
                     dispatcher(formAttach(data.secure_url))
                     setIsDone(true)
@@ -67,9 +72,30 @@ const ModalForm = ({ visible, onClose }) => {
                 })
                 .catch(() => {
                     setIsDone(false)
-                    setStatusIcon(<span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>: <b>Error uploading, try again.</b><IoCloseCircle size={20} color={'#E92424;'} /></span>)
+                    setLoading(false)
+                    setStatusIcon(<span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>: <b>Error uploading, try checking your internet try again.</b><IoCloseCircle size={20} color={'#E92424'} /></span>)
                 })
         }
+    }
+
+    function getLocation() {
+        const success = (position) => {
+            const latitude = position.coords.latitude
+            const longitude = position.coords.longitude
+            const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+
+            axios.get(url)
+                .then(res => {
+                    const { city, locality, latitude, longitude } = res.data
+                    dispatcher(locationCheck({city, locality, latitude, longitude}))
+                })
+                .catch(err => console.log(err))
+        }
+
+        const error = () => {
+            message.warning('Could not retrieve location.')
+        }
+        navigator.geolocation.getCurrentPosition(success, error);
     }
 
     const handleCheck = (e) => {
@@ -79,31 +105,41 @@ const ModalForm = ({ visible, onClose }) => {
             setTypes('')
         }
     }
-    console.log(types)
+
+    const handleLocChecker = () => {
+        setChecker(!checker)
+        if(checker){
+            getLocation()
+        }else{
+            dispatcher(locationCheck({}))
+        }
+    }
+    console.log(FormCheckLocation)
 
     const handleFormSubmit = () => {
-    const complaintData = {
-        category: FormCategory,
-        type: types,
-        content: FormDescription,
-        image: FormAttachFile,
-        geoLocation: FormCheckLocation,
-        descLocation: FormDescribeLocation === ''? ' ' : FormDescribeLocation,
-        TnC: FormSwearCheck
-    }
-        if(FormCategory === ''){
+        
+        const complaintData = {
+            category: FormCategory,
+            type: types,
+            content: FormDescription,
+            image: FormAttachFile,
+            geoLocation: FormCheckLocation,
+            descLocation: FormDescribeLocation === '' ? ' ' : FormDescribeLocation,
+            TnC: FormSwearCheck
+        }
+        if (FormCategory === '') {
             message.warning('Please choose a category.')
         } else if (types === '') {
             message.warning('Please choose a type.')
         } else if (FormDescription === '') {
             message.warning('Please describe what happened.')
-        } else if(FormAttachFile === ''){
+        } else if (FormAttachFile === '') {
             message.warning('Please upload a file.')
-        } else if (!FormCheckLocation && FormDescribeLocation === '') {
+        } else if (!checker && FormDescribeLocation === '') {
             message.warning('Please fill the location section.')
-        } else if (!FormSwearCheck){
+        } else if (!FormSwearCheck) {
             message.warning('Please agree to the terms and conditions.')
-        } else{
+        } else {
             const options = {
                 url: '/api/complaints?id=62ed0c7a3e1052b49ff784d4',
                 method: 'POST',
@@ -114,7 +150,9 @@ const ModalForm = ({ visible, onClose }) => {
                 data: complaintData
             };
             axios(options)
-                .then(response => message.warning('successful'))
+                .then(response => {
+                    message.warning('successful');
+                })
                 .catch(err => message.warning(err.response.data.message._message));
         }
     }
@@ -163,7 +201,7 @@ const ModalForm = ({ visible, onClose }) => {
                             formCat ?
                                 <Row style={{ marginTop: 30, }} gutter={[0, 5]}>
                                     <Col span={24}>
-                                        <Text className={styles.formLabel}>Type</Text> <span>(Choose only one)</span>
+                                        <Text className={styles.formLabel}>Type (Choose only one)</Text>
                                     </Col>
 
                                     <Row align='middle' justify='start' gutter={[20, 5]} >
@@ -174,7 +212,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                     return (
                                                         <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
                                                             <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
-                                                            <p style={{ margin: 0 }}>{item}</p>
+                                                            <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                         </Col>
                                                     )
                                                 }) :
@@ -183,7 +221,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                         return (
                                                             <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
                                                                 <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
-                                                                <p style={{ margin: 0 }}>{item}</p>
+                                                                <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                             </Col>
                                                         )
                                                     }) :
@@ -191,11 +229,10 @@ const ModalForm = ({ visible, onClose }) => {
                                                         return (
                                                             <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
                                                                 <Input type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
-                                                                <p style={{ margin: 0 }}>{item}</p>
+                                                                <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                             </Col>
                                                         )
                                                     })
-
                                         }
                                     </Row>
                                 </Row> : null}
@@ -214,9 +251,9 @@ const ModalForm = ({ visible, onClose }) => {
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 15 }}>
-                                <Input id='file' type='file' name='file' required hidden={true} onChange={handleFileSelect}></Input>
+                                <Input id='file' type='file' name='file' accept='image/*' required hidden={true} onChange={handleFileSelect}></Input>
                                 <Button className={styles.attachBtn} onClick={() => { document.getElementById('file').click() }}>
-                                    <Text className={styles.attachBtnText}> Attach a file. <span className={styles.vanish}>[ Image | Video ]</span></Text>
+                                    <Text className={styles.attachBtnText}> Attach a file. <span className={styles.vanish}>[ Image ]</span></Text>
 
                                     <span style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                                         <Divider
@@ -228,12 +265,12 @@ const ModalForm = ({ visible, onClose }) => {
                                 <Button onClick={upLoadImage} disabled={btnDisabled} className={styles.uploadBtn}>Upload</Button>
                             </Col>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 5 }}>
-                                <Text style={{ fontSize: 15 }}>{imageName}</Text>{isDone ? statusIcon : ''}
+                                <Text style={{ fontSize: 15 }}>{imageName}</Text>{loading ? (<i>&nbsp;<Spin spinning /></i>) : ''}{isDone ? statusIcon : statusIcon}
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
-                                <Checkbox required checked={FormCheckLocation} onChange={() => dispatcher(locationCheck())} className={styles.checkbox} disabled={FormDescribeLocation === '' ? false : true} />
+                                <Checkbox required checked={checker} onChange={handleLocChecker} className={styles.checkbox} disabled={FormDescribeLocation === '' ? false : true} />
                                 <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
                             </Col>
                             <Col span={24}>

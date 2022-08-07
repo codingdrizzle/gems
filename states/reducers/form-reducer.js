@@ -22,10 +22,10 @@ export const FormAttachFile = (state = '', action) => {
     }
 }  
 
-export const FormCheckLocation = (state = false, action) => {
+export const FormCheckLocation = (state = {}, action) => {
     switch (action.type) {
         case 'LOCATION_CHECK':
-            return !state 
+            return action.payload
         default: return state
     }
 }  
