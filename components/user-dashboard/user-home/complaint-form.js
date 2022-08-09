@@ -58,7 +58,7 @@ const ModalForm = ({ visible, onClose }) => {
             fetch('https://api.cloudinary.com/v1_1/dxclgkewn/image/upload', {
                 method: 'POST',
                 body: image,
-                // mode: 'cors'
+                mode: 'cors'
             })
                 .then((res) => res.json())
                 .then((data) => {
