@@ -62,7 +62,7 @@ const Form = () => {
 
     const handleSubmit = async () => {
         const { error, value } = registerSchema.validate({ Firstname: firstname, Lastname: lastname, Email: email, Username: username, Password: password, Repeat_password: repassword, Contact: contact });
-        if (error, validateContact()) {
+        if (error) {
             message.error(error.message === '"Repeat_password" must be [ref:Password]' ? 'Passwords does not match' : error.message)
         } else {
             axios.post('/api/users', { firstname, lastname, email, username, password, contact })
