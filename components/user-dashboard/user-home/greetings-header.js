@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react'
+import { useSession, signIn, signOut } from "next-auth/react"
 import axios from 'axios'
 import { Col, Typography } from 'antd'
 import { Times } from '../../../helpers/times'
@@ -7,7 +8,7 @@ import styles from '../../../styles/user-styles/user-home-styles/content.module.
 
 const { Text } = Typography
 const Greetings = () => {
-
+    const { data: session } = useSession()
     const [greeting, setGreeting] = useState('')
     const [sun, setSun] = useState(<></>)
 
@@ -19,7 +20,7 @@ const Greetings = () => {
   return (
       <Col span={24}>
           <Text className={styles.shadouts}>
-              Hello <span style={{ fontWeight: 600 }}>Username</span>
+              Hello <span style={{ fontWeight: 600 }}>{session ? session.user.firstname : 'Username' } </span>
               , <br /> Good {greeting.toLowerCase()} {sun}
           </Text>
           <Text className={styles.instruction}>

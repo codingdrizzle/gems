@@ -5,7 +5,7 @@ import User from '../../../models/userSchema'
 
 
 export default NextAuth({
-    
+
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -27,9 +27,9 @@ export default NextAuth({
                 // (i.e., the request IP address)
 
                 const { email, password } = credentials
-                console.log({email, password})
+                console.log({ email, password })
                 const user = await User.findOne({ email }).exec()
-                if(!user){
+                if (!user) {
                     throw new Error("No user found.")
                 }
                 const userDoc = user._doc
@@ -49,17 +49,19 @@ export default NextAuth({
         })
     ],
     callbacks: {
-        async session({ session, user, token }) {
-            if(user && user.id){
-                session.user.id = user.id
-            }
-            return session
-        },
         async jwt({ token, user, account, profile, isNewUser }) {
-            if(user && user._id){
+            if (user && user._id) {
                 token.id = user._id
             }
             return token
+        },
+        async session({ session, user, token }) {
+            if (user) {
+                session.id = token.id
+                // session.user.username = user.username
+                // session.user.firstname = user.firstname
+            }
+            return session
         }
     }
 

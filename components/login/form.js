@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import axios from 'axios'
-import bcrypt from 'bcryptjs'
 import React, { useState, useRef, useMemo } from 'react'
 import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock, BiLogIn } from 'react-icons/bi'
@@ -21,6 +19,7 @@ const Form = () => {
     const [passwordHash, setPasswordHash] = useState('password')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [preloader, setPreloader] = useState(false)
 
     const showEye = () => {
         setPasswordHash(show ? 'password' : 'text')
@@ -44,20 +43,6 @@ const Form = () => {
             }else{
                 message.error(result.error)
             }
-        //   let users
-        //   await axios.get(`/api/users`)
-        //     .then((result) => {users = result.data
-        //         console.log(result)
-        //     })
-        //     .catch(err => console.error(err))
-        //     users.forEach(user => {
-        //         const isPassword = bcrypt.compare(password, user.password).then(equal => equal).catch(err => console.error(err))
-                
-        //         if(user.username === username && isPassword){
-        //             message.success('Login successful!')
-        //             console.log(user)
-        //         }
-        //     });
         }
     }
 

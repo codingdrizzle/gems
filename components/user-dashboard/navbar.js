@@ -1,5 +1,6 @@
-import router from 'next/router'
+import {useRouter} from 'next/router'
 import Link from 'next/link'
+import { useSession, signOut } from "next-auth/react"
 import React, { useState, useEffect } from 'react'
 import { Menu, Button, Typography } from 'antd'
 import { FaSignOutAlt } from 'react-icons/fa'
@@ -11,6 +12,7 @@ import styles from '../../styles/user-styles/user-home-styles/navbar.module.css'
 const { Text } = Typography
 
 const Navbar = () => {
+    const router = useRouter()
     const [key, setKey] = useState('home')
     const [menuToggle, setMenuToggle] = useState(false)
 
@@ -20,6 +22,7 @@ const Navbar = () => {
             key
         }
     }
+
     const items = [
         getItem('Home', 'home'),
         getItem('Notifications', 'notifications'),
@@ -37,7 +40,18 @@ const Navbar = () => {
         }
     }
 
+    const { data: session } = useSession()
+    const handleSignOut = () => {
+        if(session){
+            signOut({redirect: false})
+            router.push('/login')
+            console.log("Logging out")
+        }else{
+            console.log("Logged out")
+        }
+    }
     useEffect(() => { setKey('home') }, [key])
+
 
     return (
         <nav className={styles.navbar}>
@@ -51,7 +65,7 @@ const Navbar = () => {
             </div>
             <div className={styles.navbarNav}>
                 <Menu items={items} mode={'horizontal'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
-                <Button className={styles.logoutBtn}>
+                <Button className={styles.logoutBtn} onClick={handleSignOut}>
                     <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
                     <FaSignOutAlt size={20} />
                 </Button>
@@ -66,7 +80,7 @@ const Navbar = () => {
                             <IoClose size={35}/>
                         </Button>
                         <Menu items={items} mode={'vertical'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
-                        <Button className={styles.logoutBtn}>
+                        <Button className={styles.logoutBtn} onClick={handleSignOut}>
                             <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
                             <FaSignOutAlt size={20} />
                         </Button>
