@@ -25,15 +25,14 @@ export default async function handleAgentRequests(req, res) {
                 if (!req.body) {
                     res.status(400).json({ message: "Bad request." })
                 }
-                const existAgent = await Agent.findOne({ email: req.body.email })
-                console.log(existAgent)
+                const existAgent = await Agent.findOne({ contact: req.body.contact })
                 if (existAgent) {
-                    res.status(200).json({ exist: 'User already exist' })
+                    res.status(200).json({ message: 'Agent already exist' })
                 } else {
-                    bcrypt.hash(req.body.password, 10).then((hash) => {
-                        req.body.password = hash
-                        Agent.create(req.body)
-                        res.status(201).json({ created: 'You have successfully created your account.' })
+                    bcrypt.hash(req.body.id, 10).then(async (hash) => {
+                        req.body.id = hash
+                        await Agent.create(req.body)
+                        res.status(201).json({ message: `Agent account ${req.body.name} created.` })
                     })
                 }
             } catch (error) {

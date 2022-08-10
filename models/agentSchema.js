@@ -6,7 +6,7 @@ const agentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    email: {
+    rank: {
         type: String,
         required: true
     },
@@ -14,8 +14,12 @@ const agentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
+    id: {
         type: String,
+        required: true
+    },
+    contact: {
+        type:  Number,
         required: true
     }
 })

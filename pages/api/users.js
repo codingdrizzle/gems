@@ -32,7 +32,6 @@ export default async function handleUsersRequests(req, res) {
                     res.status(400).json({ message: "Bad request." })
                 }
                 const existUser = await User.findOne({ email: req.body.email })
-                console.log(existUser)
                 if (existUser) {
                     res.status(200).json({ exist: 'User already exist' })
                 } else {

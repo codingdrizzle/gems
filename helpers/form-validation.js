@@ -16,3 +16,12 @@ export const registerSchema = Joi.object({
 
 })
 
+export const validateAgent = Joi.object({
+    Name: Joi.string().required(),
+    Rank: Joi.string().required(),
+    Contact: Joi.number().required(),
+    Username: Joi.string().alphanum().min(6).required(),
+    Id: Joi.string().min(4).required()
+
+})
+
