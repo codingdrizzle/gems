@@ -24,9 +24,6 @@
 .deleteUser,
 .deleteUser:hover,
 .deleteUser:focus {
-    position: absolute;
-    left: 290px;
-    /* z-index: 1; */
     color: #00115b;
     cursor: pointer;
 }
@@ -61,20 +58,4 @@
     outline: none !important;
     border: 1px solid var(--primary-blue);
     background: var(--primary-blue) !important;
-}
-
-@media only screen and (min-width: 390px) and (max-width: 767px){
-    .deleteUser{
-        position: absolute;
-        left: 300px !important;
-    }
-
-}
-
-@media only screen and (max-width: 390px){
-    .deleteUser{
-        position: absolute;
-        left: 270px !important;
-    }
-
 }

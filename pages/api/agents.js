@@ -47,7 +47,7 @@ export default async function handleAgentRequests(req, res) {
                 }
                 const { id } = req.query
                 const agent = await Agent.where({ _id: ObjectId(id) }).updateOne(req.body);
-                res.status(200).json(agent)
+                res.status(200).json(agent, {message: 'Agent details updated successfully.'})
             } catch (error) {
                 res.status(500).json({ message: error.message })
             }

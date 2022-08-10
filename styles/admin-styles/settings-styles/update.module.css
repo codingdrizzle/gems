@@ -84,9 +84,8 @@
 }
 
 .username {
+    word-break: break-all;
     display: block;
-    word-wrap: break-word;
-    width: 50%;
     font-size: 15px;
     line-height: 18px;
     color: var(--light-text);
@@ -108,8 +107,6 @@
 }
 
 .activateEdit, .activateEdit:hover, .activateEdit:focus{
-    position: absolute;
-    left: 410px;
     background-color: #00115b;
     color: #fff;
     border: 1px solid#00115b !important;

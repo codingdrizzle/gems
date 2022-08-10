@@ -20,9 +20,13 @@ const DeleteForm = () => {
                     return (
                         <Col key={_} xs={24} md={12} lg={8}>
                             <Card hoverable className={[styles.userCard, 'userCard']}>
+                                <div style={{ width: '90%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 15 }}>
                                 <div className={styles.icon}><FaUser size={25} color={'#fff'} /></div>
                                 <Text className={styles.username}>{user}</Text>
+                                </div>
+                                <div style={{ width: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 15 }}>
                                 <FaTrash className={styles.deleteUser} size={20} />
+                                </div>
                             </Card>
                         </Col>
                     )

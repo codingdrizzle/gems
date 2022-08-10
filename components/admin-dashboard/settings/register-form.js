@@ -34,17 +34,17 @@ const RegisterForm = () => {
       username,
       contact,
     }
-    // const { error, value } = validateAgent.validate({Name: name, Rank: rank, Contact: contact, Username: username, Id: password})
-    // if(error){
-    //     message.error(error.message)
-    // }else{
+    const { error, value } = validateAgent.validate({Name: name, Rank: rank, Contact: contact, Username: username, Id: password})
+    if(error){
+        message.error(error.message)
+    }else{
       await axios.post('/api/agents', data)
       .then(res => {
         message.success(res.data.message)
         resetForm()
       })
       .catch(err => message.error(err))
-    
+    }
 
   }
 
