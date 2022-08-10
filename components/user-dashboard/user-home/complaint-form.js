@@ -139,7 +139,8 @@ const ModalForm = ({ visible, onClose }) => {
             image: FormAttachFile,
             geoLocation: FormCheckLocation,
             descLocation: FormDescribeLocation === '' ? ' ' : FormDescribeLocation,
-            TnC: FormSwearCheck
+            TnC: FormSwearCheck,
+            resolved: false
         }
         if (FormCategory === '') {
             message.warning('Please choose a category.')

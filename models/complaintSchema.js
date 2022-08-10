@@ -30,6 +30,10 @@ const complaintSchema = Schema({
         type: Boolean,
         required: true    
     },
+    resolved: {
+        type: Boolean,
+        required: true
+    },
     user: { type: Schema.Types.ObjectId, ref: 'Users' }
 
 })

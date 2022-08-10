@@ -19,7 +19,7 @@ const handleHover = (e) => {
     console.log()
 }
 
-const Navigation = () => {
+const Navigation = (props) => {
     const [focused, setFocused] = useState(false)
     const [toggle, setToggle] = useState(false)
     return (
@@ -34,7 +34,7 @@ const Navigation = () => {
                         </li>
                         <li className={styles.navItem} onClick={() => router.push('/admin/complaints')}>
                             <FaBell size={25} className={styles.navIcon} />
-                            <Text className={styles.text}>Complaints</Text>
+                            <Text className={styles.text}>Complaints <span>{props.count}</span></Text>
                         </li>
                         <li className={styles.navItem} onClick={() => router.push('/admin/statistics')}>
                             <BsBarChartLineFill size={25} className={styles.navIcon} />
