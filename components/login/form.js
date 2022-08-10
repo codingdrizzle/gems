@@ -1,41 +1,49 @@
 import Link from 'next/link'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import React, { useState, useRef, useMemo } from 'react'
 import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock, BiLogIn } from 'react-icons/bi'
 import { BsEye, BsEyeSlash, BsArrowReturnLeft } from 'react-icons/bs'
-import { signIn } from "next-auth/react"
+import { signIn, getSession } from "next-auth/react"
 import styles from '../../styles/login-styles/login-card.module.css'
 import colors from '../../styles/colors.module.css'
 import { loginSchema } from '../../helpers/form-validation'
 
-const router = Router
 
 const { Text } = Typography
 
 
 const Form = () => {
+    const router = useRouter()
     const [show, setShow] = useState(false)
     const [passwordHash, setPasswordHash] = useState('password')
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const showEye = () => {
         setPasswordHash(show ? 'password' : 'text')
         setShow(!show)
     }
-    const handleUsername = (e) => setUsername(e.target.value)
-    const handlePassword = (e) => setPassword(e.target.value)
 
     const handleLogin = async () => {
-        const { error, value } = loginSchema.validate({ Username: username, Password: password })
+        const { error, value } = loginSchema.validate({ Email: email, Password: password })
         
         if (error){
             await message.error({content: error.message, duration: 5,style: {color: 'red'}});
         }else{
-            signIn('credentials', { redirect: false, password: 'password' })
+            const payload = { email, password }
+            const result = await signIn('credentials', {...payload,  redirect: false})
+            console.log({result})
+            const session = await getSession()
+            console.log({session})
+
+            if(!result.error){
+                router.replace('/user')
+            }else{
+                message.error(result.error)
+            }
         //   let users
         //   await axios.get(`/api/users`)
         //     .then((result) => {users = result.data
@@ -59,12 +67,12 @@ const Form = () => {
             <Col span={24}>
                 <div className={styles.inputArea}>
                     <Input
-                        defaultValue={username}
+                        defaultValue={email}
                         type={'text'}
                         prefix={<BiUser className={styles.formIcon} />}
-                        placeholder="Username"
+                        placeholder="Email"
                         bordered={false}
-                        onChange={handleUsername}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <Divider className={styles.divider} />
                     <Button className={styles.loginBtn} title='Login' onClick={handleLogin}>
@@ -79,7 +87,7 @@ const Form = () => {
                             <BsEye className={styles.eyeIcon} onClick={showEye} />}
                         placeholder="Password"
                         bordered={false}
-                        onChange={handlePassword}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div className={styles.otherLinks}>
