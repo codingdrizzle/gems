@@ -8,9 +8,18 @@ const ObjectId = mongoose.Types.ObjectId
 export default async function handleAgentRequests(req, res) {
     // Connect to mongoDB
     await connect()
-
+    const {id} = req.query
     switch (req.method) {
         case 'GET':
+            // Get a single agent route
+            try{
+                if(id){
+                    const agent = await Agent.findById(ObjectId(id))
+                    res.status(200).json(agent)
+                }
+            }catch( error){
+                res.status(500).json({message: error.message})
+            }
             // Get all agents - route
             try {
                 const agent = await Agent.find()

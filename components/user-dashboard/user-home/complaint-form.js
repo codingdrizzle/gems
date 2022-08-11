@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useSession } from "next-auth/react"
 import axios from 'axios'
 import { GrFormClose } from 'react-icons/gr'
 import { IoIosAttach } from 'react-icons/io'
@@ -17,6 +18,8 @@ const fire = ['Fire outbreak', 'Other'];
 const amb = ['Emergency Health Issue', 'Death', 'Other'];
 
 const ModalForm = ({ visible, onClose }) => {
+    // Get sessions
+    const { data: session } = useSession()
     const states = useSelector(state => state)
     const { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck } = states
     const [imageName, setImageName] = useState('')
@@ -156,7 +159,7 @@ const ModalForm = ({ visible, onClose }) => {
             message.warning('Please agree to the terms and conditions.')
         } else {
             const options = {
-                url: '/api/complaints?id=62ed0c7a3e1052b49ff784d4',
+                url: `/api/complaints?id=${session.user.id}`,
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

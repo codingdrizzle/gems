@@ -19,28 +19,20 @@ export default NextAuth({
             //     password: { label: "Password", type: "password" }
             // },
             async authorize(credentials, req) {
-                // You need to provide your own logic here that takes the credentials
-                // submitted and returns either a object representing a user or value
-                // that is false/null if the credentials are invalid.
-                // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-                // You can also use the `req` object to obtain additional parameters
-                // (i.e., the request IP address)
 
                 const { email, password } = credentials
-                console.log({ email, password })
-                const user = await User.findOne({ email }).exec()
+                let user = await User.findOne({ email }).exec()
+                
                 if (!user) {
                     throw new Error("No user found.")
                 }
                 const userDoc = user._doc
-
                 const isMatch = await bcrypt.compare(password, userDoc.password)
-
-
 
                 // If no error and we have user data, return it
                 if (user && isMatch) {
-                    delete userDoc.password
+                    // delete userDoc.password
+                    // userDoc.name = userDoc.firstname + userDoc.lastname;
                     return userDoc
                 }
                 // Return null if user data could not be retrieved
@@ -49,19 +41,20 @@ export default NextAuth({
         })
     ],
     callbacks: {
+        async session({ session, user, token }) {
+            if (token && token.id) {
+                session.user.id = token.id
+                session.user.name = token.name
+                console.log('session got called',  session)
+            }
+            return session
+        },
         async jwt({ token, user, account, profile, isNewUser }) {
             if (user && user._id) {
                 token.id = user._id
+                token.name = user.firstname
             }
             return token
-        },
-        async session({ session, user, token }) {
-            if (user) {
-                session.id = token.id
-                // session.user.username = user.username
-                // session.user.firstname = user.firstname
-            }
-            return session
         }
     }
 

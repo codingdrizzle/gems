@@ -47,6 +47,16 @@ const Form = () => {
         setContact(e.target.value)
     }
 
+    const reset = () => {
+        setFirstname('')
+        setLastname('')
+        setEmail('')
+        setUsername('')
+        setPassword('')
+        setRepassword('')
+        setContact('')
+    }
+
     const validateContact = () => {
         if (contact[0] == 0) {
             return message.error('Your contact should not begin with "0".')
@@ -62,15 +72,16 @@ const Form = () => {
 
     const handleSubmit = async () => {
         const { error, value } = registerSchema.validate({ Firstname: firstname, Lastname: lastname, Email: email, Username: username, Password: password, Repeat_password: repassword, Contact: contact });
-        if (error) {
+        if (error || validateContact) {
             message.error(error.message === '"Repeat_password" must be [ref:Password]' ? 'Passwords does not match' : error.message)
         } else {
-            axios.post('/api/users', { firstname, lastname, email, username, password, contact })
+            await axios.post('/api/users', { firstname, lastname, email, username, password, contact })
                 .then((result) => { 
                     if(result.data.exist){
                         message.error(result.data.exist)
                     }else{
                         message.success(result.data.created)
+                        reset()
                         router.push('/login/')
                     }
                 })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import axios from 'axios'
 import { Col, Typography } from 'antd'
 import { Times } from '../../../helpers/times'
@@ -20,7 +20,7 @@ const Greetings = () => {
   return (
       <Col span={24}>
           <Text className={styles.shadouts}>
-              Hello <span style={{ fontWeight: 600 }}>{session ? session.user.firstname : 'Username' } </span>
+              Hello <span style={{ fontWeight: 600 }}>{session ? session.user.name : 'Username' } </span>
               , <br /> Good {greeting.toLowerCase()} {sun}
           </Text>
           <Text className={styles.instruction}>
