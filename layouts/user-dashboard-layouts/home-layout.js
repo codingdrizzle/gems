@@ -6,11 +6,11 @@ import styles from './home-layout.module.css'
 const { Header, Content, Footer } = Structure
 const list = ['Home', 'Notifications', 'Tips', 'Settings']
 
-const Layout = ({children, footer}) => {
+const Layout = ({children, footer, active}) => {
   return (
     <Structure style={{background: '#fff'}}>
         <Header className={styles.header}>
-            <Navbar className={styles.stickyNav}/>
+            <Navbar className={styles.stickyNav} active={active}/>
         </Header>
         <Content className={styles.content}>
             {children}

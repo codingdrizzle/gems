@@ -108,14 +108,15 @@ const ModalForm = ({ visible, onClose }) => {
         }
     }
 
-    const handleLocChecker = () => {
-        setChecker(!checker)
-        if(checker){
-            getLocation()
-        }else{
-            dispatcher(locationCheck({}))
-        }
-    }
+    
+    // const handleLocChecker = () => {
+    //     setChecker(!checker)
+    //     if(checker){
+    //         getLocation()
+    //     }else{
+    //         dispatcher(locationCheck({}))
+    //     }
+    // }
 
     const resetForm = () => {
         dispatcher(formCategory(''))
@@ -127,24 +128,14 @@ const ModalForm = ({ visible, onClose }) => {
         setFile('')
         dispatcher(formAttach(''))
         setStatusIcon(null)
-        setChecker(false)
+        // setChecker(false)
         document.getElementById('typeCheck').checked = false
         dispatcher(locationCheck({}))
         dispatcher(locationDescription(''))
         dispatcher(swearCheck())
     }
 
-    const handleFormSubmit = () => {
-        const complaintData = {
-            category: FormCategory,
-            type: types,
-            content: FormDescription,
-            image: FormAttachFile,
-            geoLocation: FormCheckLocation,
-            descLocation: FormDescribeLocation === '' ? ' ' : FormDescribeLocation,
-            TnC: FormSwearCheck,
-            resolved: false
-        }
+    const handleFormSubmit = async () => {
         if (FormCategory === '') {
             message.warning('Please choose a category.')
         } else if (types === '') {
@@ -158,8 +149,19 @@ const ModalForm = ({ visible, onClose }) => {
         } else if (!FormSwearCheck) {
             message.warning('Please agree to the terms and conditions.')
         } else {
+            const complaintData = {
+                category: FormCategory,
+                type: types,
+                content: FormDescription,
+                image: FormAttachFile,
+                geoLocation: FormCheckLocation,
+                descLocation: FormDescribeLocation === '' ? ' ' : FormDescribeLocation,
+                TnC: FormSwearCheck,
+                resolved: false,
+                date: new Date(Date.now()).toString()
+            }
             const options = {
-                url: `/api/complaints?id=${session.user.id}`,
+                url: `/api/complaints/?id=${session.user.id}`,
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -169,9 +171,6 @@ const ModalForm = ({ visible, onClose }) => {
             };
             axios(options)
                 .then(response => {
-                    // return(
-                    //     <Alert message="Warning Text" type="success" closable/>
-                    //     )
                     console.log(response)
                     message.success('Successfully submitted complaint.');
                     resetForm()
@@ -293,18 +292,17 @@ const ModalForm = ({ visible, onClose }) => {
                             </Col>
                         </Row>
                         <Row style={{ marginTop: 30, }} gutter={[0, 17]}>
-                            <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
+                            {/* <Col span={24} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 23 }}>
                                 <Checkbox required checked={checker} onChange={handleLocChecker} className={styles.checkbox} disabled={FormDescribeLocation === '' ? false : true} />
                                 <Text className={styles.checkText}>Allow place of urgency to be tracked automatically based on your current location.</Text>
-                            </Col>
+                            </Col> */}
                             <Col span={24}>
-                                <Text className={styles.formLabel}>Or, describe location yourself</Text>
+                                <Text className={styles.formLabel}>Describe location of the incident.</Text>
                                 <Input
                                     placeholder={'Address | Street names | Landmarks ... etc'}
                                     className={styles.desc}
                                     value={FormDescribeLocation}
                                     ref={locDescriptionRef}
-                                    disabled={FormCheckLocation ? true : false}
                                     required
                                     onChange={() => dispatcher(locationDescription(locDescriptionRef.current.input.value))}
                                 />
@@ -322,7 +320,10 @@ const ModalForm = ({ visible, onClose }) => {
                                 <Checkbox checked={FormSwearCheck}
                                     className={styles.checkbox}
                                     required
-                                    onChange={() => { dispatcher(swearCheck()) }}
+                                    onChange={() => { 
+                                        dispatcher(swearCheck()) 
+                                         getLocation()
+                                    }}
                                 />
                                 <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
                             </Col>
@@ -331,7 +332,10 @@ const ModalForm = ({ visible, onClose }) => {
                                     <Checkbox checked={FormSwearCheck}
                                         className={styles.checkbox}
                                         required
-                                        onChange={() => { dispatcher(swearCheck()) }}
+                                        onChange={() => { 
+                                            dispatcher(swearCheck()) 
+                                             getLocation()
+                                        }}
                                     />
                                     <Text className={styles.checkText}>I agree to face the penalty or pay a fine if this complaint is fake.</Text>
                                 </div>

@@ -17,8 +17,8 @@ const Notification = () => {
             .then(res => setData(res.data))
             .catch(err => message.err)
     }, [])
-    for(let i=0; i<data.length; i++){
-        if(data[i].resolved){
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].resolved) {
             count++
         }
     }
@@ -27,7 +27,7 @@ const Notification = () => {
             {
                 loading ?
                     <Skeleton active style={{ marginTop: 50 }} /> :
-                    <Row gutter={[10, 20]} justify='center' align='middle' style={{marginBottom: 50, width: '100%'}}>
+                    <Row gutter={[10, 20]} justify='center' align='middle' style={{ marginBottom: 50, width: '100%' }}>
                         <Col xs={24}>
                             <Divider orientation='center' style={{ width: '20%' }}>Unread</Divider>
                             {
@@ -45,7 +45,7 @@ const Notification = () => {
                                 data.map((item, index) => {
                                     return !item.resolved ?
                                         <AlertCard key={index} type={'read'}>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus minima numquam, blanditiis vitae molestiae excepturi quo laborum soluta eum assumenda?
+                                            {item.content}
                                         </AlertCard> : ''
                                 })
                             }

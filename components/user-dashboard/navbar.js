@@ -11,7 +11,7 @@ import styles from '../../styles/user-styles/user-home-styles/navbar.module.css'
 
 const { Text } = Typography
 
-const Navbar = () => {
+const Navbar = ({active}) => {
     const router = useRouter()
     const [key, setKey] = useState('home')
     const [menuToggle, setMenuToggle] = useState(false)
@@ -32,11 +32,9 @@ const Navbar = () => {
 
     const navigate = async (e) => {
         const paths = ['/user/', '/user/notifications', '/user/tips', '/user/settings']
-        console.log(e.key)
         for (let i = 0; i < items.length; i++) {
             if (items[i].key === e.key)
                 router.push(paths[i])
-            setKey(e.key)
         }
     }
 
@@ -45,12 +43,8 @@ const Navbar = () => {
         if(session){
             signOut({redirect: false})
             router.push('/login')
-            console.log("Logging out")
-        }else{
-            console.log("Logged out")
         }
     }
-    useEffect(() => { setKey('home') }, [key])
 
 
     return (
@@ -64,7 +58,7 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className={styles.navbarNav}>
-                <Menu items={items} mode={'horizontal'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
+                <Menu items={items} mode={'horizontal'} className={styles.navbarMenu} selectedKeys={active} onClick={navigate} />
                 <Button className={styles.logoutBtn} onClick={handleSignOut}>
                     <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
                     <FaSignOutAlt size={20} />
@@ -79,7 +73,7 @@ const Navbar = () => {
                         <Button className={styles.closeIcon} onClick={() => setMenuToggle(!menuToggle)}>
                             <IoClose size={35}/>
                         </Button>
-                        <Menu items={items} mode={'vertical'} className={styles.navbarMenu} selectedKeys={key} onClick={navigate} />
+                        <Menu items={items} mode={'vertical'} className={styles.navbarMenu} selectedKeys={active} onClick={navigate} />
                         <Button className={styles.logoutBtn} onClick={handleSignOut}>
                             <Text style={{ color: '#fff', fontWeight: 500 }}>Logout</Text>
                             <FaSignOutAlt size={20} />

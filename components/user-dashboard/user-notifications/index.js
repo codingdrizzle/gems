@@ -14,7 +14,7 @@ const Notifications = () => {
   // }, [])
 
   return (
-    <Layout>
+    <Layout active={'notifications'}>
       {
         loaded ?
           <Preloader /> :

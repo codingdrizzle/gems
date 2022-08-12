@@ -5,7 +5,7 @@ import FormCard from './card'
 
 const Settings = () => {
   return (
-    <Layout>
+    <Layout active='settings'>
         <FormCard/>
     </Layout>
 

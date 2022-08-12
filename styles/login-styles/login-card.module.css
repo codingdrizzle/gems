@@ -56,16 +56,14 @@
     border-radius: 50%;
     border: none;
     position: absolute;
-    left: 86%;
-    right: 12.83%;
+    left: 83%;
     top: 10.5%;
-    bottom: 30%;
     box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.2);
 }
 
 .loginBtn:hover {
     background: linear-gradient(to right, var(--gradient-color1), var(--gradient-color2)) !important;
-    margin-left: 10px !important;
+    margin-left: 12px !important;
 }
 
 .loginBtnIcon {

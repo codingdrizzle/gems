@@ -60,9 +60,6 @@ const Form = () => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Divider className={styles.divider} />
-                    <Button className={styles.loginBtn} title='Login' onClick={handleLogin}>
-                        <BiLogIn className={styles.loginBtnIcon} />
-                    </Button>
                     <Input
                         defaultValue={password}
                         type={passwordHash}
@@ -75,6 +72,9 @@ const Form = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                    <Button className={styles.loginBtn} title='Login' onClick={handleLogin}>
+                        <BiLogIn className={styles.loginBtnIcon} />
+                    </Button>
                 <div className={styles.otherLinks}>
                     <Link href={'/forgot-password'}><a><Text className={styles.forgotPassword}>Forgot Password?</Text></a></Link>
                     <Text className={styles.register}>

@@ -2,10 +2,10 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from 'bcryptjs'
 import User from '../../../models/userSchema'
+import connect from '../../../utils/connect-mongo'
 
 
 export default NextAuth({
-
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -19,7 +19,7 @@ export default NextAuth({
             //     password: { label: "Password", type: "password" }
             // },
             async authorize(credentials, req) {
-
+                connect()
                 const { email, password } = credentials
                 let user = await User.findOne({ email }).exec()
                 
