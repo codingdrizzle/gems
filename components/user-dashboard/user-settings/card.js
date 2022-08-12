@@ -1,17 +1,22 @@
+import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useSession } from "next-auth/react"
-import { Row, Col, Card, Input, Typography, Button } from 'antd'
+import { Row, Col, Card, Input, Typography, Button, Modal } from 'antd'
 import { MdEdit, MdSave } from 'react-icons/md'
 import styles from '../../../styles/user-styles/user-settings-styles/form-card.module.css'
 import { registerSchema } from '../../../helpers/form-validation'
+import Confirm from './confirm-modal'
 
 const { Title, Text } = Typography
 
 const FormCard = () => {
+    // UseRouter
+    const router = useRouter()
     // States
     const [disabled, setDisabled] = useState(true)
     const [user, setUser] = useState({})
+    const [show, setShow] = useState(false)
 
     // get Session
     const { data: session } = useSession()
@@ -92,6 +97,11 @@ const FormCard = () => {
     // }
 
 
+    const handleConfirm = async () => {
+       await axios.delete(`/api/users/?id=${session.user.id}`)
+        router.replace('/')
+    }
+
     return (
         <Row justify='center' align='middle'>
             <Col xs={24} md={18} lg={18}>
@@ -107,7 +117,7 @@ const FormCard = () => {
                                     <Text className={styles.label}>Firstname</Text>
                                 </Col>
                                 <Col xs={24} md={20} className={styles.inputWrapper}>
-                                    <Input type={'text'} defaultValue={user.firstname}disabled={disabled} onChange={handleFirstname} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                    <Input type={'text'} defaultValue={user.firstname} disabled={disabled} onChange={handleFirstname} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
                                 </Col>
                             </Row>
                             <Row>
@@ -133,8 +143,9 @@ const FormCard = () => {
                                     <Text className={styles.warningText}>If you wish to <span style={{ color: 'rgba(233, 36, 36, 0.8)', fontWeight: 800 }}>delete</span> your account, click the button below.</Text>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Button className={styles.deleteBtn}>Delete Account</Button>
+                                    <Button className={styles.deleteBtn} onClick={() => setShow(true)}>Delete Account</Button>
                                 </div>
+                                <Confirm visibility={show} onClose={() => setShow(false)} onConfirm={handleConfirm} email={session.user.email}/>
                             </div>
                         </Col>
                     </Row>

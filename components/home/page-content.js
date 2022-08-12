@@ -19,7 +19,7 @@ const PageContent = () => {
     useEffect(() => {
         setGreeting(Times().greeting)
         setSun(Times().sun)
-    }, [Times()])
+    }, [Times])
 
     return (
         <>

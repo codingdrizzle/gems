@@ -12,7 +12,7 @@ export default NextAuth({
 
             
             async authorize(credentials, req) {
-            connect()
+            await connect()
                 const { email, password } = credentials
                 let user = await User.findOne({ email }).exec()
                 

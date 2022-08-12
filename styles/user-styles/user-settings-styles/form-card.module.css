@@ -1,4 +1,4 @@
-.card{
+.card {
     background: #fff;
     border-radius: 20px;
     box-shadow: 2px 2px 20px #eee;
@@ -6,7 +6,7 @@
     padding: 0;
 }
 
-.inputWrapper{
+.inputWrapper {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -14,36 +14,66 @@
     margin-bottom: 15px;
 }
 
-.title{
+.title {
     font-size: 25px !important;
     line-height: 28px !important;
     color: #00115B !important;
     text-align: center;
 }
 
-.subTitle1, .subTitle2{
+.subTitle1,
+.subTitle2 {
     font-size: 18px !important;
     line-height: 22px !important;
     color: #00115B !important;
     text-align: left;
 }
 
-.subTitle2{
+.subTitle2 {
     color: rgba(233, 36, 36, 0.8) !important;
 }
 
-.label{
+.label {
     color: #00115B;
     font-size: 16px;
     line-height: 19px;
     font-weight: 500;
 }
 
-.input{
+.input {
     border-radius: 10px;
 }
 
-.editBtn, .saveBtn{
+.deleteInput {
+    border-radius: 10px !important;
+    padding: 7px;
+    color: #00000080
+}
+
+.deleteInput:hover,
+.deleteInput:active,
+.deleteInput:focus {
+    border: 1px solid #e92424cc;
+}
+
+.confirmDeleteBtn,
+.confirmDeleteBtn:focus,
+.confirmDeleteBtn:hover {
+    background: #e92424cc;
+    color: #fff;
+    border: none;
+}
+
+.confirmCancelBtn,
+.confirmCancelBtn:focus,
+.confirmCancelBtn:hover {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color:rgba(0, 0, 0, 0.6)
+}
+
+.editBtn,
+.saveBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,42 +84,50 @@
     border-radius: 10px;
 }
 
-.editBtn{
+.editBtn {
     color: #000 !important;
     border: 1px solid #ccc !important;
 }
-.saveBtn{
+
+.saveBtn {
     border: 1px solid rgba(0, 188, 109, 1) !important;
 }
 
-.editBtn:hover, .editBtn:active, .editBtn:focus{
+.editBtn:hover,
+.editBtn:active,
+.editBtn:focus {
     box-shadow: 1px 1px 5px #eee;
     color: #000 !important;
     border: 1px solid #ccc !important;
- }
+}
 
-.save.saveBtn:hover,.saveBtn:active, .saveBtn:focus{
+.save.saveBtn:hover,
+.saveBtn:active,
+.saveBtn:focus {
     box-shadow: 1px 1px 5px #ddd;
     color: #000 !important;
     border: 1px solid rgba(0, 188, 109, 1) !important;
- }
+}
 
- .warningText{
+.warningText {
     color: var(--light-text) !important;
     font-size: 15px !important;
     line-height: 18px !important;
     display: block !important;
- }
+}
 
- .deleteBtn, .deleteBtn:hover, .deleteBtn:active, .deleteBtn:focus{
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     border: none;
-     border-radius: 4px;
-     font-size: 15px;
-     line-height: 18px;
-     font-weight: 500;
+.deleteBtn,
+.deleteBtn:hover,
+.deleteBtn:active,
+.deleteBtn:focus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 500;
     background: rgba(233, 36, 36, 0.8) !important;
     color: #fff;
- }
+}
