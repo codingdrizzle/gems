@@ -22,14 +22,6 @@ const AlertCard = () => {
             .then(res => setData(res.data))
             .catch(err => message.err)
     }, [])
-    console.log(data)
-    const details = {
-        content: data.content,
-        category: data.category,
-        type: data.type,
-        date: data.date,
-        resolved: data.resolved
-    }
 
     return (
         // loading ?
@@ -47,7 +39,7 @@ const AlertCard = () => {
                                 isResolved={true}
                                 index={index}
                                 icon={<BiErrorCircle size={25} color={'#ff000080'} />}
-                                details={details}
+                                details={{content: item.content, category: item.category, type: item.type, date: item.date, resolved: item.resolved}}
                             />
                         : ''
                     })
@@ -63,7 +55,7 @@ const AlertCard = () => {
                                 isResolved={true}
                                 index={index}
                                 icon={<BsCheckCircle size={25} color={'#80E3A8'} />}
-                                details={details}
+                                details={{ content: item.content, category: item.category, type: item.type, date: item.date, resolved: item.resolved }}
                             />
 
                         ) : ''

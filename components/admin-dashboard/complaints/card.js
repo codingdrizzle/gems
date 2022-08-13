@@ -5,7 +5,7 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 
 import styles from '../../../styles/admin-styles/complaints-styles/complaints.module.css'
 
-const Card = ({ borderColor, isResolved, index, bgColor, icon }) => {
+const Card = ({ borderColor, index, bgColor, icon, details }) => {
     const { Panel } = Collapse
     const { Title } = Typography
 
@@ -22,21 +22,21 @@ const Card = ({ borderColor, isResolved, index, bgColor, icon }) => {
                         <Col xs={24} lg={18}>
                             <Row>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>Content: <span style={{ fontWeight: 'normal' }}>Content</span></Title>
+                                    <Title level={5}>Content: <span style={{ fontWeight: 'normal' }}>{details.content}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>To: <span style={{ fontWeight: 'normal' }}>Category</span></Title>
+                                    <Title level={5}>To: <span style={{ fontWeight: 'normal' }}>{details.category}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>Type: <span style={{ fontWeight: 'normal' }}>Type</span></Title>
+                                    <Title level={5}>Type: <span style={{ fontWeight: 'normal' }}>{details.type}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>Date: <span style={{ fontWeight: 'normal' }}>Date</span></Title>
+                                    <Title level={5}>Date: <span style={{ fontWeight: 'normal' }}>{details.date}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                                     <Title level={5} style={{ margin: 0 }}>Resolved: </Title>
                                     <span>
-                                        {isResolved ? (<FaCheckCircle size={20} color={'#80E3A8'} />) : <AiFillCloseCircle size={20} color={'#ff000080'} />}
+                                        {details.resolved ? (<FaCheckCircle size={20} color={'#80E3A8'} />) : <AiFillCloseCircle size={20} color={'#ff000080'} />}
                                     </span>
                                 </Col>
                             </Row>
