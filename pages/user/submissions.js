@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
+import Submissions from '../../components/user-dashboard/user-submissions'
 
-const Submissions = () => {
+const SubmissionsPage = () => {
   return (
     <>
       <Head>
@@ -9,9 +10,9 @@ const Submissions = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>This is the submissions page</h1>
+      <Submissions/>
     </>
   )
 }
 
-export default Submissions
+export default SubmissionsPage
