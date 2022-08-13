@@ -80,7 +80,9 @@ const FormCard = () => {
 
     const trigger = async () => {
         const isMatch = await bcrypt.compare(confirmPassword, user.password)
-        if (isMatch) {
+        if (confirmPassword === '') {
+            message.error('Please enter your password.')
+        } else if (isMatch) {
             axios.patch(`/api/users/?id=${session.user.id}`, data)
             signOut({ redirect: false })
             router.push('/login')
@@ -190,14 +192,14 @@ const FormCard = () => {
                         <Title style={{ color: '#e92424cc' }} level={4}>Enter password to make changes</Title>
                     </Col>
                     <Col xs={24}>
-                        <Password value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <Password value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={styles.deleteInput} />
                     </Col>
-                    <Col xs={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Button onClick={trigger}>Make changes</Button>
+                    <Col xs={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, marginTop: 20 }}>
+                        <Button onClick={trigger} className={styles.confirmDeleteBtn}>Done</Button>
                         <Button onClick={() => {
                             setVisible(false)
                             setConfirmPassword('')
-                        }}>Back</Button>
+                        }} className={styles.confirmCancelBtn}>Cancel</Button>
                     </Col>
                 </Row>
             </Modal>
