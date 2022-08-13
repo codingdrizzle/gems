@@ -60,7 +60,7 @@ const FormCard = () => {
             data.firstname = firstname
         }
         if (lastname !== '') {
-            data.lastname = firstname
+            data.lastname = lastname
         }
         if (email !== '') {
             data.email = email
