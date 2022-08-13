@@ -1,15 +1,18 @@
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useSession } from "next-auth/react"
-import { Row, Col, Card, Input, Typography, Button, Modal } from 'antd'
+import bcrypt from 'bcryptjs'
+import { signOut, useSession } from "next-auth/react"
+import { Row, Col, Card, Input, Typography, Button, Modal, message } from 'antd'
 import { MdEdit, MdSave } from 'react-icons/md'
 import styles from '../../../styles/user-styles/user-settings-styles/form-card.module.css'
-import { registerSchema } from '../../../helpers/form-validation'
+import { userUpdateSchema } from '../../../helpers/form-validation'
 import Confirm from './confirm-modal'
 
 const { Title, Text } = Typography
+const { Password } = Input
 
+let data = {}
 const FormCard = () => {
     // UseRouter
     const router = useRouter()
@@ -17,6 +20,7 @@ const FormCard = () => {
     const [disabled, setDisabled] = useState(true)
     const [user, setUser] = useState({})
     const [show, setShow] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     // get Session
     const { data: session } = useSession()
@@ -36,32 +40,7 @@ const FormCard = () => {
     const [password, setPassword] = useState('')
     const [repassword, setRepassword] = useState('')
     const [contact, setContact] = useState('')
-
-    const handleFirstname = (e) => {
-        setFirstname(e.target.value)
-    }
-    const handleLastname = (e) => {
-        setLastname(e.target.value)
-    }
-    const handleEmail = (e) => {
-        setEmail(e.target.value)
-    }
-    const handleUsername = (e) => {
-        setUsername(e.target.value)
-    }
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
-    }
-    const handleRepassword = (e) => {
-        setRepassword(e.target.value)
-    }
-    const handleContact = (e) => {
-        setContact(e.target.value)
-    }
-
-
-
-    const data = Object.entries(user)
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const validateContact = () => {
         if (contact[0] == 0) {
@@ -76,29 +55,47 @@ const FormCard = () => {
         return null
     }
 
-    // const handleSubmit = async () => {
-    //     const { error, value } = registerSchema.validate({ Firstname: firstname, Lastname: lastname, Email: email, Username: username, Contact: contact });
-    //     if (error || validateContact) {
-    //         message.error(error.message)
-    //     } else {
-    //         await axios.post('/api/users', { firstname, lastname, email, username, password, contact })
-    //             .then((result) => {
-    //                 if (result.data.exist) {
-    //                     message.error(result.data.exist)
-    //                 } else {
-    //                     message.success(result.data.created)
-    //                     reset()
-    //                     router.push('/login/')
-    //                 }
-    //             })
-    //             .catch((err) => message.error(err.message))
+    const handleSubmit = async () => {
+        if (firstname !== '') {
+            data.firstname = firstname
+        }
+        if (lastname !== '') {
+            data.lastname = firstname
+        }
+        if (email !== '') {
+            data.email = email
+        }
+        if (username !== '') {
+            data.username = username
+        }
+        if (contact !== '') {
+            data.contact = contact
+        }
+        if (Object.keys(data).length !== 0) {
+            setVisible(!visible)
+        } else {
+            message.warning('No changes yet...')
+        }
+    }
 
-    //     }
-    // }
+    const trigger = async () => {
+        const isMatch = await bcrypt.compare(confirmPassword, user.password)
+        if (isMatch) {
+            axios.patch(`/api/users/?id=${session.user.id}`, data)
+            signOut({ redirect: false })
+            router.push('/login')
+                .then((result) => {
+                    message.success('Account details updated.')
+                })
+                .catch((err) => message.error('Something happened, try again'))
 
+        } else {
+            message.error('Password incorrect!!')
+        }
+    }
 
     const handleConfirm = async () => {
-       await axios.delete(`/api/users/?id=${session.user.id}`)
+        await axios.delete(`/api/users/?id=${session.user.id}`)
         router.replace('/')
     }
 
@@ -117,7 +114,39 @@ const FormCard = () => {
                                     <Text className={styles.label}>Firstname</Text>
                                 </Col>
                                 <Col xs={24} md={20} className={styles.inputWrapper}>
-                                    <Input type={'text'} defaultValue={user.firstname} disabled={disabled} onChange={handleFirstname} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                    <Input type={'text'} placeholder={user.firstname} disabled={disabled} onChange={(e) => setFirstname(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                </Col>
+                            </Row>
+                            <Row >
+                                <Col span={24}>
+                                    <Text className={styles.label}>Lastname</Text>
+                                </Col>
+                                <Col xs={24} md={20} className={styles.inputWrapper}>
+                                    <Input type={'text'} placeholder={user.lastname} disabled={disabled} onChange={(e) => setLastname(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                </Col>
+                            </Row>
+                            <Row >
+                                <Col span={24}>
+                                    <Text className={styles.label}>Email Address</Text>
+                                </Col>
+                                <Col xs={24} md={20} className={styles.inputWrapper}>
+                                    <Input type={'text'} placeholder={user.email} disabled={disabled} onChange={(e) => setEmail(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                </Col>
+                            </Row>
+                            <Row >
+                                <Col span={24}>
+                                    <Text className={styles.label}>Username</Text>
+                                </Col>
+                                <Col xs={24} md={20} className={styles.inputWrapper}>
+                                    <Input type={'text'} placeholder={user.username} disabled={disabled} onChange={(e) => setUsername(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                </Col>
+                            </Row>
+                            <Row >
+                                <Col span={24}>
+                                    <Text className={styles.label}>Contact</Text>
+                                </Col>
+                                <Col xs={24} md={20} className={styles.inputWrapper}>
+                                    <Input type={'text'} placeholder={user.contact} disabled={disabled} onChange={(e) => setContact(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
                                 </Col>
                             </Row>
                             <Row>
@@ -126,7 +155,10 @@ const FormCard = () => {
                                         <Button className={styles.editBtn} onClick={() => setDisabled(!disabled)}>
                                             <MdEdit size={25} /><Text>Edit</Text>
                                         </Button> :
-                                        <Button className={styles.saveBtn} onClick={() => setDisabled(!disabled)}>
+                                        <Button className={styles.saveBtn} onClick={() => {
+                                            setDisabled(!disabled);
+                                            handleSubmit()
+                                        }}>
                                             <MdSave size={25} color={'rgba(0, 188, 109, 1)'} />
                                             <Text style={{ color: 'rgba(0, 188, 109, 1)' }}>Save Changes</Text>
                                         </Button>
@@ -145,12 +177,31 @@ const FormCard = () => {
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Button className={styles.deleteBtn} onClick={() => setShow(true)}>Delete Account</Button>
                                 </div>
-                                <Confirm visibility={show} onClose={() => setShow(false)} onConfirm={handleConfirm} email={session.user.email}/>
+                                <Confirm visibility={show} onClose={() => setShow(false)} onConfirm={handleConfirm} email={user.email} />
                             </div>
                         </Col>
                     </Row>
                 </Card>
             </Col>
+
+            <Modal footer={null} visible={visible} closable={false}>
+                <Row style={{ padding: 20 }} gutter={[0, 5]}>
+                    <Col xs={24}>
+                        <Title style={{ color: '#e92424cc' }} level={4}>Enter password to make changes</Title>
+                    </Col>
+                    <Col xs={24}>
+                        <Password value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    </Col>
+                    <Col xs={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Button onClick={trigger}>Make changes</Button>
+                        <Button onClick={() => {
+                            setVisible(false)
+                            setConfirmPassword('')
+                        }}>Back</Button>
+                    </Col>
+                </Row>
+            </Modal>
+
         </Row>
     )
 }

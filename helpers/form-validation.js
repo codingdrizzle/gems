@@ -13,7 +13,6 @@ export const registerSchema = Joi.object({
     Password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
     Repeat_password: Joi.ref('Password'),
     Contact: Joi.number().required()
-
 })
 
 export const validateAgent = Joi.object({
@@ -25,3 +24,11 @@ export const validateAgent = Joi.object({
 
 })
 
+
+export const userUpdateSchema = Joi.object({
+    Firstname: Joi.string(),
+    Lastname: Joi.string(),
+    Email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    Username: Joi.string().alphanum().min(6),
+    Contact: Joi.number()
+})
