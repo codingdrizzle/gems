@@ -24,14 +24,17 @@ const AlertCard = () => {
     }, [])
 
     return (
-        // loading ?
-        //     <Skeleton active style={{ marginTop: 50 }} /> :
-            <Row align={'middle'} justify={'center'} gutter={[20, 20]}>
-                <Divider orientation='center' style={{ width: '20%' }}>Unread</Divider>
-                {
+        <Row align={'middle'} justify={'center'} gutter={[20, 20]}>
+            { loading ?
+                <Col span={24}>
+                    <Skeleton active style={{ marginTop: 50 }} /> 
+                </Col> :
+                <Col span={24}>
+                    <Divider orientation='center' style={{ width: '20%' }}>Unread</Divider>
+                    {
                     data.map((item, index) => {
                         console.log(item.resolved)
-                        return !item.resolved ? 
+                        return !item.resolved ?
                             <Card
                                 key={index}
                                 borderColor={'#ff000080'}
@@ -39,9 +42,9 @@ const AlertCard = () => {
                                 isResolved={true}
                                 index={index}
                                 icon={<BiErrorCircle size={25} color={'#ff000080'} />}
-                                details={{content: item.content, category: item.category, type: item.type, date: item.date, resolved: item.resolved}}
+                                details={{ content: item.content, category: item.category, type: item.type, date: item.date, resolved: item.resolved }}
                             />
-                        : ''
+                            : ''
                     })
                 }
                 <Divider orientation='center' style={{ width: '20%' }}>Read</Divider>
@@ -57,11 +60,13 @@ const AlertCard = () => {
                                 icon={<BsCheckCircle size={25} color={'#80E3A8'} />}
                                 details={{ content: item.content, category: item.category, type: item.type, date: item.date, resolved: item.resolved }}
                             />
-
+    
                         ) : ''
                     })
                 }
-            </Row>
+                </Col>
+            }
+        </Row>
     )
 }
 
