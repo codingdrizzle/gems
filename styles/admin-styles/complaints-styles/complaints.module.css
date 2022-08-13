@@ -1,45 +1,26 @@
-.alertDanger,
-.alertSuccess {
+.collapse {
+    background: #fff;
+    box-shadow: 1px 1px 10px #ccc;
+    border: none;
+    border-radius: 20px;
+}
+
+.previewBtn, .previewBtn:hover, .previewBtn:focus{
+    color: var(--primary-blue);
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 500;
+    padding: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    border: none;
     border-radius: 10px;
-    padding: 13px 10px;
-    gap: 20px;
-    cursor: pointer;
-    margin-bottom: 15px;
-    
-}
-.preview {
-    color: #91A2B8;
-    font-size: 20px;
+    outline: none !important;
+    transition: all 0.5s ease-in;
 }
 
-.text {
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    color: #91a2b8cc;
-}
-
-.alertDanger {
-    background: #e924240d;
-    border: 1px solid #ff000080;
-    box-shadow: 2px 2px 5px #ff00001a;
-}
-
-.iconDanger {
-    font-size: 30px !important;
-    color: #ff000080 !important;
-}
-
-
-.alertSuccess{
-    background: #80e3a826;
-        border: 1px solid #80E3A8;
-        box-shadow: 2px 2px 5px #80e3a81a;
-}
-
-.iconSuccess{
-    color: #80E3A8;
-    font-size: 30px;
+.previewBtn:hover{
+    box-shadow: 1px 1px 10px #ccc;
+    transform: scale(1.01);
 }
