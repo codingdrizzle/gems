@@ -9,9 +9,9 @@ const { Title, Text } = Typography
 
 const SubmissionCard = ({ title, index, content, category, type, date, isResolved }) => {
     return (
-        <Col span={24}>
+        <Col xs={24}>
             <Collapse className={styles.collapse}>
-                <Panel header={title} key={index}>
+                <Panel header={title.substring(0, 20)+'...'} key={index}>
                     <Row>
                         <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
                             <Title level={5}>Content: <span style={{ fontWeight: 'normal' }}>{content}</span></Title>

@@ -26,14 +26,14 @@ const Submissions = () => {
                 setData(res.data)
             })
     }, [id])
-    
+
     return (
         <Layout footer={<PageFooter company={{ title: 'GEMS', list: list }} />} active={'home'}>
-            <Row gutter={[0, 20]}>
+            <Row gutter={[20, 20]} justify={'center'} align={'middle'}>
                 {
                     data.map((item, index) => {
                         return (
-                            <SubmissionCard title={'Complaint content'} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
+                            <SubmissionCard title={item.content} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
                         )
                     }).reverse()
                 }
