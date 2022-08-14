@@ -21,7 +21,7 @@ export default async function handleUsersRequests(req, res) {
                 } catch (error) {
                     res.status(500).json({ message: error.message })
                 }
-            }
+            }   
             else {
                 // Get all complaints - route
                 try {

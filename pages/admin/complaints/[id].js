@@ -30,7 +30,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const id = context.params.id
 
-  const res = await axios.get(`/api/complaints/?id=${id}`)
+  const res = await axios.get(`/api/complaints?id=${id}`)
   const posts = await res.data
 
   // By returning { props: { posts } }, the Blog component
