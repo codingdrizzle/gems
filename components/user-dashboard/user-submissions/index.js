@@ -25,7 +25,7 @@ const Submissions = () => {
 
     useEffect(() => {
         retrieveSession().then(res => setId(res))
-        axios.get(`/api/complaints/?id=${id}`)
+        axios.get(`/api/submissions/?id=${id}`, { headers: {'Content-Type': 'application/json'} })
             .then((res) => {
                 setLoading(false)
                 setData(res.data)

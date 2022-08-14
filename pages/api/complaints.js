@@ -7,24 +7,14 @@ const ObjectId = mongoose.Types.ObjectId
 export default async function handleUsersRequests(req, res) {
     // Connect to mongoDB 
     await connect()
-    const { id, type } = req.query
+    const { id } = req.query
 
     switch (req.method) {
         case 'GET':
             //Get a single complaint - route
-            if (id && type) {
+            if (id) {
                 try {
                     const complaint = await Complaints.findOne({ _id: ObjectId(id) }).populate('user')
-                    res.status(200).json(complaint)
-                    res.setHeader({ ContentType: 'application/json' })
-
-                } catch (error) {
-                    res.status(500).json({ message: error.message })
-                }
-            }
-            else if (id) {
-                try {
-                    const complaint = await Complaints.find({ user: ObjectId(id) }).populate('user')
                     res.status(200).json(complaint)
                     res.setHeader({ ContentType: 'application/json' })
 
