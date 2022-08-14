@@ -11,7 +11,7 @@ const SubmissionCard = ({ title, index, content, category, type, date, isResolve
     return (
         <Col xs={24}>
             <Collapse className={styles.collapse}>
-                <Panel header={title.substring(0, 20)+'...'} key={index}>
+                <Panel header={title.substring(0, 20) + '...'} key={index} extra={<Text style={{ color: '#91A2B8'}}>{date.substring(0, 15)}</Text>}>
                     <Row>
                         <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
                             <Title level={5}>Content: <span style={{ fontWeight: 'normal' }}>{content}</span></Title>

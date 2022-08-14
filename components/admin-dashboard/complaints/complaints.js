@@ -29,7 +29,7 @@ const AlertCard = () => {
                 <Col span={24}>
                     <Skeleton active style={{ marginTop: 50 }} /> 
                 </Col> :
-                <Col span={24}>
+                <Row align={'middle'} justify={'center'} gutter={[20, 20]}>
                     <Divider orientation='center' style={{ width: '20%' }}>Unread</Divider>
                     {
                     data.map((item, index) => {
@@ -64,7 +64,7 @@ const AlertCard = () => {
                         ) : ''
                     })
                 }
-                </Col>
+                </Row>
             }
         </Row>
     )
