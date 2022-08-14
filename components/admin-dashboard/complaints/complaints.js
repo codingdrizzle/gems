@@ -33,9 +33,9 @@ const AlertCard = () => {
                     <Divider orientation='center' style={{ width: '20%' }}>Unread</Divider>
                     {
                     data.map((item, index) => {
-                        console.log(item.resolved)
                         return !item.resolved ?
                             <Card
+                                identity={item._id}
                                 key={index}
                                 borderColor={'#ff000080'}
                                 bgColor={'#e924240d'}
@@ -52,6 +52,7 @@ const AlertCard = () => {
                     data.map((item, index) => {
                         return item.resolved ? (
                             <Card
+                                identity={item._id}
                                 key={index}
                                 borderColor={'#80E3A8'}
                                 bgColor={'#80e3a826'}
@@ -70,4 +71,17 @@ const AlertCard = () => {
     )
 }
 
+export async function getStaticProps(context) {
+    await connect()
+    const id = context.params.id
+
+    const res = await Complaints.findOne({ _id: ObjectId(id) }).populate('user').exec()
+    const complaints = JSON.stringify(res)
+    console.log(posts)
+    return {
+        props: {
+            posts
+        },
+    }
+}
 export default AlertCard

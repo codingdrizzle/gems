@@ -1,43 +1,47 @@
-import { useRouter, useEffect } from 'next/router'
+import { useRouter, useState } from 'next/router'
 import axios from 'axios'
+import connect from '../../../utils/connect-mongo'
+import mongoose from 'mongoose'
+import Complaints from '../../../models/complaintSchema'
 import React from 'react'
 import Preview from '../../../components/admin-dashboard/complaints/complaints-previrew'
 import Layout from '../../../layouts/admin-dashboard-layouts'
+const ObjectId = mongoose.Types.ObjectId
 
-const NotificationPreview = (props) => {
-  
+const NotificationPreview = ({ complaints }) => {
+
+  const data = JSON.parse(complaints)
   return (
     <Layout title={'Notification Preview'}>
-        <Preview/>
-        {props.content}
+      <Preview />
+      {data.content}
     </Layout>
   )
 }
 
 export async function getStaticPaths() {
-  const results = await axios.get('/api/complaints')
-  const ids = await results.data
+  await connect()
+  const ids = await Complaints.find().exec()
 
   return {
     paths: ids.map((item) => ({
-      params: {id : item._id.toString()}
+      params: { id: item._id.toString() }
     })),
-    fallback: false, // can also be true or 'blocking'
+    fallback: false,
   }
 }
 
 
 export async function getStaticProps(context) {
+  await connect()
   const id = context.params.id
 
-  const res = await axios.get(`/api/complaints?id=${id}`)
-  const posts = await res.data
+  const res = await Complaints.findOne({ _id: ObjectId(id) }).populate('user').exec()
+  const complaints = JSON.stringify(res)
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
   return {
     props: {
-      posts
+      complaints
     },
   }
 }

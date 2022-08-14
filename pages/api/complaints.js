@@ -14,7 +14,7 @@ export default async function handleUsersRequests(req, res) {
             //Get a single complaint - route
             if (id) {
                 try {
-                    const complaint = await Complaints.findOne({ _id: ObjectId(id) }).populate('user')
+                    const complaint = await Complaints.findOne({ _id: ObjectId(id) }).populate('user').exec()
                     res.status(200).json(complaint)
                     res.setHeader({ ContentType: 'application/json' })
 

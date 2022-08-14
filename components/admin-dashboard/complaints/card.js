@@ -1,16 +1,20 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { Row, Col, Collapse, Typography, Button } from 'antd'
 import { FaCheckCircle } from 'react-icons/fa'
 import { AiFillCloseCircle } from 'react-icons/ai'
 
 import styles from '../../../styles/admin-styles/complaints-styles/complaints.module.css'
 
-const Card = ({ borderColor, index, bgColor, icon, details }) => {
+const Card = ({ borderColor, index, bgColor, icon, details, identity }) => {
     const { Panel } = Collapse
     const { Title } = Typography
 
+    // useRouter
+    const router = useRouter()
+
     const handlePreview = () => {
-        alert('Previewed')
+        router.push('/admin/complaints/' + identity)
     }
 
     return (
