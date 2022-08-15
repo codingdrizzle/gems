@@ -13,8 +13,7 @@ const NotificationPreview = ({ complaints }) => {
   const data = JSON.parse(complaints)
   return (
     <Layout title={'Notification Preview'}>
-      <Preview />
-      {data.content}
+      <Preview complaint={data}/>
     </Layout>
   )
 }
@@ -43,6 +42,7 @@ export async function getStaticProps(context) {
     props: {
       complaints
     },
+    revalidate: 10
   }
 }
 

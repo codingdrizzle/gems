@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { FaBell, FaCheck } from 'react-icons/fa'
 import Layout from '../../../layouts/user-dashboard-layouts/home-layout'
 import styles from '../../../styles/user-styles/user-notification/notification-card.module.css'
@@ -6,12 +6,12 @@ import NotificationCard from './card'
 import Preloader from './skeleton'
 import {date} from '../../../helpers/get-date'
 
-const Notifications = () => {
+const Notifications = ({complaints}) => {
   const [loaded, setLoaded] = useState(false)
 
-  // useEffect(() => {
-  //   setLoaded(!loaded)
-  // }, [])
+  useEffect(() => {
+    setLoaded(!loaded)
+  }, [])
 
   return (
     <Layout active={'notifications'}>

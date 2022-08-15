@@ -45,3 +45,11 @@ export const FormSwearCheck = (state = false, action) => {
         default: return state
     }
 }  
+
+export const GetAllComplaints = (state = [], action) => {
+    switch(action.type){
+        case 'COMPLAINTS':
+            return action.payload
+        default: return state
+    }
+}

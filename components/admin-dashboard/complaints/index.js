@@ -4,10 +4,10 @@ import { Row, Col, Divider, Skeleton, message } from 'antd'
 import Layout from '../../../layouts/admin-dashboard-layouts';
 import AlertCard from './complaints';
 
-const Notification = () => {
+const Notification = ({complaints}) => {
     return (
         <Layout title={'Complaints'}>
-            <AlertCard/>    
+            <AlertCard complaints={complaints}/>    
         </Layout>
     );
 }

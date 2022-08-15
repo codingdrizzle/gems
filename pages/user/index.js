@@ -1,8 +1,18 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import {getComplaints} from '../../states/actions'
+import connect from '../../utils/connect-mongo'
+import Complaints from '../../models/complaintSchema'
 import UserHome from '../../components/user-dashboard/user-home'
 
-const UserHomePage = () => {
+const UserHomePage = (props) => {
+  const dispatcher = useDispatch()
+
+  useEffect(() => {
+    dispatcher(getComplaints(JSON.parse(props.complaints)))
+  }, [])
+
   return (
     <>
       <Head>
@@ -13,6 +23,20 @@ const UserHomePage = () => {
       <UserHome/>
     </>
   )
+}
+
+export async function getStaticProps(context) {
+  await connect()
+
+  const res = await Complaints.find().populate('user').exec()
+  const complaints = JSON.stringify(res)
+
+  return {
+    props: {
+      complaints
+    },
+    revalidate: 10
+  }
 }
 
 export default UserHomePage

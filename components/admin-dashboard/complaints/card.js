@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Row, Col, Collapse, Typography, Button } from 'antd'
 import { FaCheckCircle } from 'react-icons/fa'
@@ -12,10 +13,6 @@ const Card = ({ borderColor, index, bgColor, icon, details, identity }) => {
 
     // useRouter
     const router = useRouter()
-
-    const handlePreview = () => {
-        router.push('/admin/complaints/' + identity)
-    }
 
     return (
         <Col xs={24}>
@@ -46,7 +43,9 @@ const Card = ({ borderColor, index, bgColor, icon, details, identity }) => {
                             </Row>
                         </Col>
                         <Col xs={24} lg={6} style={{ display: 'flex', alignItems: 'center' }}>
-                            <Button title='More details' className={styles.previewBtn} style={{background: borderColor}} onClick={handlePreview}>Preview Complaint</Button>
+                            <Link href={'/admin/complaints/' + identity}>
+                                <Button title='More details' className={styles.previewBtn} style={{ background: borderColor }}>Preview Complaint</Button>
+                            </Link>
                         </Col>
                     </Row>
                 </Panel>

@@ -33,3 +33,9 @@ export const swearCheck = () => {
         type : 'SWEAR_CHECK',
     }
 }
+export const getComplaints = (value) => {
+    return {
+        type : 'COMPLAINTS',
+        payload: value
+    }
+}

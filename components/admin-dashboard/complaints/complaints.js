@@ -10,17 +10,14 @@ import styles from '../../../styles/admin-styles/complaints-styles/complaints.mo
 const { Text } = Typography
 const router = Router
 
-const AlertCard = () => {
+const AlertCard = ({complaints}) => {
     // States
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
 
-
     useEffect(() => {
+        setData([...complaints])
         setLoading(false)
-        axios.get('/api/complaints')
-            .then(res => setData(res.data))
-            .catch(err => message.err)
     }, [])
 
     return (
