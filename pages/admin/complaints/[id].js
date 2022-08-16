@@ -12,7 +12,7 @@ const NotificationPreview = ({ complaints }) => {
 
   const data = JSON.parse(complaints)
   return (
-    <Layout title={'Notification Preview'}>
+    <Layout title={'Complaint Preview'}>
       <Preview complaint={data}/>
     </Layout>
   )

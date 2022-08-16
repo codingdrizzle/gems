@@ -21,12 +21,12 @@ const AlertCard = ({complaints}) => {
     }, [])
 
     return (
-        <Row align={'middle'} justify={'center'} gutter={[20, 20]}>
+        <Row align={'middle'} justify={'center'} gutter={[20, 20]} style={{width: '100%'}}>
             { loading ?
                 <Col span={24}>
                     <Skeleton active style={{ marginTop: 50 }} /> 
                 </Col> :
-                <Row align={'middle'} justify={'center'} gutter={[20, 20]}>
+                <Row align={'middle'} justify={'center'} gutter={[20, 20]} style={{ width: '100%' }}>
                     <Divider orientation='center' style={{ width: '20%' }}>Unread</Divider>
                     {
                     data.map((item, index) => {

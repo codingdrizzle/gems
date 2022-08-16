@@ -4,13 +4,6 @@
     line-height: 51px;
 }
 
-/* .greetings {
-    display: inline-block;
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 36px;
-} */
-
 .instruction {
     display: flex;
     flex-direction: column;

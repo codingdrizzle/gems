@@ -14,36 +14,36 @@ const Card = ({ borderColor, index, bgColor, icon, details, identity }) => {
     // useRouter
     const router = useRouter()
 
+    const { content, category, type, date, resolved } = details
     return (
         <Col xs={24}>
             <Collapse className={styles.collapse} style={{ borderLeft: `10px solid ${borderColor}`, background: bgColor }}>
-                {/* <Panel header={title.substring(0, 20) + '...'} key={index}> */}
-                <Panel header={'Complaint Content'} key={index} extra={icon}>
+                <Panel header={content.substring(0, 20) + '...'} key={index} extra={icon}>
                     <Row gutter={[0, 20]}>
                         <Col xs={24} lg={18}>
                             <Row>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>Content: <span style={{ fontWeight: 'normal' }}>{details.content}</span></Title>
+                                    <Title level={5}>Content: <span style={{ fontWeight: 'normal' }}>{content}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>To: <span style={{ fontWeight: 'normal' }}>{details.category}</span></Title>
+                                    <Title level={5}>To: <span style={{ fontWeight: 'normal' }}>{category}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>Type: <span style={{ fontWeight: 'normal' }}>{details.type}</span></Title>
+                                    <Title level={5}>Type: <span style={{ fontWeight: 'normal' }}>{type}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Title level={5}>Date: <span style={{ fontWeight: 'normal' }}>{details.date}</span></Title>
+                                    <Title level={5}>Date: <span style={{ fontWeight: 'normal' }}>{date}</span></Title>
                                 </Col>
                                 <Col span={24} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                                     <Title level={5} style={{ margin: 0 }}>Resolved: </Title>
                                     <span>
-                                        {details.resolved ? (<FaCheckCircle size={20} color={'#80E3A8'} />) : <AiFillCloseCircle size={20} color={'#ff000080'} />}
+                                        {resolved ? (<FaCheckCircle size={20} color={'#80E3A8'} />) : <AiFillCloseCircle size={20} color={'#ff000080'} />}
                                     </span>
                                 </Col>
                             </Row>
                         </Col>
                         <Col xs={24} lg={6} style={{ display: 'flex', alignItems: 'center' }}>
-                            <Link href={'/admin/complaints/' + identity}>
+                            <Link href={`/admin/complaints/${identity}`}>
                                 <Button title='More details' className={styles.previewBtn} style={{ background: borderColor }}>Preview Complaint</Button>
                             </Link>
                         </Col>

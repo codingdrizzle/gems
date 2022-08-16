@@ -10,8 +10,8 @@ const Layout = (props) => {
     <div className={styles.parent} style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', overflowX: 'hidden',  }}>
       <Navigation setActiveTab={props.setActiveTab} count={props.count}/>
       <Row className={styles.mainContent}>
-        <Col span={24} className={styles.stickyNav} align={'middle'} justify={'center'}>
-          <Title style={{margin: 0}}>{props.title}</Title>
+        <Col span={24} className={styles.stickyNav}>
+          <Title style={{ margin: 0, color: '#090036'}} level={2}>{props.title}</Title>
           <Button className={styles.logoutBtn}>
             <Text style={{ color: '#fff', fontWeight: 500 }} className={styles.logoutText}>Logout</Text>
             <FaSignOutAlt size={20} />
