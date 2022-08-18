@@ -70,24 +70,13 @@ const Settings = ({agents}) => {
                 </Col>
             </Row>
 
-            {all ? <RenderAgents data={agents}/> : ''}
-            {new_ ? <RegisterForm /> : ''}
-            {edit ? <UpdateForm /> : ''}
-            {remove ? <DeleteForm /> : ''}
+            {all ? <RenderAgents agents={agents}/> : <></>}
+            {new_ ? <RegisterForm /> : <></>}
+            {edit ? <UpdateForm agents={agents} /> : <></>}
+            {remove ? <DeleteForm agents={agents} /> : <></>}
 
         </Layout>
     )
-}
-export async function getStaticProps(context) {
-        const response = await axios.get('/api/agents')
-        const agents = response.data
-        console.log(agents)
-        return {
-            props: {
-                agents,
-            },
-            unstable_revalidate: 1
-        }
 }
 
 export default Settings

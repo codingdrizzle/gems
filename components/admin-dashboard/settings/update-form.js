@@ -13,7 +13,7 @@ import styles from '../../../styles/admin-styles/settings-styles/update.module.c
 const { Title, Text } = Typography
 const { Password } = Input
 
-const UpdateForm = () => {
+const UpdateForm = ({agents}) => {
     const [name, setName] = useState('')
     const [rank, setRank] = useState('')
     const [username, setUsername] = useState('')
@@ -40,6 +40,18 @@ const UpdateForm = () => {
         setDisabled(true)
     }
 
+    const handleChange = (e) => {
+        for(let i = 0; i < agents.length; i++){
+            if (e.target.value.toLowerCase() ===  agents[i].name.toLowerCase()){
+                console.log(i)
+                setSearchResults(agents[i].name)
+            }else{
+                console.log(i)
+
+            }
+        }
+    }
+
     const handleUpdate = async () => {
         const { error, value } = validateAgent.validate({ Name: name, Rank: rank, Username: username, Contact: contact, Id: password })
 
@@ -58,7 +70,7 @@ const UpdateForm = () => {
         <>
             <Row gutter={[20, 52]} align={'middle'} justify={'center'} style={{ marginBottom: 30 }}>
                 <Col span={24} className={styles.searchBar}>
-                    <Input placeholder='Search agent here' prefix={<FaSearch color='#888' size={18} style={{ marginRight: 10 }} />} className={styles.searchInput} onChange={(e) => { setSearchResults(e.target.value) }} />
+                    <Input placeholder='Search agent here' prefix={<FaSearch color='#888' size={18} style={{ marginRight: 10 }} />} className={styles.searchInput} onChange={handleChange} />
                     <Button className={styles.searchBtn}>Search</Button>
                 </Col>
             </Row>

@@ -6,16 +6,16 @@ import styles from '../../../styles/admin-styles/settings-styles/agents.module.c
 const users = ['Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith', 'Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith', 'Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith', 'Francis Buabin Owusu', 'Kidi Hayford', 'Sarfo Kunadu', 'Coding Judith']
 const { Text } = Typography
 
-const RenderAgents = ({data}) => {
+const RenderAgents = ({agents}) => {
     return (
         <Row gutter={[20,20]}>
             {
-                users.map((user, _) => {
+                agents.map((user, _) => {
                     return(
                         <Col key={_} xs={24} md={12} lg={8}>
                             <Card hoverable className={[styles.userCard,'userCard']}>
                                 <div className={styles.icon}><FaUser size={25} color={'#fff'}/></div>
-                                <Text className={styles.username}>{user}</Text>                                    
+                                <Text className={styles.username}>{user.name}</Text>                                    
                             </Card>
                         </Col>
                     )
