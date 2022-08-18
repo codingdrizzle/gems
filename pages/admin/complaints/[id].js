@@ -1,9 +1,8 @@
-import { useRouter, useState } from 'next/router'
-import axios from 'axios'
+import Head from 'next/head'
+import React from 'react'
 import connect from '../../../utils/connect-mongo'
 import mongoose from 'mongoose'
 import Complaints from '../../../models/complaintSchema'
-import React from 'react'
 import Preview from '../../../components/admin-dashboard/complaints/complaints-previrew'
 import Layout from '../../../layouts/admin-dashboard-layouts'
 const ObjectId = mongoose.Types.ObjectId
@@ -12,9 +11,16 @@ const NotificationPreview = ({ complaints }) => {
 
   const data = JSON.parse(complaints)
   return (
+    <>
+      <Head>
+        <title title='Ghana Emergency Services'>GEMS - ID-Complaint</title>
+        <meta name="description" content="" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
     <Layout title={'Complaint Preview'}>
       <Preview complaint={data}/>
     </Layout>
+    </>
   )
 }
 

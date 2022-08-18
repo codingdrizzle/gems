@@ -1,12 +1,19 @@
+import Head from 'next/head'
 import React from 'react'
 import connect from '../../../utils/connect-mongo'
 import Complaints from '../../../models/complaintSchema';
 import Notification from '../../../components/admin-dashboard/complaints';
 
-const NotificationPage = ({complaints}) => {
-    console.log(JSON.parse(complaints))
+const NotificationPage = ({ complaints }) => {
     return (
-        <Notification complaints={JSON.parse(complaints)}/>
+        <>
+            <Head>
+                <title title='Ghana Emergency Services'>GEMS - Complaints</title>
+                <meta name="description" content="" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Notification complaints={JSON.parse(complaints)} />
+        </>
     );
 }
 

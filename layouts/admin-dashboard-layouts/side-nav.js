@@ -40,10 +40,10 @@ const Navigation = (props) => {
                             <BsBarChartLineFill size={25} className={styles.navIcon} />
                             <Text className={styles.text}>Statistics</Text>
                         </li>
-                        <li className={styles.navItem} onClick={() => router.push('/admin/broadcast')}>
+                        {/* <li className={styles.navItem} onClick={() => router.push('/admin/broadcast')}>
                             <FaPodcast size={25} className={styles.navIcon} />
                             <Text className={styles.text}>Broadcast</Text>
-                        </li>
+                        </li> */}
                         <li className={styles.navItem} onClick={() => router.push('/admin/settings')}>
                             <IoSettings size={25} className={styles.navIcon} />
                             <Text className={styles.text}>Settings</Text>
@@ -56,7 +56,7 @@ const Navigation = (props) => {
                     <Link href={'/admin/'}><BsFillGridFill size={25} className={styles.navIcon} /></Link>
                     <Link href={'/admin/complaints'}><FaBell size={25} className={styles.navIcon} /></Link>
                     <Link href={'/admin/statistics'}><BsBarChartLineFill size={25} className={styles.navIcon} /></Link>
-                    <Link href={'/admin/broadcast'}><FaPodcast size={25} className={styles.navIcon} /></Link>
+                    {/* <Link href={'/admin/broadcast'}><FaPodcast size={25} className={styles.navIcon} /></Link> */}
                     <Link href={'/admin/settings'}><IoSettings size={25} className={styles.navIcon} /></Link>
                 </div>
             </div>

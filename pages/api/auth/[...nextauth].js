@@ -39,7 +39,6 @@ export default NextAuth({
             if (token && token.id) {
                 session.user.id = token.id
                 session.user.name = token.name
-                console.log('session got called',  session)
             }
             return session
         },
