@@ -13,7 +13,7 @@ import styles from '../../../styles/admin-styles/settings-styles/update.module.c
 const { Title, Text } = Typography
 const { Password } = Input
 
-const UpdateForm = ({agents}) => {
+const UpdateForm = ({ agents }) => {
     const [name, setName] = useState('')
     const [rank, setRank] = useState('')
     const [username, setUsername] = useState('')
@@ -21,6 +21,7 @@ const UpdateForm = ({agents}) => {
     const [contact, setContact] = useState('')
     const [searchResults, setSearchResults] = useState('')
     const [disabled, setDisabled] = useState(true)
+    const [details, setDetails] = useState({})
 
     const data = {
         name,
@@ -28,6 +29,17 @@ const UpdateForm = ({agents}) => {
         username,
         id: password,
         contact
+    }
+
+    const handleDetails = (value) => {
+        setDetails(value)
+        setSearchResults('')
+        setName(value.name)
+        setRank(value.rank)
+        setUsername(value.username)
+        setPassword(value.password)
+        setContact(value.contact)
+        setDisabled(false)
     }
 
     const reset = () => {
@@ -41,31 +53,22 @@ const UpdateForm = ({agents}) => {
     }
 
     const handleChange = (e) => {
-        for(let i = 0; i < agents.length; i++){
-            if (e.target.value.toLowerCase() ===  agents[i].name.toLowerCase()){
-                console.log(i)
-                setSearchResults(agents[i].name)
-            }else{
-                console.log(i)
-
-            }
-        }
+        setSearchResults(e.target.value)
     }
 
     const handleUpdate = async () => {
         const { error, value } = validateAgent.validate({ Name: name, Rank: rank, Username: username, Contact: contact, Id: password })
 
         if (error) {
-            message.error(error.message)
+            message.error(error.message === '"Id" is required' ? 'Agent ID is required' : error.message)
         } else {
-            await axios.patch('/api/agents', data)
+            await axios.patch(`/api/agents/?id=${details._id}`, data)
                 .then(res => {
-                    message.success(res.data.message)
+                    message.success('Agent details updated successfully.')
                     reset()
                 })
         }
     }
-
     return (
         <>
             <Row gutter={[20, 52]} align={'middle'} justify={'center'} style={{ marginBottom: 30 }}>
@@ -74,24 +77,34 @@ const UpdateForm = ({agents}) => {
                     <Button className={styles.searchBtn}>Search</Button>
                 </Col>
             </Row>
-            <Row gutter={[52, 2]} style={{ marginBottom: 30 }}>
+            <Row gutter={[52, 20]} style={{ marginBottom: 30 }}>
                 {
                     searchResults === '' ?
                         <Col xs={24} lg={12}>
                             <Title level={4} style={{ color: '#ccc' }}>No search results, Please search ... </Title>
                             <Skeleton loading={true} active avatar />
                         </Col> :
-                        <Col xs={24} lg={12}>
-                            <Card hoverable className={[styles.userCard, 'userCard']}>
-                                <div style={{width: '90%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 15}}>
-                                    <div className={styles.icon}><FaUser size={25} color={'#fff'} /></div>
-                                    <Text className={styles.username}>{searchResults}</Text>
-                                </div>
-                                <div style={{ width: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <Button className={styles.activateEdit} onClick={() => { setDisabled(false) }}> <MdEdit size={20} /></Button>
-                                </div>
-                            </Card>
-                        </Col>
+                        agents.filter((item) => {
+                            if (searchResults === '') {
+                                return item
+                            }  else if (item.name.toLowerCase().includes(searchResults.toLowerCase())) {
+                                return item
+                            }
+                        }).map((item, index) => {
+                            return (
+                                <Col xs={24} lg={12} key={index}>
+                                    <Card hoverable className={[styles.userCard, 'userCard']}>
+                                        <div style={{ width: '90%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 15 }}>
+                                            <div className={styles.icon}><FaUser size={25} color={'#fff'} /></div>
+                                            <Text className={styles.username}>{item.name}</Text>
+                                        </div>
+                                        <div style={{ width: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Button className={styles.activateEdit} onClick={() => handleDetails(item)}> <MdEdit size={20} /></Button>
+                                        </div>
+                                    </Card>
+                                </Col>
+                            )
+                        })
                 }
                 <Col xs={24} lg={12} className={styles.form}>
                     <Card className={[styles.card, 'registerCard']}>
