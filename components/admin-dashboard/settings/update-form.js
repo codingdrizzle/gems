@@ -50,6 +50,7 @@ const UpdateForm = ({ agents }) => {
         setContact('')
         setSearchResults('')
         setDisabled(true)
+        setSearchResults('')
     }
 
     const handleChange = (e) => {
