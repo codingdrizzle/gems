@@ -2,6 +2,10 @@ const next = require("next");
 const ExpressManager = require("./manager/expressManager");
 const ServerManager = require("./manager/serverManager");
 const SocketManager = require("./manager/socketManager");
+const DatabaseManager = require("./manager/databaseManager");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
@@ -18,10 +22,12 @@ const serverManager = new ServerManager(app.getInstance());
 */
 const io = new SocketManager(serverManager.getInstance()).io;
 
-nextApp.prepare().then(() => {
+(async () => {
+  await nextApp.prepare();
+  await DatabaseManager.connect();
   serverManager.getInstance().listen(port, () => {
     console.log(`App running on port ${port}`);
   });
-});
+})();
 
 module.exports = { io };
