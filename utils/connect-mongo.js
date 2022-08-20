@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connect = async () => {
     mongoose.connect(
-        process.env.MONGODB_URL || process.env.DATABASE_URL,
+        'mongodb+srv://codingdrizzle:password123@cluster0.qtomywv.mongodb.net/?retryWrites=true&w=majority' || process.env.DATABASE_URL,
         {},
         () => {
             console.log('Connected to MongoDB');
