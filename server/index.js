@@ -1,12 +1,12 @@
 const next = require("next");
 const ExpressManager = require("./manager/expressManager");
-const ServerManager = require("./manager/serverManager.js");
-const SocketManager = require("./manager/socketManager.js");
+const ServerManager = require("./manager/serverManager");
+const SocketManager = require("./manager/socketManager");
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
 
-const nextApp = next({ dev });
+const nextApp = next({ dev, port });
 
 const app = new ExpressManager(nextApp);
 const serverManager = new ServerManager(app.getInstance());
@@ -19,11 +19,8 @@ const serverManager = new ServerManager(app.getInstance());
 const io = new SocketManager(serverManager.getInstance()).io;
 
 nextApp.prepare().then(() => {
-  serverManager.getInstance().listen({
-    port,
-    callBack: () => {
-      console.log(`App listening on port http://localhost:${port}`);
-    },
+  serverManager.getInstance().listen(port, () => {
+    console.log(`App running on port ${port}`);
   });
 });
 
