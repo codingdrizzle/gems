@@ -78,23 +78,23 @@ const UpdateForm = ({ agents }) => {
                     <Button className={styles.searchBtn}>Search</Button>
                 </Col>
             </Row>
-            <Row gutter={[52, 20]} style={{ marginBottom: 30 }}>
+            <Row gutter={[20, 20]} style={{ marginBottom: 30 }}>
                 {
                     searchResults === '' ?
                         <Col xs={24} lg={12}>
                             <Title level={4} style={{ color: '#ccc' }}>No search results, Please search ... </Title>
                             <Skeleton loading={true} active avatar />
                         </Col> :
-                        agents.filter((item) => {
-                            if (searchResults === '') {
-                                return item
-                            }  else if (item.name.toLowerCase().includes(searchResults.toLowerCase())) {
-                                return item
-                            }
-                        }).map((item, index) => {
-                            return (
-                                <Col xs={24} lg={12} key={index}>
-                                    <Card hoverable className={[styles.userCard, 'userCard']}>
+                        <Col xs={24} lg={12}>
+                            {agents.filter((item) => {
+                                if (searchResults === '') {
+                                    return item
+                                } else if (item.name.toLowerCase().includes(searchResults.toLowerCase())) {
+                                    return item
+                                }
+                            }).map((item, index) => {
+                                return (
+                                    <Card key={index} hoverable className={[styles.userCard, 'userCard']}>
                                         <div style={{ width: '90%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: 15 }}>
                                             <div className={styles.icon}><FaUser size={25} color={'#fff'} /></div>
                                             <Text className={styles.username}>{item.name}</Text>
@@ -103,9 +103,10 @@ const UpdateForm = ({ agents }) => {
                                             <Button className={styles.activateEdit} onClick={() => handleDetails(item)}> <MdEdit size={20} /></Button>
                                         </div>
                                     </Card>
-                                </Col>
-                            )
-                        })
+                                )
+                            })
+                            }
+                        </Col>
                 }
                 <Col xs={24} lg={12} className={styles.form}>
                     <Card className={[styles.card, 'registerCard']}>

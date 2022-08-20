@@ -38,11 +38,8 @@ export default async function handleAgentRequests(req, res) {
                 if (existAgent) {
                     res.status(200).json({ message: 'Agent already exist' })
                 } else {
-                    bcrypt.hash(req.body.id, 10).then(async (hash) => {
-                        req.body.id = hash
                         await Agent.create(req.body)
-                        res.status(201).json({ message: `Agent account ${req.body.name} created.` })
-                    })
+                        res.status(201).json({ message: `New account created for ${req.body.name}` })
                 }
             } catch (error) {
                 res.status(400).json({ message: error.message })
@@ -67,9 +64,16 @@ export default async function handleAgentRequests(req, res) {
                 const { id } = req.query
                 if (!id) {
                     res.status(400).json({ message: 'Bad request' })
+                }else{
+                    const noUser = await Agent.findOne({_id: ObjectId(id)})
+                    if(!noUser){
+                        res.status(404).json({message: 'Agent not found.'})
+                    }else{
+                        const agent = await Agent.deleteOne({ _id: ObjectId(id) })
+                        res.status(200).json(agent)
+                    }
                 }
-                const agent = await Agent.deleteOne({ _id: ObjectId(id) })
-                res.status(200).json(agent)
+                
             } catch (error) {
                 res.status(500).json({ message: error.message })
             }

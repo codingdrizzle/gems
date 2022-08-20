@@ -1,10 +1,13 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 import connect from '../../utils/connect-mongo'
 import Agent from '../../models/agentSchema';
 import Settings from '../../components/admin-dashboard/settings'
 
 const SettingsPage = ({ agents }) => {
+  useEffect(() => {
+
+  }, [agents])
   return (
     <>
       <Head>
@@ -27,7 +30,7 @@ export async function getStaticProps(context) {
     props: {
       agents
     },
-    revalidate: 10
+    revalidate: 1
   }
 }
 

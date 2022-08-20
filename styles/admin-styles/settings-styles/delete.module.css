@@ -59,3 +59,14 @@
     border: 1px solid var(--primary-blue);
     background: var(--primary-blue) !important;
 }
+
+.confirmBtn, .confirmBtn:hover, .confirmBtn:focus{
+    background: #e92424cc;
+    color: #fff;
+    border: none;
+
+}
+
+.cancelBtn, .cancelBtn:hover, .cancelBtn:focus{
+    /* border: none; */
+}

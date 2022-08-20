@@ -72,8 +72,8 @@ const Settings = ({agents}) => {
 
             {all ? <RenderAgents agents={agents}/> : <></>}
             {new_ ? <RegisterForm /> : <></>}
-            {edit ? <UpdateForm agents={agents} /> : <></>}
-            {remove ? <DeleteForm agents={agents} /> : <></>}
+            {edit ? <UpdateForm agents={agents}/> : <></>}
+            {remove ? <DeleteForm agents={agents}/> : <></>}
 
         </Layout>
     )
