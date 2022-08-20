@@ -1,36 +1,40 @@
-import React from 'react'
-import Head from 'next/head'
-import connect from '../../utils/connect-mongo'
-import Complaints from '../../models/complaintSchema';
+import React from "react";
+import Head from "next/head";
+import connect from "../../utils/connect-mongo";
+import Complaints from "../../models/complaintSchema";
 
-import Statistics from '../../components/admin-dashboard/statistics'
+import Statistics from "../../components/admin-dashboard/statistics";
 
-const StatisticsPage = ({complaints}) => {
+const StatisticsPage = ({ complaints }) => {
+  if (!complaints) return <div>Error occurred</div>;
   return (
     <>
       <Head>
-        <title title='Ghana Emergency Services'>GEMS - Statistics</title>
+        <title title="Ghana Emergency Services">GEMS - Statistics</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Statistics complaints={JSON.parse(complaints)}/>
+      <Statistics complaints={JSON.parse(complaints)} />
     </>
-  )
-}
+  );
+};
 
 export async function getStaticProps(context) {
-  await connect()
+  try {
+    await connect();
 
-  const res = await Complaints.find().populate('user').exec()
-  const complaints = JSON.stringify(res)
+    const res = await Complaints.find().populate("user").exec();
+    const complaints = JSON.stringify(res);
 
-
-  return {
-    props: {
-      complaints
-    },
-    revalidate: 10
+    return {
+      props: {
+        complaints,
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    return null;
   }
 }
 
-export default StatisticsPage
+export default StatisticsPage;
