@@ -5,6 +5,9 @@ class SocketManager {
     this.io = new Server(httpServer);
     this.io.on("connection", (socket) => {
       console.log(`${socket.id} is connected`);
+      socket.on("authenticate", ({ userId }) => {
+        socket.join(`user:${userId}`);
+      });
     });
 
     this.io.on("disconnection", (socket) => {
