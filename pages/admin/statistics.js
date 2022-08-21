@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import connect from "../../utils/connect-mongo";
 import Complaints from "../../models/complaintSchema";
 
 import Statistics from "../../components/admin-dashboard/statistics";
@@ -21,8 +20,6 @@ const StatisticsPage = ({ complaints }) => {
 
 export async function getStaticProps(context) {
   try {
-    await connect();
-
     const res = await Complaints.find().populate("user").exec();
     const complaints = JSON.stringify(res);
 

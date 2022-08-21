@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import connect from '../../utils/connect-mongo'
 import Complaints from '../../models/complaintSchema'
-
 import Submissions from '../../components/user-dashboard/user-submissions'
 
 const SubmissionsPage = ({complaints}) => {
@@ -19,7 +17,6 @@ const SubmissionsPage = ({complaints}) => {
 }
  
 export async function getStaticProps(context) {
-  await connect()
 
   const res = await Complaints.find().populate('user').exec()
   const complaints = JSON.stringify(res)
