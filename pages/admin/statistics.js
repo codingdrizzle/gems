@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import Complaints from "../../models/complaintSchema";
-
 import Statistics from "../../components/admin-dashboard/statistics";
 
 const StatisticsPage = ({ complaints }) => {

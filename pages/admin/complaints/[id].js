@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React from 'react'
-import connect from '../../../utils/connect-mongo'
 import mongoose from 'mongoose'
 import Complaints from '../../../models/complaintSchema'
 import Preview from '../../../components/admin-dashboard/complaints/complaints-previrew'
@@ -25,7 +24,6 @@ const NotificationPreview = ({ complaints }) => {
 }
 
 export async function getStaticPaths() {
-  await connect()
   const ids = await Complaints.find().exec()
 
   return {

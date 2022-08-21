@@ -17,7 +17,6 @@ const SubmissionsPage = ({complaints}) => {
 }
  
 export async function getStaticProps(context) {
-
   const res = await Complaints.find().populate('user').exec()
   const complaints = JSON.stringify(res)
 
