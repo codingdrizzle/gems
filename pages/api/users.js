@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import User from '../../models/userSchema'
-import connect from '../../utils/connect-mongo'
 const ObjectId = mongoose.Types.ObjectId
 /**
  * 
@@ -11,8 +10,6 @@ const ObjectId = mongoose.Types.ObjectId
  */
 
 export default async function handleUsersRequests(req, res) {
-    // Connect to mongoDB 
-    await connect()
     const {id} = req.query
     switch (req.method) {
         case 'GET':

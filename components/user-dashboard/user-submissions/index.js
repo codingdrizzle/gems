@@ -13,7 +13,6 @@ const Submissions = ({complaints}) => {
     // useRouter
     const router = useRouter()
     //useState
-    const [data, setDate] = useState([])
     const [id, setId] = useState('')
     const [loading, setLoading] = useState(true)
 
@@ -22,8 +21,6 @@ const Submissions = ({complaints}) => {
         const session = await getSession()
         return session.user.id
     }
-
-    
     
     useEffect(() => {
         retrieveSession().then(res => setId(res))

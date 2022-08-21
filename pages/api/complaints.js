@@ -1,12 +1,9 @@
 import mongoose from 'mongoose'
 import Complaints from '../../models/complaintSchema'
-import connect from '../../utils/connect-mongo'
 const ObjectId = mongoose.Types.ObjectId
 
 
 export default async function handleUsersRequests(req, res) {
-    // Connect to mongoDB 
-    await connect()
     const { id } = req.query
 
     switch (req.method) {
