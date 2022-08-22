@@ -8,7 +8,6 @@ import { IoIosCheckmarkCircle, IoIosCloseCircle } from 'react-icons/io'
 import { MdDateRange, MdOutlineLocationOn, MdLocationPin, MdOutlineCategory } from 'react-icons/md'
 import styles from '../../../styles/admin-styles/complaints-styles/preview.module.css'
 import ComplaintItem from '../../../helpers/complaint-item'
-import AgencyIcon from '../../../helpers/get-agency-icon'
 
 const { Title, Text } = Typography
 
