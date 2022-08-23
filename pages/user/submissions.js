@@ -3,7 +3,7 @@ import React from 'react'
 import Complaints from '../../models/complaintSchema'
 import Submissions from '../../components/user-dashboard/user-submissions'
 
-const SubmissionsPage = ({complaints}) => {
+const SubmissionsPage = () => {
   return (
     <>
       <Head>
@@ -11,21 +11,21 @@ const SubmissionsPage = ({complaints}) => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Submissions complaints={JSON.parse(complaints)}/>
+      <Submissions/>
     </>
   )
 }
  
-export async function getStaticProps(context) {
-  const res = await Complaints.find().populate('user').exec()
-  const complaints = JSON.stringify(res)
+// export async function getStaticProps(context) {
+//   const res = await Complaints.find().populate('user').exec()
+//   const complaints = JSON.stringify(res)
 
-  return {
-    props: {
-      complaints
-    },
-    revalidate: 10
-  }
-}
+//   return {
+//     props: {
+//       complaints
+//     },
+//     revalidate: 10
+//   }
+// }
 
 export default SubmissionsPage
