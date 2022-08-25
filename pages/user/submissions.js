@@ -25,7 +25,6 @@ const SubmissionsPage = () => {
           setId(res.user.id)
           console.log(id)
         })
-        console.log(typeof(id))
       try {
         axios.get('/api/submissions/?id='+id)
         .then(res => {
