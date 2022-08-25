@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Complaints from '../../models/complaintSchema'
+// import Complaints from '../../models/complaintSchema'
 import Submissions from '../../components/user-dashboard/user-submissions'
 
 const SubmissionsPage = () => {

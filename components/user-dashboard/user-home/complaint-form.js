@@ -9,13 +9,10 @@ import { BsCheckCircleFill } from 'react-icons/bs'
 import { Col, Row, Card, Input, Typography, Modal, Select, Button, message, Divider, Checkbox, Spin, Alert } from 'antd'
 import { formCategory, formDescription, formAttach, locationCheck, locationDescription, swearCheck } from '../../../states/actions'
 import styles from '../../../styles/user-styles/user-home-styles/content.module.css'
+import { police, ecg, fire, local, amb } from './data'
 
 const { Text } = Typography
 const { TextArea } = Input
-
-const police = ['Crime', 'Homicide', 'Violence/Assault', 'Other'];
-const fire = ['Fire outbreak', 'Other'];
-const amb = ['Emergency Health Issue', 'Death', 'Other'];
 
 const ModalForm = ({ visible, onClose }) => {
     // Get sessions
@@ -88,7 +85,7 @@ const ModalForm = ({ visible, onClose }) => {
             axios.get(url)
                 .then(res => {
                     const { city, locality, latitude, longitude } = res.data
-                    dispatcher(locationCheck({city, locality, latitude, longitude}))
+                    dispatcher(locationCheck({ city, locality, latitude, longitude }))
                     console.log({ city, locality, latitude, longitude })
                 })
                 .catch(err => console.log(err))
@@ -107,16 +104,6 @@ const ModalForm = ({ visible, onClose }) => {
             setTypes('')
         }
     }
-
-    
-    // const handleLocChecker = () => {
-    //     setChecker(!checker)
-    //     if(checker){
-    //         getLocation()
-    //     }else{
-    //         dispatcher(locationCheck({}))
-    //     }
-    // }
 
     const resetForm = () => {
         dispatcher(formCategory(''))
@@ -174,7 +161,7 @@ const ModalForm = ({ visible, onClose }) => {
                     console.log(response)
                     message.success('Successfully submitted complaint.');
                     resetForm()
-                        
+
                 })
                 .catch(err => message.warning(err.response.data));
         }
@@ -216,6 +203,8 @@ const ModalForm = ({ visible, onClose }) => {
                                     <option value="Ghana Police Service">Ghana Police Service</option>
                                     <option value="Ghana Fire Service">Ghana Fire Service</option>
                                     <option value="Ghana Ambulance Service">Ghana Ambulance Service</option>
+                                    <option value="Electricity Company of Ghana">Electricity Company of Ghana (ECG)</option>
+                                    <option value="Local Assembly">Local Assembly</option>
                                 </select>
                             </Col>
                         </Row>
@@ -248,14 +237,32 @@ const ModalForm = ({ visible, onClose }) => {
                                                         )
                                                     }) :
                                                     formCat === "Ghana Ambulance Service" ?
-                                                    amb.map((item, _) => {
-                                                        return (
-                                                            <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
-                                                                <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
-                                                                <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
-                                                            </Col>
-                                                        )
-                                                    }) : null
+                                                        amb.map((item, _) => {
+                                                            return (
+                                                                <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                                    <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                    <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
+                                                                </Col>
+                                                            )
+                                                        }) :
+                                                        formCat === "Electricity Company of Ghana" ?
+                                                            ecg.map((item, _) => {
+                                                                return (
+                                                                    <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                                        <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                        <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
+                                                                    </Col>
+                                                                )
+                                                            }) :
+                                                            formCat === "Local Assembly" ?
+                                                                local.map((item, _) => {
+                                                                    return (
+                                                                        <Col span={24} key={_} style={{ display: 'flex', gap: 3, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                                            <Input id='typeCheck' type={'checkbox'} required placeholder={item} style={{ width: 'auto' }} onChange={handleCheck} />
+                                                                            <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
+                                                                        </Col>
+                                                                    )
+                                                                }):null
                                         }
                                     </Row>
                                 </Row> : null}
@@ -320,9 +327,9 @@ const ModalForm = ({ visible, onClose }) => {
                                 <Checkbox checked={FormSwearCheck}
                                     className={styles.checkbox}
                                     required
-                                    onChange={() => { 
-                                        dispatcher(swearCheck()) 
-                                         getLocation()
+                                    onChange={() => {
+                                        dispatcher(swearCheck())
+                                        getLocation()
                                     }}
                                 />
                                 <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
@@ -332,9 +339,9 @@ const ModalForm = ({ visible, onClose }) => {
                                     <Checkbox checked={FormSwearCheck}
                                         className={styles.checkbox}
                                         required
-                                        onChange={() => { 
-                                            dispatcher(swearCheck()) 
-                                             getLocation()
+                                        onChange={() => {
+                                            dispatcher(swearCheck())
+                                            getLocation()
                                         }}
                                     />
                                     <Text className={styles.checkText}>I agree to face the penalty or pay a fine if this complaint is fake.</Text>

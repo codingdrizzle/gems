@@ -293,6 +293,10 @@
     outline: none;
 }
 
+.threeBars{
+    display: none !important;
+}
+
 @keyframes shake {
     0% {
         transform: translate(0, 0) rotate(0deg);
@@ -315,6 +319,11 @@
     }
 }
 
+@media only screen and (max-width: 900px) {
+    .threeBars {
+        display: block !important;
+    }
+}
 @media only screen and (max-width: 750px) {
     .modal {
         width: 80% !important;
@@ -325,13 +334,10 @@
     .modal {
         width: 90% !important;
     }
-}
-
-@media only screen and (max-width: 500px) {
     .vanish {
         display: none;
     }
-
+    
     .formInput {
         font-size: 15px;
         line-height: 18px;

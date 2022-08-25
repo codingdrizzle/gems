@@ -25,7 +25,7 @@ const Greetings = () => {
           </Text>
           <Text className={styles.instruction}>
               <p style={{ margin: 0, fontWeight: 600 }}>Please choose an action by tapping on a button below.</p>
-              <p style={{ margin: 0 }}>Tap the 3-bars icon at the top-right corner for menu.</p>
+              <p style={{ margin: 0 }} className={styles.threeBars}>Tap the 3-bars icon at the top-right corner for menu.</p>
           </Text>
       </Col>
 
