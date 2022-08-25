@@ -8,7 +8,7 @@ export const rootReducer = combineReducers({
     FormCheckLocation, 
     FormDescribeLocation, 
     FormSwearCheck,
-    GetAllComplaints
+    submissions: GetAllComplaints
 })
 
 export default rootReducer

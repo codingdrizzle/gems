@@ -1,10 +1,12 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import Agent from '../../models/agentSchema'
-
+import connect from '../../utils/connect-mongo'
 const ObjectId = mongoose.Types.ObjectId
 
 export default async function handleAgentRequests(req, res) {
+    // Connect db
+    await connect()
     const {id} = req.query
     switch (req.method) {
         case 'GET':
