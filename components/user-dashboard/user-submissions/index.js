@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getSession } from 'next-auth/react'
 import { Row, Col, Skeleton, Typography } from 'antd'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import Layout from '../../../layouts/user-dashboard-layouts/home-layout'
@@ -14,12 +13,11 @@ const Submissions = () => {
     // useRouter
     const router = useRouter()
     //useState
-    const [id, setId] = useState('')
     const [loading, setLoading] = useState(true)
     
     useEffect(() => {
         setLoading(false)
-    }, [id])
+    }, [])
 
     return (
         <Layout active={'home'}>

@@ -37,10 +37,9 @@ const Form = () => {
         }else{
             const payload = { email, password }
             const result = await signIn('credentials', {...payload,  redirect: false})
-            console.log({result})
+            
             const session = await getSession()
             dispatch(getUserID(session.user.id))
-            console.log(session.user.id)
 
             if(!result.error){
                 router.replace('/user')
