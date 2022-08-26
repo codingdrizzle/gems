@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Row, Col, Skeleton, Typography } from 'antd'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import Layout from '../../../layouts/user-dashboard-layouts/home-layout'
@@ -8,8 +7,7 @@ import SubmissionCard from './card'
 
 const { Title } = Typography
 
-const Submissions = () => {
-    const { submissions } = useSelector(state =>  state)
+const Submissions = ({submissions}) => {
     // useRouter
     const router = useRouter()
     //useState
