@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck, GetAllComplaints } from './form-reducer'
+import { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck, GetAllComplaints, GetUserID } from './form-reducer'
 
 export const rootReducer = combineReducers({
     FormCategory, 
@@ -8,7 +8,8 @@ export const rootReducer = combineReducers({
     FormCheckLocation, 
     FormDescribeLocation, 
     FormSwearCheck,
-    submissions: GetAllComplaints
+    submissions: GetAllComplaints,
+    userID: GetUserID
 })
 
 export default rootReducer

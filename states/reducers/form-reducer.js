@@ -53,3 +53,11 @@ export const GetAllComplaints = (state = [], action) => {
         default: return state
     }
 }
+
+export const GetUserID = (state = '', action) => {
+    switch(action.type) {
+        case 'USER_ID':
+            return action.payload
+        default: return state
+    }
+}

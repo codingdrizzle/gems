@@ -39,3 +39,10 @@ export const getComplaints = (value) => {
         payload: value
     }
 }
+
+export const getUserID = (value) => {
+    return {
+        type: 'USER_ID',
+        payload: value
+    }
+}

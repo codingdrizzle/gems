@@ -23,7 +23,7 @@ const SubmissionsPage = () => {
       // get session
         await getSession().then((res) => {
           setId(res.user.id)
-          console.log(id)
+          console.log(res.user.id)
         })
       try {
         axios.get('/api/submissions/?id='+id)

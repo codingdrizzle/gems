@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React, { useState, useRef, useMemo } from 'react'
+import { useDispatch } from 'react-redux'
+import { getUserID } from '../../states/actions'
 import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock, BiLogIn } from 'react-icons/bi'
 import { BsEye, BsEyeSlash, BsArrowReturnLeft } from 'react-icons/bs'
@@ -14,6 +16,7 @@ const { Text } = Typography
 
 
 const Form = () => {
+    const dispatch = useDispatch()
     const router = useRouter()
     const [show, setShow] = useState(false)
     const [passwordHash, setPasswordHash] = useState('password')
@@ -36,7 +39,8 @@ const Form = () => {
             const result = await signIn('credentials', {...payload,  redirect: false})
             console.log({result})
             const session = await getSession()
-            console.log({session})
+            dispatch(getUserID(session.user.id))
+            console.log(session.user.id)
 
             if(!result.error){
                 router.replace('/user')
