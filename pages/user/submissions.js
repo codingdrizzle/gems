@@ -6,22 +6,6 @@ import axios from 'axios'
 import Submissions from '../../components/user-dashboard/user-submissions'
 
 const SubmissionsPage = () => {
-  // getUser ID from redux store
-  const { userID } = useSelector(state => state)
-  
-  // States
-  const [ submissions, setSubmissions] = useState([])
-
-  useEffect(() => {
-      try {
-        axios.get(`/api/submissions/?id=${userID}`)
-        .then(res => {
-          setSubmissions(res.data)
-        })
-      } catch (error) {
-        message.error('Could not fetch submissions.')
-      }
-  }, [userID])
   return (
     <>
       <Head>
@@ -29,7 +13,7 @@ const SubmissionsPage = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Submissions submissions={submissions}/>
+      <Submissions/>
     </>
   )
 }

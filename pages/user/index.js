@@ -18,7 +18,7 @@ const UserHomePage = () => {
       dispatcher(getUserID(session.user.id))
     }
     setUserID()
-  }, [])
+  }, [userID])
 
   return (
     <>

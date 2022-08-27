@@ -1,21 +1,40 @@
 import { useRouter } from 'next/router'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Skeleton, Typography } from 'antd'
+import { Row, Col, Skeleton, Typography, message } from 'antd'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import Layout from '../../../layouts/user-dashboard-layouts/home-layout'
 import SubmissionCard from './card'
 
 const { Title } = Typography
 
-const Submissions = ({ submissions }) => {
+const Submissions = () => {
     // useRouter
     const router = useRouter()
     //useState
     const [loading, setLoading] = useState(true)
 
+    // getUser ID from redux store
+    const { userID } = useSelector(state => state)
+
+    // States
+    const [submissions, setSubmissions] = useState([])
+
     useEffect(() => {
+        try {
+            axios.get(`/api/submissions/?id=${userID}`)
+                .then(res => {
+                    setSubmissions(res.data)
+                })
+        } catch (error) {
+            message.error('Could not fetch submissions.')
+        }
         setLoading(false)
     }, [])
+
+    // useEffect(() => {
+    // }, [])
 
     return (
         <Layout active={'home'}>

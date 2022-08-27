@@ -13,16 +13,18 @@ export default async function handleUsersRequests(req, res) {
                 try {
                     const complaint = await Complaints.find({ user: ObjectId(id) }).populate('user')
                     if(!complaint){     
-                        res.status(200).json('No submissions found. ')
+                       return  res.status(200).json('No submissions found. ')
                     }
-                    res.status(200).json(complaint)
-                    res.setHeader({ ContentType: 'application/json' })
+                    return res.status(200).json(complaint)
+                    return res.setHeader({ ContentType: 'application/json' })
 
                 } catch (error) {
-                    res.status(500).json({ message: error.message })
+                    return res.status(500).json({ message: error.message })
                 }
-            } 
+            } else{
+                return res.status(405).json('Not allowed.')
+            }
         default:
-            res.status(405).json("Not allowed")
+           return res.status(405).json("Not allowed")
     }
 }
