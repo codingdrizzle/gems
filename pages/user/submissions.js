@@ -21,7 +21,7 @@ const SubmissionsPage = () => {
       } catch (error) {
         message.error('Could not fetch submissions.')
       }
-  }, [submissions])
+  }, [])
   return (
     <>
       <Head>
