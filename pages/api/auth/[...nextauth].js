@@ -22,7 +22,7 @@ export default NextAuth({
 
         // If no error and we have user data, return it
         if (user && isMatch) {
-          delete userDoc.password
+          // delete userDoc.password
           delete userDoc.complaints
           // userDoc.name = userDoc.firstname + userDoc.lastname;
           req.user = userDoc;

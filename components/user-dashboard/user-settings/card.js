@@ -76,12 +76,13 @@ const FormCard = () => {
             message.error('Please enter your password.')
         } else if (isMatch) {
             axios.patch(`/api/users/?id=${user._id}`, data)
-            signOut({ redirect: false })
-            router.push('/login')
                 .then(() => {
                     message.success('Account details updated.')
+                }).then(() => {
+                    signOut({ redirect: false })
+                    router.push('/login')
                 })
-                .catch(() => message.error('Something happened, try again'))
+                .catch(() => message.error('Something went wrong, try again'))
 
         } else {
             message.error('Password incorrect!!')
@@ -89,7 +90,7 @@ const FormCard = () => {
     }
 
     const handleConfirm = async () => {
-        await axios.delete(`/api/users/?id=${session.user.id}`)
+        await axios.delete(`/api/users/?id=${user._id}`)
         router.replace('/')
     }
 
@@ -140,7 +141,7 @@ const FormCard = () => {
                                     <Text className={styles.label}>Contact</Text>
                                 </Col>
                                 <Col xs={24} md={20} className={styles.inputWrapper}>
-                                    <Input type={'text'} placeholder={user.contact} disabled={disabled} onChange={(e) => setContact(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
+                                    <Input type={'text'} placeholder={'0'+user.contact} disabled={disabled} onChange={(e) => setContact(e.target.value)} className={styles.input} style={{ color: disabled ? '#789' : '' }} />
                                 </Col>
                             </Row>
                             <Row>
