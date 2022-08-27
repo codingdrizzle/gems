@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
-import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getComplaints } from '../../../states/actions'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Row, Col, Skeleton, Typography, message } from 'antd'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import Layout from '../../../layouts/user-dashboard-layouts/home-layout'
@@ -10,31 +11,27 @@ import SubmissionCard from './card'
 const { Title } = Typography
 
 const Submissions = () => {
+
+    const dispatcher = useDispatch()
+
     // useRouter
     const router = useRouter()
     //useState
     const [loading, setLoading] = useState(true)
 
     // getUser ID from redux store
-    const { userID } = useSelector(state => state)
+    const { userID, submissions } = useSelector(state => state)
 
-    // States
-    const [submissions, setSubmissions] = useState([])
+    const fetch = useCallback(async () => await axios.get(`/api/submissions/?id=${userID}`)
+        .then(res => dispatcher(getComplaints(res.data)))
+        .catch(err => message.error('Could not fetch submissions.'))
+        , [dispatcher, userID])
 
     useEffect(() => {
-        try {
-            axios.get(`/api/submissions/?id=${userID}`)
-                .then(res => {
-                    setSubmissions(res.data)
-                })
-        } catch (error) {
-            message.error('Could not fetch submissions.')
-        }
+        console.log('Called useEffect.')
+        fetch()
         setLoading(false)
-    }, [])
-
-    // useEffect(() => {
-    // }, [])
+    }, [fetch])
 
     return (
         <Layout active={'home'}>
