@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useSession } from "next-auth/react"
 import axios from 'axios'
 import { GrFormClose } from 'react-icons/gr'
 import { IoIosAttach } from 'react-icons/io'
@@ -15,10 +14,11 @@ const { Text } = Typography
 const { TextArea } = Input
 
 const ModalForm = ({ visible, onClose }) => {
+    // Invoke dispacher
+    const dispatcher = useDispatch()
+
     // Get sessions
-    const { data: session } = useSession()
-    const states = useSelector(state => state)
-    const { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck } = states
+    const { FormCategory, FormDescription, FormAttachFile, FormCheckLocation, FormDescribeLocation, FormSwearCheck, user } = useSelector(state => state)
     const [imageName, setImageName] = useState('')
     const [isDone, setIsDone] = useState(false)
     const [statusIcon, setStatusIcon] = useState()
@@ -27,9 +27,8 @@ const ModalForm = ({ visible, onClose }) => {
     const [types, setTypes] = useState('')
     const [formCat, setFormCat] = useState('')
     const [loading, setLoading] = useState(false)
-    const [checker, setChecker] = useState(false)
+    // const [checker, setChecker] = useState(false)
 
-    const dispatcher = useDispatch()
 
     // Refs
     const descriptionRef = useRef(null)
@@ -86,9 +85,10 @@ const ModalForm = ({ visible, onClose }) => {
                 .then(res => {
                     const { city, locality, latitude, longitude } = res.data
                     dispatcher(locationCheck({ city, locality, latitude, longitude }))
-                    console.log({ city, locality, latitude, longitude })
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    if (err) message.warning('Could not retrieve location.')
+                })
         }
 
         const error = () => {
@@ -115,7 +115,6 @@ const ModalForm = ({ visible, onClose }) => {
         setFile('')
         dispatcher(formAttach(''))
         setStatusIcon(null)
-        // setChecker(false)
         document.getElementById('typeCheck').checked = false
         dispatcher(locationCheck({}))
         dispatcher(locationDescription(''))
@@ -131,7 +130,7 @@ const ModalForm = ({ visible, onClose }) => {
             message.warning('Please describe what happened.')
         } else if (FormAttachFile === '') {
             message.warning('Please upload a file.')
-        } else if (!checker && FormDescribeLocation === '') {
+        } else if (FormDescribeLocation === '') {
             message.warning('Please fill the location section.')
         } else if (!FormSwearCheck) {
             message.warning('Please agree to the terms and conditions.')
@@ -141,14 +140,14 @@ const ModalForm = ({ visible, onClose }) => {
                 type: types,
                 content: FormDescription,
                 image: FormAttachFile,
-                geoLocation: FormCheckLocation,
+                geoLocation: Object.keys(FormCheckLocation).length != 0 ? FormCheckLocation : { message: 'Could not generate GEO-Loaction details.' },
                 descLocation: FormDescribeLocation === '' ? ' ' : FormDescribeLocation,
                 TnC: FormSwearCheck,
                 resolved: false,
                 date: new Date(Date.now()).toString()
             }
             const options = {
-                url: `/api/complaints/?id=${session.user.id}`,
+                url: `/api/complaints/?id=${user._id}`,
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -156,14 +155,16 @@ const ModalForm = ({ visible, onClose }) => {
                 },
                 data: complaintData
             };
-            axios(options)
+            await axios(options)
                 .then(response => {
-                    console.log(response)
-                    message.success('Successfully submitted complaint.');
-                    resetForm()
-
+                    if(response){
+                        message.success('Successfully submitted complaint.');
+                        resetForm()
+                    }
                 })
-                .catch(err => message.warning(err.response.data));
+                .catch((err) => {
+                    if (err) message.warning('An error occured, please try again...!')
+                })
         }
     }
 
@@ -262,7 +263,7 @@ const ModalForm = ({ visible, onClose }) => {
                                                                             <p style={{ margin: 0, fontSize: 16 }}>{item}</p>
                                                                         </Col>
                                                                     )
-                                                                }):null
+                                                                }) : null
                                         }
                                     </Row>
                                 </Row> : null}
@@ -327,9 +328,9 @@ const ModalForm = ({ visible, onClose }) => {
                                 <Checkbox checked={FormSwearCheck}
                                     className={styles.checkbox}
                                     required
-                                    onChange={() => {
+                                    onChange={async () => {
+                                        await getLocation()
                                         dispatcher(swearCheck())
-                                        getLocation()
                                     }}
                                 />
                                 <Text className={styles.checkText}>I hereby agree that this complaint is legitimate and is a confidential issue that needs to be addressed immediately.</Text>
@@ -339,9 +340,9 @@ const ModalForm = ({ visible, onClose }) => {
                                     <Checkbox checked={FormSwearCheck}
                                         className={styles.checkbox}
                                         required
-                                        onChange={() => {
+                                        onChange={async () => {
+                                            await getLocation()
                                             dispatcher(swearCheck())
-                                            getLocation()
                                         }}
                                     />
                                     <Text className={styles.checkText}>I agree to face the penalty or pay a fine if this complaint is fake.</Text>
