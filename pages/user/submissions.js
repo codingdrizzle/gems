@@ -19,9 +19,9 @@ const SubmissionsPage = () => {
           setSubmissions(res.data)
         })
       } catch (error) {
-        message.error('Could not fetch submission.')
+        message.error('Could not fetch submissions.')
       }
-  }, [])
+  }, [submissions])
   return (
     <>
       <Head>

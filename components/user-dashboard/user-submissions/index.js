@@ -7,12 +7,12 @@ import SubmissionCard from './card'
 
 const { Title } = Typography
 
-const Submissions = ({submissions}) => {
+const Submissions = ({ submissions }) => {
     // useRouter
     const router = useRouter()
     //useState
     const [loading, setLoading] = useState(true)
-    
+
     useEffect(() => {
         setLoading(false)
     }, [])
@@ -27,11 +27,13 @@ const Submissions = ({submissions}) => {
                             <Title level={3} style={{ width: '90%', textAlign: 'center', color: '#00115b' }}>Your complaints history</Title>
                         </Col>
                         {
-                            submissions.map((item, index) => {
-                                return  (
-                                    <SubmissionCard title={item.content} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
-                                )
-                            }).reverse()
+                            !submissions ? <p>Could not fetch submissions or Check your internet connection</p> :
+                                submissions === [] ? <p>Could not fetch submissions or Check your internet connection</p> :
+                                    submissions.map((item, index) => {
+                                        return (
+                                            <SubmissionCard title={item.content} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
+                                        )
+                                    }).reverse()
                         }
                     </Row>
             }
