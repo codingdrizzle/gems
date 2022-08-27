@@ -13,7 +13,7 @@ export default NextAuth({
         await connect();
         const { email, password } = credentials;
         let user = await User.findOne({ email }).exec();
-
+        console.log(user)
         if (!user) {
           throw new Error("No user found.");
         }
@@ -33,6 +33,7 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  sessions: { jwt : true},
   callbacks: {
     async session({ session, user, token }) {
       if (token && token.id) {
