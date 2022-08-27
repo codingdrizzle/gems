@@ -22,7 +22,8 @@ export default NextAuth({
 
         // If no error and we have user data, return it
         if (user && isMatch) {
-          // delete userDoc.password
+          delete userDoc.password
+          delete userDoc.complaints
           // userDoc.name = userDoc.firstname + userDoc.lastname;
           req.user = userDoc;
           return userDoc;
@@ -37,15 +38,14 @@ export default NextAuth({
   callbacks: {
     async session({ session, user, token }) {
       if (token && token.id) {
-        session.user.id = token.id;
-        session.user.name = token.name;
+        session.user = token.user;
       }
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user && user._id) {
         token.id = user._id;
-        token.name = user.firstname;
+        token.user = user;
       }
       return token;
     },

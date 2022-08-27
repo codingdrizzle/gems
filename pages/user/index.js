@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useCallback } from 'react'
 import UserHome from '../../components/user-dashboard/user-home'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserID } from '../../states/actions'
+import { getUser } from '../../states/actions'
 import { getSession } from "next-auth/react"
 
 
@@ -12,12 +12,12 @@ const UserHomePage = () => {
 
   const dispatcher = useDispatch()
   // getUser ID from redux store
-  const { userID } = useSelector(state => state);
+  const { user } = useSelector(state => state);
 
   // States
   // const [submissions, setSubmissions] = useState([])
 
-  const retrieveUserID = useCallback(async () => await getSession().then(res => dispatcher(getUserID(res.user.id))), [dispatcher])
+  const retrieveUserID = useCallback(async () => await getSession().then(res => dispatcher(getUser(res.user))), [dispatcher])
 
   useEffect(() => {
     retrieveUserID()

@@ -54,9 +54,9 @@ export const GetAllComplaints = (state = [], action) => {
     }
 }
 
-export const GetUserID = (state = '', action) => {
+export const GetUser = (state = {}, action) => {
     switch(action.type) {
-        case 'USER_ID':
+        case 'USER':
             return action.payload
         default: return state
     }

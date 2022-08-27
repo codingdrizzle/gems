@@ -20,15 +20,14 @@ const Submissions = () => {
     const [loading, setLoading] = useState(true)
 
     // getUser ID from redux store
-    const { userID, submissions } = useSelector(state => state)
+    const { user, submissions } = useSelector(state => state)
 
-    const fetch = useCallback(async () => await axios.get(`/api/submissions/?id=${userID}`)
+    const fetch = useCallback(async () => await axios.get(`/api/submissions/?id=${user._id}`)
         .then(res => dispatcher(getComplaints(res.data)))
-        .catch(err => message.error('Could not fetch submissions.'))
-        , [dispatcher, userID])
+        .catch(() => message.error('Could not fetch submissions.'))
+        , [dispatcher, user])
 
     useEffect(() => {
-        console.log('Called useEffect.')
         fetch()
         setLoading(false)
     }, [fetch])

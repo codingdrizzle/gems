@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { Row, Col, Card, Input, Typography, Button, Modal, message } from 'antd'
 import { MdEdit, MdSave } from 'react-icons/md'
 import styles from '../../../styles/user-styles/user-settings-styles/form-card.module.css'
@@ -18,27 +19,18 @@ const FormCard = () => {
     const router = useRouter()
     // States
     const [disabled, setDisabled] = useState(true)
-    const [user, setUser] = useState({})
     const [show, setShow] = useState(false)
     const [visible, setVisible] = useState(false)
 
-    // get Session
-    const { data: session } = useSession()
-    useEffect(() => {
-        if (session) {
-            axios.get(`/api/users/?id=${session.user.id}`).then(res => {
-                // setUser({ Firstname: res.data.firstname, Lastname: res.data.lastname, Email: res.data.email, Username: res.data.username, Contact: res.data.contact })
-                setUser(res.data)
-            })
-        }
-    }, [])
+    // get User
+    const { user } = useSelector(state => state)
+
+
     // States
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [repassword, setRepassword] = useState('')
     const [contact, setContact] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -83,13 +75,13 @@ const FormCard = () => {
         if (confirmPassword === '') {
             message.error('Please enter your password.')
         } else if (isMatch) {
-            axios.patch(`/api/users/?id=${session.user.id}`, data)
+            axios.patch(`/api/users/?id=${user._id}`, data)
             signOut({ redirect: false })
             router.push('/login')
-                .then((result) => {
+                .then(() => {
                     message.success('Account details updated.')
                 })
-                .catch((err) => message.error('Something happened, try again'))
+                .catch(() => message.error('Something happened, try again'))
 
         } else {
             message.error('Password incorrect!!')

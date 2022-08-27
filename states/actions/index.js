@@ -40,9 +40,9 @@ export const getComplaints = (value) => {
     }
 }
 
-export const getUserID = (value) => {
+export const getUser = (value) => {
     return {
-        type: 'USER_ID',
+        type: 'USER',
         payload: value
     }
 }
