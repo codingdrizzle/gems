@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { getComplaints } from '../../../states/actions'
 import React, { useEffect, useState, useCallback } from 'react'
-import { Row, Col, Skeleton, Typography, message } from 'antd'
+import { Row, Col, Skeleton, Typography, message, Spin } from 'antd'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import Layout from '../../../layouts/user-dashboard-layouts/home-layout'
 import SubmissionCard from './card'
@@ -42,13 +42,12 @@ const Submissions = () => {
                             <Title level={3} style={{ width: '90%', textAlign: 'center', color: '#00115b' }}>Your complaints history</Title>
                         </Col>
                         {
-                            !submissions ? <p>Could not fetch submissions or Check your internet connection</p> :
-                                submissions === [] ? <p>Could not fetch submissions or Check your internet connection</p> :
-                                    submissions.map((item, index) => {
-                                        return (
-                                            <SubmissionCard title={item.content} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
-                                        )
-                                    }).reverse()
+                            submissions === [] || !submissons ? <Spin size='large' spinning /> :
+                                submissions.map((item, index) => {
+                                    return (
+                                        <SubmissionCard title={item.content} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
+                                    )
+                                }).reverse()
                         }
                     </Row>
             }
