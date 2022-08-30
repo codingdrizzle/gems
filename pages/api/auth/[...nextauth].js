@@ -11,9 +11,11 @@ export default NextAuth({
 
       async authorize(credentials, req) {
         // await connect();
+        console.log(req)
+        console.log(credentials)
         const { email, password } = credentials;
         let user = await User.findOne({ email }).exec();
-        console.log(user)
+
         if (!user) {
           throw new Error("No user found.");
         }

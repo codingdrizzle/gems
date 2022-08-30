@@ -9,8 +9,9 @@ dotenv.config();
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
+const hostname = 'http://localhost:3000'
 
-const nextApp = next({ dev, port });
+const nextApp = next({ dev, hostname, port });
 
 const app = new ExpressManager(nextApp);
 const serverManager = new ServerManager(app.getInstance());
