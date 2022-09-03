@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import User from '../../models/userSchema'
+import { authorize } from './middlewares/authorize'
 const ObjectId = mongoose.Types.ObjectId
 /**
  * 
@@ -8,9 +9,8 @@ const ObjectId = mongoose.Types.ObjectId
  * @param {import('next').NextApiResponse} res 
  * @returns 
  */
-
-export default async function handleUsersRequests(req, res) {
-    const {id} = req.query
+async function handleUsersRequests(req, res) {
+    const { id } = req.query
     switch (req.method) {
         case 'GET':
             // Get a single agent route
@@ -78,7 +78,5 @@ export default async function handleUsersRequests(req, res) {
             }
             break;
     }
-
-
-
 }
+export default authorize(handleUsersRequests)
