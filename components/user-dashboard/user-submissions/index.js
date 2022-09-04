@@ -42,7 +42,7 @@ const Submissions = () => {
                             <Title level={3} style={{ width: '90%', textAlign: 'center', color: '#00115b' }}>Your complaints history</Title>
                         </Col>
                         {
-                            submissions === [] || !submissons ? <Spin size='large' spinning /> :
+                            submissions === [] || !submissions ? <Spin size='large' spinning /> :
                                 submissions.map((item, index) => {
                                     return (
                                         <SubmissionCard title={item.content} key={index} index={index} content={item.content} category={item.category} type={item.type} date={item.date} isResolved={item.resolved} />
