@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import User from '../../models/userSchema'
-import { authorize } from './middlewares/authorize'
 const ObjectId = mongoose.Types.ObjectId
 /**
  * 
@@ -10,7 +9,7 @@ const ObjectId = mongoose.Types.ObjectId
  * @returns 
  */
 async function handleUsersRequests(req, res) {
-    const { id } = req.query
+    const { id, cat } = req.query
     switch (req.method) {
         case 'GET':
             // Get a single agent route
@@ -79,4 +78,4 @@ async function handleUsersRequests(req, res) {
             break;
     }
 }
-export default authorize(handleUsersRequests)
+export default handleUsersRequests

@@ -4,7 +4,7 @@ const ObjectId = mongoose.Types.ObjectId
 
 
 export default async function handleUsersRequests(req, res) {
-    const { id } = req.query
+    const { id, cat } = req.query
 
     switch (req.method) {
         case 'GET':
@@ -18,15 +18,16 @@ export default async function handleUsersRequests(req, res) {
                 } catch (error) {
                     res.status(500).json({ message: error.message })
                 }
-            }   
-            else {
+            } else if (cat) {
                 // Get all complaints - route
                 try {
-                    const complaints = await Complaints.find().populate('user').exec();
+                    const complaints = await Complaints.find({ category: cat }).populate('user').exec();
                     res.status(200).json(complaints)
                 } catch (error) {
                     res.status(500).json({ message: error.message })
                 }
+            } else {
+                res.status(500).json({ message: error.message })
             }
             break;
 
