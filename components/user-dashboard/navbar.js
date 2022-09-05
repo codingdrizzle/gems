@@ -25,13 +25,12 @@ const Navbar = ({active}) => {
 
     const items = [
         getItem('Home', 'home'),
-        getItem('Notifications', 'notifications'),
         getItem('Tips', 'tips'),
         getItem('Settings', 'settings'),
     ]
 
     const navigate = async (e) => {
-        const paths = ['/user/', '/user/notifications', '/user/tips', '/user/settings']
+        const paths = ['/user/', '/user/tips', '/user/settings']
         for (let i = 0; i < items.length; i++) {
             if (items[i].key === e.key)
                 router.push(paths[i])
@@ -39,6 +38,7 @@ const Navbar = ({active}) => {
     }
 
     const { data: session } = useSession()
+    
     const handleSignOut = () => {
         if(session){
             signOut({redirect: false})
