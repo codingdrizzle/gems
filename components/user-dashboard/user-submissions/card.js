@@ -7,10 +7,10 @@ import styles from '../../../styles/user-styles/user-submissions-styles/card.mod
 const { Panel } = Collapse
 const { Title, Text } = Typography
 
-const SubmissionCard = ({ title, index, content, category, type, date, isResolved }) => {
+const SubmissionCard = ({ title, index, content, category, type, date, isResolved, borderColor }) => {
     return (
         <Col xs={24}>
-            <Collapse className={styles.collapse}>
+            <Collapse className={styles.collapse} style={{ borderLeftColor: isResolved ? '#80E3A8' : '#ff000080' }}>
                 <Panel header={title.substring(0, 20) + '...'} key={index} extra={<Text style={{ color: '#91A2B8'}}>{date.substring(0, 15)}</Text>}>
                     <Row>
                         <Col span={24} style={{ display: 'flex', alignItems: 'center' }}>
