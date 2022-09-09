@@ -38,7 +38,6 @@ const complaintSchema = Schema({
         type: String,
         required: true
     },
-    // date: new Date(Date.now()),
     user: { type: Schema.Types.ObjectId, ref: 'Users' }
 
 })
