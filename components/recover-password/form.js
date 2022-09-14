@@ -18,7 +18,7 @@ const Form = () => {
                         id={styles.usernameText}
                         type={'text'}
                         prefix={<BiUser className={styles.formIcon} />}
-                        placeholder="Username or Email"
+                        placeholder="Enter your Email"
                         bordered={false}
                     />
                     <Button className={styles.recoverBtn1} title='Recover'>
