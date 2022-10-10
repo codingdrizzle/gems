@@ -30,6 +30,11 @@ const userSchema =  Schema({
         required: true,
         default: Date.now
     },
+    verified: {
+        type: Boolean, 
+        required: true,
+        default: false
+    },
     complaints: [{ 
         type: Schema.Types.ObjectId, 
         ref: 'Complaints'

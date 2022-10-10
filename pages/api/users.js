@@ -40,10 +40,10 @@ async function handleUsersRequests(req, res) {
                 if (existUser) {
                     res.status(200).json({ exist: 'User already exist' })
                 } else {
-                    bcrypt.hash(req.body.password, 10).then((hash) => {
+                    bcrypt.hash(req.body.password, 10).then(async (hash) => {
                         req.body.password = hash
-                        User.create(req.body)
-                        res.status(200).json({ created: 'You have successfully created your account.' })
+                        const user = await User.create(req.body)
+                        res.status(200).json({userId : user._id})
                     })
                 }
             } catch (error) {

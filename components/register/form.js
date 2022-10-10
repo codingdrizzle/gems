@@ -77,116 +77,123 @@ const Form = () => {
             message.error(error.message === '"Repeat_password" must be [ref:Password]' ? 'Passwords does not match' : error.message)
         } else {
             await axios.post('/api/users', { firstname, lastname, email, username, password, contact })
-                .then((result) => { 
-                    if(result.data.exist){
+                .then(async (result) => {
+                    if (result.data.exist) {
                         message.error(result.data.exist)
-                    }else{
-                        message.success(result.data.created)
+                    } else {
+                        // console.log(result.data)
+                        // await axios.post('/api/verify', { _id: result.data , firstname, email }).then((res) => {
+                        //     console.log(res)
+                        //     message.success('Please check your email to verify your account.')
+                        // }).catch(() => {
+                        //     message.error('Could not send email.')
+                        // })
+                        message.success('Account created successfully.')
                         reset()
                         router.push('/login/')
                     }
                 })
-            .catch ((err) => message.error(err.message))
-            
+                .catch((err) => message.error(err.message))
+
         }
     }
-const showEye = () => {
-    setPasswordHash(show ? 'password' : 'text')
-    setShow(!show)
-}
-return (
-    <Row>
-        <Col span={24}><Text className={[styles.registerText, colors.primaryTextColor2]}>Register</Text></Col>
-        <Col span={24}>
-            <div className={styles.inputArea}>
-                <Input.Group size={'6'}>
-                    <Input
-                        type={'text'}
-                        prefix={<BsCardText className={styles.formIcon} />}
-                        placeholder="First name"
-                        bordered={false}
-                        defaultValue={firstname}
-                        onChange={handleFirstname}
-                    />
-                    <Divider className={styles.divider} />
-                    <Input
-                        type={'text'}
-                        prefix={<BsCardText className={styles.formIcon} />}
-                        placeholder="Last name"
-                        bordered={false}
-                        defaultValue={lastname}
-                        onChange={handleLastname}
-                    />
-                    <Divider className={styles.divider} />
-                    <Input
-                        type={'text'}
-                        prefix={<GoMail className={styles.formIcon} />}
-                        placeholder="Email address"
-                        bordered={false}
-                        defaultValue={email}
-                        onChange={handleEmail}
-                    />
-                    <Divider className={styles.divider} />
-                    <Input
-                        type={'text'}
-                        prefix={<BiUser className={styles.formIcon} />}
-                        placeholder="Username"
-                        bordered={false}
-                        defaultValue={username}
-                        onChange={handleUsername}
-                    />
-                    <Divider className={styles.divider} />
-                    <Input
-                        type={passwordHash}
-                        prefix={<BiLock className={styles.formIcon} />}
-                        suffix={show ?
-                            <BsEyeSlash className={styles.eyeIcon} onClick={showEye} /> :
-                            <BsEye className={styles.eyeIcon} onClick={showEye} />}
-                        placeholder="Password"
-                        bordered={false}
-                        defaultValue={password}
-                        onChange={handlePassword}
-                    />
-                    <Divider className={styles.divider} />
-                    <Input
-                        type={passwordHash}
-                        prefix={<BiLock className={styles.formIcon} />}
-                        suffix={show ?
-                            <BsEyeSlash className={styles.eyeIcon} onClick={showEye} /> :
-                            <BsEye className={styles.eyeIcon} onClick={showEye} />}
-                        placeholder="Re-Password"
-                        bordered={false}
-                        defaultValue={repassword}
-                        onChange={handleRepassword}
-                    />
-                    <Divider className={styles.divider} />
-                    <Input
-                        type={'contact'}
-                        prefix={<span className={styles.telephoneSuffix}><FormFlag />+233 </span>}
-                        placeholder="Telephone"
-                        bordered={false}
-                        defaultValue={contact}
-                        onChange={handleContact}
-                    />
-                </Input.Group>
-                <Button className={styles.registerBtn} title='SignUp' onClick={handleSubmit}>
-                    <BsCheck2 className={styles.registerBtnIcon} />
-                </Button>
-            </div>
-            <div className={styles.otherLinks}>
-                <Text className={styles.login}>
-                    Already have an account? &nbsp;
-                    <Link href={'/login'}><a><Text style={{ color: '#24E9A3', textDecoration: 'underline', fontWeight: 600 }}>Login</Text></a></Link>
-                </Text>
+    const showEye = () => {
+        setPasswordHash(show ? 'password' : 'text')
+        setShow(!show)
+    }
+    return (
+        <Row>
+            <Col span={24}><Text className={[styles.registerText, colors.primaryTextColor2]}>Register</Text></Col>
+            <Col span={24}>
+                <div className={styles.inputArea}>
+                    <Input.Group size={'6'}>
+                        <Input
+                            type={'text'}
+                            prefix={<BsCardText className={styles.formIcon} />}
+                            placeholder="First name"
+                            bordered={false}
+                            defaultValue={firstname}
+                            onChange={handleFirstname}
+                        />
+                        <Divider className={styles.divider} />
+                        <Input
+                            type={'text'}
+                            prefix={<BsCardText className={styles.formIcon} />}
+                            placeholder="Last name"
+                            bordered={false}
+                            defaultValue={lastname}
+                            onChange={handleLastname}
+                        />
+                        <Divider className={styles.divider} />
+                        <Input
+                            type={'text'}
+                            prefix={<GoMail className={styles.formIcon} />}
+                            placeholder="Email address"
+                            bordered={false}
+                            defaultValue={email}
+                            onChange={handleEmail}
+                        />
+                        <Divider className={styles.divider} />
+                        <Input
+                            type={'text'}
+                            prefix={<BiUser className={styles.formIcon} />}
+                            placeholder="Username"
+                            bordered={false}
+                            defaultValue={username}
+                            onChange={handleUsername}
+                        />
+                        <Divider className={styles.divider} />
+                        <Input
+                            type={passwordHash}
+                            prefix={<BiLock className={styles.formIcon} />}
+                            suffix={show ?
+                                <BsEyeSlash className={styles.eyeIcon} onClick={showEye} /> :
+                                <BsEye className={styles.eyeIcon} onClick={showEye} />}
+                            placeholder="Password"
+                            bordered={false}
+                            defaultValue={password}
+                            onChange={handlePassword}
+                        />
+                        <Divider className={styles.divider} />
+                        <Input
+                            type={passwordHash}
+                            prefix={<BiLock className={styles.formIcon} />}
+                            suffix={show ?
+                                <BsEyeSlash className={styles.eyeIcon} onClick={showEye} /> :
+                                <BsEye className={styles.eyeIcon} onClick={showEye} />}
+                            placeholder="Re-Password"
+                            bordered={false}
+                            defaultValue={repassword}
+                            onChange={handleRepassword}
+                        />
+                        <Divider className={styles.divider} />
+                        <Input
+                            type={'contact'}
+                            prefix={<span className={styles.telephoneSuffix}><FormFlag />+233 </span>}
+                            placeholder="Telephone"
+                            bordered={false}
+                            defaultValue={contact}
+                            onChange={handleContact}
+                        />
+                    </Input.Group>
+                    <Button className={styles.registerBtn} title='SignUp' onClick={handleSubmit}>
+                        <BsCheck2 className={styles.registerBtnIcon} />
+                    </Button>
+                </div>
+                <div className={styles.otherLinks}>
+                    <Text className={styles.login}>
+                        Already have an account? &nbsp;
+                        <Link href={'/login'}><a><Text style={{ color: '#24E9A3', textDecoration: 'underline', fontWeight: 600 }}>Login</Text></a></Link>
+                    </Text>
 
-            </div>
-            <Text className={styles.backHome}>
-                Go back &nbsp;
-                <Link href={'/'}><a><Text style={{ color: '#24E9A3', textDecoration: 'underline', fontWeight: 500 }}><BsArrowReturnLeft />Home</Text></a></Link>
-            </Text>
-        </Col>
-    </Row>
-)
+                </div>
+                <Text className={styles.backHome}>
+                    Go back &nbsp;
+                    <Link href={'/'}><a><Text style={{ color: '#24E9A3', textDecoration: 'underline', fontWeight: 500 }}><BsArrowReturnLeft />Home</Text></a></Link>
+                </Text>
+            </Col>
+        </Row>
+    )
 }
 
 export default Form

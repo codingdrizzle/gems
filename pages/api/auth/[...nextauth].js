@@ -31,7 +31,7 @@ export default NextAuth({
           return userDoc;
         }
         // Return null if user data could not be retrieved
-        throw new Error("Username or Password incorrect");
+        throw new Error("Email or Password incorrect");
       },
     }),
   ],

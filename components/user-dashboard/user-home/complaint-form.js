@@ -27,6 +27,7 @@ const ModalForm = ({ visible, onClose }) => {
     const [types, setTypes] = useState('')
     const [formCat, setFormCat] = useState('')
     const [loading, setLoading] = useState(false)
+    const [btnDisable, setBtnDisable] = useState(false)
     // const [checker, setChecker] = useState(false)
 
 
@@ -119,6 +120,7 @@ const ModalForm = ({ visible, onClose }) => {
         dispatcher(locationCheck({}))
         dispatcher(locationDescription(''))
         dispatcher(swearCheck())
+        setBtnDisable(false)
     }
 
     const handleFormSubmit = async () => {
@@ -135,6 +137,7 @@ const ModalForm = ({ visible, onClose }) => {
         } else if (!FormSwearCheck) {
             message.warning('Please agree to the terms and conditions.')
         } else {
+            setBtnDisable(true)
             const complaintData = {
                 category: FormCategory,
                 type: types,
@@ -351,7 +354,7 @@ const ModalForm = ({ visible, onClose }) => {
                         </Row>
                         <Row style={{ marginTop: 40, }} gutter={[0, 17]}>
                             <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Button className={styles.submitBtn} onClick={handleFormSubmit} >Submit</Button>
+                                <Button className={styles.submitBtn} disabled={btnDisable} onClick={handleFormSubmit} >Submit</Button>
                             </Col>
                         </Row>
 
