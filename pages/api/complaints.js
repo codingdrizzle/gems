@@ -27,7 +27,7 @@ export default async function handleUsersRequests(req, res) {
                     res.status(500).json({ message: error.message })
                 }
             } else {
-                res.status(500).json({ message: error.message })
+                res.status(500).json({ message: 'Internal Server Error' })
             }
             break;
 
