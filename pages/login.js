@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
-import Login from '../components/login'
-import Preloader from '../commons/preloader'
+import Login from '../src/components/login'
+import Preloader from '../src/commons/preloader'
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(true)

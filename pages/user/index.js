@@ -1,38 +1,33 @@
 import Head from 'next/head'
-import axios from 'axios'
-import React, { useEffect, useCallback } from 'react'
-import UserHome from '../../components/user-dashboard/user-home'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUser } from '../../states/actions'
-import { getSession } from "next-auth/react"
-
-
+import React, { useEffect } from 'react'
+import UserHome from '../../src/components/user-dashboard/user-home'
+import jwt from 'jsonwebtoken'
+import {useSetAtom} from "jotai";
+import { tokenData} from "../../src/store";
+import {message} from 'antd'
+import jwt_decode from "jwt-decode";
 
 const UserHomePage = () => {
+    const [messageApi, contextHolder] = message.useMessage();
 
-  const dispatcher = useDispatch()
-  // getUser ID from redux store
-  const { user } = useSelector(state => state);
+    const token = typeof window !== "undefined" && localStorage.getItem('token')
+    const setTokenData = useSetAtom(tokenData);
 
-  // States
-  // const [submissions, setSubmissions] = useState([])
+    useEffect(() => {
+        const token_data = jwt_decode(token)
+        setTokenData(token_data.user)
+    },[])
 
-  const retrieveUserID = useCallback(async () => await getSession().then(res => dispatcher(getUser(res.user))), [dispatcher])
-
-  useEffect(() => {
-    retrieveUserID()
-  }, [retrieveUserID])
-
-  return (
-    <>
-      <Head>
-        <title title='Ghana Emergency Services'>GEMS - Home</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <UserHome />
-    </>
-  )
+    return (
+        <>
+            <Head>
+                <title title='Ghana Emergency Services'>GEMS - Home</title>
+                <meta name="description" content="" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <UserHome />
+        </>
+    )
 }
 
 export default UserHomePage

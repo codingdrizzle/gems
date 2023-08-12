@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import { Row, Col } from 'antd'
-import Preloader from '../commons/preloader'
-import Home from '../components/home'
+import Preloader from '../src/commons/preloader'
+import Home from '../src/components/home'
 
 
 export default function HomePage() {

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Tips from '../../components/user-dashboard/user-tips'
+import Tips from '../../src/components/user-dashboard/user-tips'
 
 const TipsPage = () => {
   return (

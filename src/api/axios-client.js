@@ -1,0 +1,22 @@
+import axios from 'axios';
+import store from '../store';
+
+export const API = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    headers: {
+        "Content-Type": "application/json",
+    }
+})
+
+console.log(process.env.NEXT_PUBLIC_API_URL)
+
+
+const token = typeof window !== "undefined" && window.localStorage.getItem('token')
+export const API_AUTH = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    }
+})
+

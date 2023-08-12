@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
-import SignUp from '../components/register'
-import Preloader from '../commons/preloader'
+import SignUp from '../src/components/register'
+import Preloader from '../src/commons/preloader'
 
 const SignUpPage = () => {
   const [loading, setLoading] = useState(true)

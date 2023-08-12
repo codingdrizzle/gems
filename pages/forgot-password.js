@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import RecoverPassword from '../components/recover-password'
-import Preloader from '../commons/preloader'
+import RecoverPassword from '../src/components/recover-password'
+import Preloader from '../src/commons/preloader'
 
 const RecoverPage = () => {
   const [loading, setloading] = useState(true)

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Settings from '../../components/user-dashboard/user-settings'
+import Settings from '../../src/components/user-dashboard/user-settings'
 
 const SettingsPage = () => {
   return (

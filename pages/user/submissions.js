@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { message } from 'antd'
 import { useSelector } from 'react-redux'
 import axios from 'axios' 
-import Submissions from '../../components/user-dashboard/user-submissions'
+import Submissions from '../../src/components/user-dashboard/user-submissions'
 
 const SubmissionsPage = () => {
   return (
