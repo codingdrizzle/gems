@@ -35,16 +35,16 @@ const Navbar = ({active}) => {
         const paths = ['/user/', '/user/tips', '/user/settings']
         for (let i = 0; i < items.length; i++) {
             if (items[i].key === e.key)
-                router.push(paths[i])
+                router?.push(paths[i])
         }
     }
 
     const { data: session } = useSession()
     
-    const clearToken = useSetAtom(jwt_token)
+    export const clearToken = useSetAtom(jwt_token)
     const handleSignOut = () => {
         clearToken('')
-        router.push('/login')
+        router?.push('/login')
     }
 
 

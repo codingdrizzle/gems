@@ -22,7 +22,7 @@ const Layout = ({children, footer, active}) => {
           {footer}
         </Footer>
         }
-        <Marquee/>
+        {/*<Marquee/>*/}
     </Structure>
   )
 }

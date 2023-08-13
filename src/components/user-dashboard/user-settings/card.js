@@ -10,6 +10,7 @@ import Confirm from './confirm-modal'
 import {tokenData} from "../../../store";
 import {useAtomValue} from "jotai";
 import {API} from "../../../api/axios-client";
+import {handle} from "../navbar";
 
 const {Title, Text} = Typography
 const {Password} = Input
@@ -77,13 +78,14 @@ const FormCard = () => {
         } else if (isMatch) {
             try {
                 console.log(user)
-            const editUser = await API.patch(`/user/${user?._id}`, data)
-                if(editUser.status === 200){
+                const editUser = await API.patch(`/user/${user?._id}`, data)
+                if (editUser.status === 200) {
                     message.success('Account details updated.')
-                    // return router.push('/login')
+                    handleSignOut()
+                    return router.push('/login')
                 }
-            }catch (e) {
-                if(e) message.error('Something went wrong, try again')
+            } catch (e) {
+                if (e) message.error('Something went wrong, try again')
             }
         } else {
             message.error('Password incorrect!!')
@@ -92,10 +94,10 @@ const FormCard = () => {
 
     const handleConfirm = async () => {
         try {
-        const deleteUser = await API.delete(`/user/${user._id}`)
-            if(deleteUser.status === 200) return router.replace('/')
-        }catch (e) {
-            if(e) message.error(e.message)
+            const deleteUser = await API.delete(`/user/${user._id}`)
+            if (deleteUser.status === 200) return router.replace('/')
+        } catch (e) {
+            if (e) message.error(e.message)
         }
     }
 
