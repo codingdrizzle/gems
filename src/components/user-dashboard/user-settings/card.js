@@ -77,7 +77,6 @@ const FormCard = () => {
             message.error('Please enter your password.')
         } else if (isMatch) {
             try {
-                console.log(user)
                 const editUser = await API.patch(`/user/${user?._id}`, data)
                 if (editUser.status === 200) {
                     message.success('Account details updated.')
