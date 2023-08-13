@@ -38,10 +38,8 @@ const Navbar = ({active}) => {
                 router?.push(paths[i])
         }
     }
-
-    const { data: session } = useSession()
     
-    export const clearToken = useSetAtom(jwt_token)
+    const clearToken = useSetAtom(jwt_token)
     const handleSignOut = () => {
         clearToken('')
         router?.push('/login')

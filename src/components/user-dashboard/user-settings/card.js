@@ -7,10 +7,9 @@ import {MdEdit, MdSave} from 'react-icons/md'
 import styles from '../../../styles/user-styles/user-settings-styles/form-card.module.css'
 import {userUpdateSchema} from '../../../helpers/form-validation'
 import Confirm from './confirm-modal'
-import {tokenData} from "../../../store";
-import {useAtomValue} from "jotai";
+import {jwt_token, tokenData} from "../../../store";
+import {useAtomValue, useSetAtom} from "jotai";
 import {API} from "../../../api/axios-client";
-import {handle} from "../navbar";
 
 const {Title, Text} = Typography
 const {Password} = Input
@@ -71,6 +70,7 @@ const FormCard = () => {
             message.warning('No changes yet...')
         }
     }
+    const clearToken = useSetAtom(jwt_token)
     const trigger = async () => {
         const isMatch = await bcrypt.compare(confirmPassword, user?.password)
         if (confirmPassword === '') {
@@ -81,7 +81,7 @@ const FormCard = () => {
                 const editUser = await API.patch(`/user/${user?._id}`, data)
                 if (editUser.status === 200) {
                     message.success('Account details updated.')
-                    handleSignOut()
+                    clearToken('')
                     return router.push('/login')
                 }
             } catch (e) {
