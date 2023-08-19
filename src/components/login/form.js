@@ -35,7 +35,7 @@ const Form = () => {
                 return router.replace('/user')
             }
         } catch (error) {
-            return message.error(error.message)
+            return message.error(error.response.data.message)
         }
     }
 

@@ -4,7 +4,6 @@ import { Row, Col } from 'antd'
 import Preloader from '../src/commons/preloader'
 import Home from '../src/components/home'
 
-
 export default function HomePage() {
   const [loading, setloading] = useState(true)
 

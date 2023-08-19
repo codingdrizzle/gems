@@ -87,10 +87,10 @@ const ModalForm = ({visible, onClose}) => {
                     setStatusIcon(<span style={{display: 'flex', alignItems: 'center', gap: 5}}>: <b>Uploaded successfully.</b><BsCheckCircleFill
                         size={20} color={'rgba(0, 200, 81, 1)'}/></span>)
                 })
-                .catch(() => {
+                .catch((err) => {
                     setIsDone(false)
                     setLoading(false)
-                    setStatusIcon(<span style={{display: 'flex', alignItems: 'center', gap: 5}}>: <b>Error uploading, try checking your internet try again.</b><IoCloseCircle
+                    setStatusIcon(<span style={{display: 'flex', alignItems: 'center', gap: 5}}>: <b>{err?.message ? err.message : 'Error uploading, try checking your internet try again.'}</b><IoCloseCircle
                         size={20} color={'#E92424'}/></span>)
                 })
         }
@@ -108,7 +108,7 @@ const ModalForm = ({visible, onClose}) => {
                     dispatcher(locationCheck({city, locality, latitude, longitude}))
                 })
                 .catch(err => {
-                    if (err) message.warning('Could not retrieve location.')
+                    message.warning(err?.message ? err?.message : 'Could not retrieve location.')
                 })
         }
 
@@ -181,13 +181,11 @@ const ModalForm = ({visible, onClose}) => {
                         }
                     })
                     .catch((err) => {
-                        console.log(err)
-                        if (err) message.error(err.message)
+                        message.error(err.response.data.message)
                     })
             }
         } catch (error) {
-            if (error.message) message.error(error.message)
-            else message.error('Sorry, could not handle process.')
+            message.error(err.response.data.message || 'Error occured')
         }
     }
 

@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Router from 'next/router'
 import React, { useState } from 'react'
-import axios from 'axios'
 import { Row, Col, Typography, Input, Divider, Button, message } from 'antd'
 import { BiUser, BiLock } from 'react-icons/bi'
 import { GoMail } from 'react-icons/go'
@@ -10,6 +9,8 @@ import { FormFlag } from '../../commons/flag'
 import styles from '../../styles/register-styles/register-card.module.css'
 import colors from '../../styles/colors.module.css'
 import { registerSchema } from '../../helpers/form-validation'
+import { API } from '../../api/axios-client'
+import Loader from '../../commons/loader'
 
 const router = Router
 
@@ -24,6 +25,7 @@ const Form = () => {
     const [password, setPassword] = useState('')
     const [repassword, setRepassword] = useState('')
     const [contact, setContact] = useState('')
+    const [wait, setWait] = useState(false)
 
     const handleFirstname = (e) => {
         setFirstname(e.target.value)
@@ -71,30 +73,25 @@ const Form = () => {
     }
 
     const handleSubmit = async () => {
-        const { error, value } = registerSchema.validate({ Firstname: firstname, Lastname: lastname, Email: email, Username: username, Password: password, Repeat_password: repassword, Contact: contact });
+        setWait(true)
+        const { error } = registerSchema.validate({ Firstname: firstname, Lastname: lastname, Email: email, Username: username, Password: password, Repeat_password: repassword, Contact: contact });
         if (error || validateContact()) {
-            // message.error(error.message)
+            setWait(false)
             message.error(error.message === '"Repeat_password" must be [ref:Password]' ? 'Passwords does not match' : error.message)
         } else {
-            await axios.post('/api/users', { firstname, lastname, email, username, password, contact })
+            await API.post('/user/new', { firstname, lastname, email, username, password, contact })
                 .then(async (result) => {
-                    if (result.data.exist) {
-                        message.error(result.data.exist)
-                    } else {
-                        // console.log(result.data)
-                        // await axios.post('/api/verify', { _id: result.data , firstname, email }).then((res) => {
-                        //     console.log(res)
-                        //     message.success('Please check your email to verify your account.')
-                        // }).catch(() => {
-                        //     message.error('Could not send email.')
-                        // })
+                    setWait(false)
+                    if (result.status === 200) {
                         message.success('Account created successfully.')
                         reset()
-                        router.push('/login/')
+                        router.push('/login')
                     }
                 })
-                .catch((err) => message.error(err.message))
-
+                .catch((err) => {
+                    setWait(false)
+                    message.error(err.response.data.message)
+                })
         }
     }
     const showEye = () => {
@@ -177,7 +174,11 @@ const Form = () => {
                         />
                     </Input.Group>
                     <Button className={styles.registerBtn} title='SignUp' onClick={handleSubmit}>
-                        <BsCheck2 className={styles.registerBtnIcon} />
+                        {
+                            wait ?
+                                <Loader /> :
+                                <BsCheck2 className={styles.registerBtnIcon} />
+                        }
                     </Button>
                 </div>
                 <div className={styles.otherLinks}>

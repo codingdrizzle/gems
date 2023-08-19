@@ -28,12 +28,11 @@ const Submissions = () => {
                 const response = await API.get(`/complaints/${user?._id}`);
                 setSubmissions(response?.data);
             } catch (error) {
-                console.log(error);
-                message.error(error.message)
+                message.error(error.response.data.message)
             }
             setLoading(false);
         })();
-    }, []);
+    });
 
     return (
         <Layout active={'home'}>

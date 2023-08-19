@@ -83,8 +83,8 @@ const FormCard = () => {
                     clearToken('')
                     return router.push('/login')
                 }
-            } catch (e) {
-                if (e) message.error('Something went wrong, try again')
+            } catch (err) {
+                message.error(err.response.data.message)
             }
         } else {
             message.error('Password incorrect!!')
@@ -95,8 +95,8 @@ const FormCard = () => {
         try {
             const deleteUser = await API.delete(`/user/${user._id}`)
             if (deleteUser.status === 200) return router.replace('/')
-        } catch (e) {
-            if (e) message.error(e.message)
+        } catch (err) {
+            message.error(err.response.data.message)
         }
     }
 
