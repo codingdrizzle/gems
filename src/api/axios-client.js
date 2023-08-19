@@ -10,7 +10,6 @@ export const API = axios.create({
 
 const token = typeof window !== "undefined" && window.localStorage.getItem('token')
 
-console.log(process.env.NEXT_PUBLIC_API_URL)
 export const API_AUTH = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
